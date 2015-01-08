@@ -44,7 +44,7 @@ def num_rainy_days(filename):
 ## 
 
     
-## Correct grader solution only works on the very small 30x70 dataframe with unqique dates. 
+## Correct grader solution only works on the very small 30x70 dataframe with unique dates. 
 ## Below query works on full turnstile dataset provided to us.    
     
     q = """
