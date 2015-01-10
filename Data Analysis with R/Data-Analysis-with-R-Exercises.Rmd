@@ -1,0 +1,487 @@
+---
+title: "Data Analysis with R - Exercises"
+author: "Fernando Hernandez"
+date: "Saturday, January 10, 2015"
+output: html_document
+---
+
+```{r, message=FALSE}
+library(ggplot2)
+library(dplyr)
+library(scales)
+library(xlsx)
+library(reshape2)
+library(lubridate)
+library(ggthemes)
+
+```
+
+
+Q1.1
+
+```{r}
+# a) Load the 'diamonds' data set in R Studio. 
+# How many observations are in the data set?
+
+nrow(diamonds)
+
+# b) How many variables are in the data set?
+
+ncol(diamonds)
+
+# c) How many ordered factors are in the set?
+
+# str(diamonds)
+# 3
+
+# d) What letter represents the best color for a diamonds?
+
+levels(diamonds$color)
+# help(diamonds)
+# D
+
+
+```
+
+Q1.2
+
+```{r}
+# Create a histogram of the price of
+# all the diamonds in the diamond data set.
+
+ggplot(diamonds, aes(x = price)) + 
+  geom_histogram(color = "black", fill = "DarkOrange", binwidth = 500) + 
+  scale_x_continuous(labels = dollar, breaks = seq(0, 20000, 1000)) + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  xlab("Price") + ylab("Count")
+
+```
+
+Q1.3
+
+Describe the shape and center of the price distribution. Include summary statistics like the mean and median.
+```{r}
+summary(diamonds$price)
+# 
+# The distribution is right-skewed with small amounts of very large prices driving up the mean, while the median remains a more robust measure of the center of the distribution.
+```
+
+Q1.4
+
+```{r}
+
+# a) How many diamonds cost less than $500?
+diamonds %>%
+  filter(price < 500) %>%
+  summarise(n = n())
+
+# b) How many diamonds cost less than $250?
+diamonds %>%
+  filter(price < 250) %>%
+  summarise(n = n())
+
+# c) How many diamonds cost more than $15,000?
+diamonds %>%
+  filter(price >= 15000) %>%
+  summarise(n = n())
+
+```
+
+Q1.5
+
+```{r}
+# Explore the largest peak in the
+# price histogram you created earlier.
+
+# Try limiting the x-axis, altering the bin width,
+# and setting different breaks on the x-axis.
+
+ggplot(diamonds, aes(x = price)) + 
+  geom_histogram(color = "black", fill = "DarkOrange", binwidth = 25) + 
+  scale_x_continuous(labels = dollar, breaks = seq(0, 2000, 100)) + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  coord_cartesian(c(0,2000)) +
+  xlab("Price") + ylab("Count")
+
+```
+
+Q1.6
+```{r}
+# Break out the histogram of diamond prices by cut.
+
+# You should have five histograms in separate
+# panels on your resulting plot.
+
+ggplot(diamonds, aes(x = price)) + 
+  geom_histogram(color = "black", fill = "DarkOrange", binwidth = 25) + 
+  scale_x_continuous(labels = dollar, breaks = seq(0, 4000, 100)) + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  coord_cartesian(c(0,4000)) +
+  facet_grid(cut~.) + 
+  xlab("Price") + ylab("Count")
+
+
+```
+
+Q1.7
+```{r}
+# a) Which cut has the highest priced diamond?
+# Premium
+
+# by(diamonds$price, diamonds$cut, max)
+# by(diamonds$price, diamonds$cut, min)
+# by(diamonds$price, diamonds$cut, median)
+
+diamonds %>%
+  group_by(cut) %>%
+  summarise(max_price = max(price),
+            min_price = min(price),
+            median_price = median(price))
+
+# b) Which cut has the lowest priced diamond?
+# Premium & Ideal
+
+# c) Which cut has the lowest median price?
+# Ideal
+
+```
+
+Q1.8
+
+```{r}
+# In the two last exercises, we looked at
+# the distribution for diamonds by cut.
+
+# Run the code below in R Studio to generate
+# the histogram as a reminder.
+
+# ===============================================================
+
+qplot(x = price, data = diamonds) + facet_wrap(~cut, scales = "free")
+                                                                               
+# ===============================================================
+
+# In the last exercise, we looked at the summary statistics
+# for diamond price by cut. If we look at the output table, the
+# the median and quartiles are reasonably close to each other.
+
+# diamonds$cut: Fair
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#     337    2050    3282    4359    5206   18570 
+# ------------------------------------------------------------------------ 
+# diamonds$cut: Good
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#     327    1145    3050    3929    5028   18790 
+# ------------------------------------------------------------------------ 
+# diamonds$cut: Very Good
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#     336     912    2648    3982    5373   18820 
+# ------------------------------------------------------------------------ 
+# diamonds$cut: Premium
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#     326    1046    3185    4584    6296   18820 
+# ------------------------------------------------------------------------ 
+# diamonds$cut: Ideal
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#     326     878    1810    3458    4678   18810 
+
+# This means the distributions should be somewhat similar,
+# but the histograms we created don't show that.
+
+# The 'Fair' and 'Good' diamonds appear to have 
+# different distributions compared to the better
+# cut diamonds. They seem somewhat uniform
+# on the left with long tails on the right.
+
+# Let's look in to this more.
+
+# Look up the documentation for facet_wrap in R Studio.
+# Then, scroll back up and add a parameter to facet_wrap so that
+# the y-axis in the histograms is not fixed. You want the y-axis to
+# be different for each histogram.
+```
+
+Q1.9
+
+```{r}
+# Create a histogram of price per carat
+# and facet it by cut. You can make adjustments
+# to the code from the previous exercise to get
+# started.
+
+# Adjust the bin width and transform the scale
+# of the x-axis using log10.
+
+# Submit your final code when you are ready.
+
+# ENTER YOUR CODE BELOW THIS LINE.
+# ===========================================================================
+
+
+ggplot(diamonds, aes(x = price/carat)) + 
+  geom_histogram(color = "black", fill = "DarkOrange", binwidth = .05) + 
+  theme(axis.text.x = element_text(angle = 0)) +
+  scale_x_log10(expression(paste(Log[10], " of Price")),
+                breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x))) + 
+  facet_grid(cut~., scale = "free") + ylab("Count")
+```
+
+Q1.10
+
+```{r}
+# Investigate the price of diamonds using box plots,
+# numerical summaries, and one of the following categorical
+# variables: cut, clarity, or color.
+
+diamonds %>%
+  group_by(cut) %>%
+  summarise(count = n(), 
+            avg_price = mean(price))
+
+# There are many more Ideal diamonds than others, but the average price is also the lowest.
+
+
+ggplot(diamonds, aes(x = clarity, y = price, color = cut)) + 
+  geom_boxplot() + 
+  facet_grid(color~., margins = TRUE) 
+
+# This boxplot matrix shows the distribution of price across all 3 categorical variables; cut, clarity, and color.
+
+
+```
+
+Q1.11
+
+```{r}
+# a) What is the price range for the middle 50% of the diamonds with color D?
+# c) What is the IQR for diamonds with the best color?
+
+
+
+diamonds %>%
+  group_by(color) %>%
+  filter(color == "D") %>%
+  summarise(Quartile.25 = quantile(price, 0.25),
+            Quartile.75 = quantile(price, 0.75),
+            IQR = Quartile.75 - Quartile.25)
+
+
+# b) What is the price range for the middle 50% of diamonds with color J?
+# d) What is the IQR for the diamonds with the worst color?
+
+diamonds %>%
+  group_by(color) %>%
+  filter(color == "J") %>%
+  summarise(Quartile.25 = quantile(price, 0.25),
+            Quartile.75 = quantile(price, 0.75),
+            IQR = Quartile.75 - Quartile.25)
+
+
+# by(diamonds$price, diamonds$color, summary)
+
+```
+
+Q1.12
+
+```{r}
+# Investigate the price per carat of diamonds across
+# the different colors of diamonds using boxplots.
+
+ggplot(diamonds, aes(x = color, y = price/carat, fill = color)) +
+  geom_boxplot() +
+  coord_cartesian(ylim=c(1000, 6000)) +
+  scale_y_continuous(labels=dollar) + 
+  xlab("Color") + ylab("Price per Carat")
+
+```
+
+Q1.13
+
+```{r}
+# Investigate the weight of the diamonds (carat) using a frequency polygon. Use different bin widths to see how the frequency polygon changes. What carat size has a count greater than 2000? Check all that apply.
+
+sizes = c(0.1, 0.3, 0.8, 1.01, 1.6, 2.0, 3.0, 5.0)
+
+summary(diamonds$carat)
+
+ggplot(diamonds, aes(x=carat)) + 
+  geom_freqpoly(binwidth=0.1, alpha = 0.75) + 
+  scale_x_continuous(breaks=sizes, expand = c(0,0)) +
+  scale_y_continuous(expand=c(0,0))+
+  geom_vline(xintercept = c(0.1, 0.8, 1.6, 2.0, 3.0, 5.0), color = "red", linetype="dashed", alpha = 0.75) +
+  geom_vline(xintercept = c(0.3, 1.01), color = "forestgreen", linetype = "twodash") +
+  geom_hline(yintercept = 2000, color = "brown", linetype="longdash", alpha = 0.5) + 
+  xlab("Carat Size") + ylab("Count")
+
+# 0.3 and 1.01 in green
+
+```
+
+Q1.14
+
+```{r}
+# The Gapminder website contains over 500 data sets with information about
+# the world's population. Your task is to download a data set of your choice
+# and create 2-5 plots that make use of the techniques from Lesson 3.
+
+# http://spreadsheets.google.com/pub?key=rdCufG2vozTpKw7TBGbyoWw&output=xls
+
+
+hours <- tbl_df(read.xlsx("indicator_hours per week.xlsx", sheetName="Data", header=TRUE))
+
+hours <- hours %>%
+  select(-NA.) %>%
+  rename(Country = Working.hours.per.week)
+
+hours.long <- melt(hours, id=c("Country"), value.name="Hours", variable.name="Year")
+hours.long <- tbl_df(hours.long)
+
+hours.long <- hours.long %>%
+  mutate(Year = as.character(Year), # Convert to character
+         Year = substr(Year, 2, 5), # Slice out the X, leaving last 4 digits; R added X since initially since column names can't start with numbers.
+         Year = as.numeric(Year))   # Cast as numeric
+
+yearStats <- hours.long %>%
+  group_by(Year) %>%
+  summarise(median = median(Hours, na.rm=TRUE),
+            mean = mean(Hours, na.rm=TRUE),
+            lower = min(Hours, na.rm=TRUE),
+            upper = max(Hours, na.rm=TRUE),
+            se = sd(Hours, na.rm=TRUE)/sqrt(length(Hours)),
+            avg_upper = mean + (2.101*se),
+            avg_lower = mean - (2.101*se),
+            quant.25 = quantile(Hours, na.rm=TRUE, 0.25),
+            quant.75 = quantile(Hours, na.rm=TRUE, 0.75))
+
+yearStats <- round(yearStats, 2)
+
+p <- ggplot(yearStats, aes(x=Year, y=median)) + 
+  theme(plot.background = element_blank(),
+				panel.grid.minor = element_blank(),
+				panel.grid.major = element_blank(),
+				panel.border = element_blank(),
+				panel.background = element_blank(),
+				axis.ticks = element_blank(),
+				axis.title = element_blank()) +
+	geom_linerange(yearStats, mapping=aes(x=Year, ymin=lower, ymax=upper), colour = "wheat2", alpha=1, size=5) + 
+  geom_linerange(yearStats, mapping=aes(x=Year, ymin=quant.25, ymax=quant.75), colour = "wheat4", size=5) +
+  geom_line(yearStats, mapping=aes(x=Year, y=median, group=1)) +
+  geom_vline(xintercept = 1980, colour = "wheat4", linetype=1, size=1, hjust=3) + 
+  geom_hline(yintercept=seq(26, 56, 2), color="white", linetype=1) 
+
+dottedYears <- seq(1980, 2007, 5) # Pick the years to draw dotted vertical lines on
+
+p <- p + geom_vline(xintercept = dottedYears, color="wheat4", linetype=3, size=0.5)
+
+p <- p + scale_y_continuous(breaks=seq(26, 56, 2)) +
+  scale_x_continuous(breaks=seq(1980, 2005, 5), expand=c(0,0) )
+
+p <- p + geom_line(data = subset(hours.long, Country == "United States"), aes(x = Year, y = Hours, group = Country), color ="brown") +
+  annotate("segment", x=2000, xend=2002, y=35.5, yend=36, color="brown") +
+  annotate("text", x=2003, y=36.3, label="U.S. Medians", size=3.5, color="brown") + 
+  annotate("segment", x=2000, xend=2001, y=33.5, yend=32) + 
+  annotate("text", x=2002, y=31.7, label="World Medians", size=3.5)
+
+p
+
+# Zoom in a bit to the IQR
+p + coord_cartesian(ylim=c(30, 38))
+
+
+ggplot(yearStats, aes(x = Year, y = median)) +
+  geom_errorbar( aes( ymin = quant.25, ymax = quant.75), 
+                 color = "blue", width = 0.4) + 
+  stat_summary(fun.y = median, geom = "point", shape = 5, size = 3, color = "blue" ) +
+  geom_text( aes(x = Year, y = median, label = median), hjust = -.1, vjust = 1.2, size = 3, color = "DarkBlue") +
+  geom_line(data = hours.long[hours.long$Country == "United States",], aes(x = Year, y = Hours, color = Country, group = Country)) + 
+  geom_text(data = hours.long[hours.long$Country == "United States",], aes( x = Year, y = Hours, color = Country, group = Country, label = round(Hours, 2)), hjust = -.1, vjust = -1.2, size = 3, color = "DarkOrange") 
+
+ggplot(subset(hours.long, Country %in% c("Switzerland", "United States", "Japan", "United Kingdom", "France")), aes(x=Country, y=Hours, fill=Country)) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom="point", shape = 5) +
+  ylab("Hours Worked per Year") + xlab("") +
+  theme(legend.position="none")
+
+ggplot(subset(hours.long, Country %in% c("Switzerland", "United States", "Japan", "United Kingdom", "France")), aes(x = Year, y = Hours)) + 
+  geom_line(aes(color = Country, group = Country)) + 
+  theme(axis.text.x = element_text(angle = 45)) + 
+  scale_y_continuous(breaks=seq(26, 56, 2)) +
+  scale_x_continuous(breaks=seq(1980, 2005, 5), expand=c(0,0) ) + 
+  ylab("Hours Worked per Year") + xlab("")
+
+```
+
+Q1.15
+
+```{r}
+# How many birthdays are in each month?
+
+# Which day of the year has the most number of birthdays?
+
+# Do you have at least 365 friends that have birthdays on everyday
+# of the year?
+
+# **********************************************************************
+
+# You will need to do some data munging and additional research to
+# complete this task. This task won't be easy, and you may encounter some
+# unexpected challenges along the way. We hope you learn a lot from it though.
+
+# You can expect to spend 30 min or more on this task depending on if
+# use the provided data or obtain your personal data. We also encourage you
+# to use the lubridate package for working with dates. Read over the documentation
+# in RStudio and search for examples online if you need help.
+
+# You'll need to export your Facebooks friends' birthdays to a csv file.
+# You may need to create a calendar of your Facebook friends’ birthdays
+# in a program like Outlook or Gmail and then export the calendar as a
+# csv file.
+
+# Once you load the data into R Studio, you can use the strptime() function
+# to extract the birth months and birth days. We recommend looking up the
+# documentation for the function and finding examples online.
+
+
+birthdays <- tbl_df(read.csv("birthdaysExample.csv"))
+
+tempDates <- mdy(birthdays$dates)
+
+birthdays <- birthdays %>%
+  mutate(Birthday = tempDates,
+         Year = year(tempDates),
+         Month = month(tempDates, label=TRUE, abbr=FALSE),
+         Day = day(tempDates),
+         Weekday = weekdays(tempDates, abbr=FALSE))
+
+
+birthdays$Weekday <- factor(birthdays$Weekday, levels=c('Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'), ordered=TRUE)
+
+ # ifelse didn't seem to work here for creating 'optional' since the else would create a NULL vector within the function and R complained.
+ # creates optional ggplot argument only if Day is passed in.
+ # aes_string takes in a string as the column name for plotting. Perfect for our arguments we pass in as strings.
+ # Paste our argument in for custom X and Y-axis labeling
+
+makePlots<- function(TimeLength){
+
+  optional<- NULL
+  if(TimeLength == "Day")  optional<- scale_x_discrete(breaks = seq(1, 31, 1))
+
+  ggplot(birthdays, aes_string(x = TimeLength, fill = TimeLength)) + 
+    geom_histogram(binwidth = 1, color = "black", show_guide = FALSE) + 
+    scale_fill_brewer(palette="Paired") + 
+    stat_bin(aes(label=..count..), vjust=-.1, 
+             geom="text", position="identity") + 
+    xlab(TimeLength)+
+    ylab(paste0("Number of Birthdays per ", TimeLength)) + 
+    theme_tufte() + 
+    optional
+
+}
+    
+makePlots("Month")
+makePlots("Day")
+makePlots("Weekday")
+
+```
+
