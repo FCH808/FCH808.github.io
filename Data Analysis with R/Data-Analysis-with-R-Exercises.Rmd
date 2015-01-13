@@ -19,6 +19,7 @@ library(xlsx)
 library(reshape2)
 library(lubridate)
 library(ggthemes)
+library(gridExtra)
 
 ```
 
@@ -326,7 +327,7 @@ ggplot(diamonds, aes(x=carat)) +
 
 Q1.14
 
-```{r}
+```{r, warning=FALSE}
 # The Gapminder website contains over 500 data sets with information about
 # the world's population. Your task is to download a data set of your choice
 # and create 2-5 plots that make use of the techniques from Lesson 3.
@@ -337,8 +338,9 @@ Q1.14
 hours <- tbl_df(read.xlsx("indicator_hours per week.xlsx", sheetName="Data", header=TRUE))
 
 hours <- hours %>%
-  select(-NA.) %>%
-  rename(Country = Working.hours.per.week)
+  select(-NA.) %>% # Remove NA column carried over from xlsx
+  rename(Country = Working.hours.per.week) %>%
+  filter(Country != "<NA>") # Remove <NA> row carried over from xlsx
 
 hours.long <- melt(hours, id=c("Country"), value.name="Hours", variable.name="Year")
 hours.long <- tbl_df(hours.long)
@@ -380,41 +382,49 @@ dottedYears <- seq(1980, 2007, 5) # Pick the years to draw dotted vertical lines
 
 p <- p + geom_vline(xintercept = dottedYears, color="wheat4", linetype=3, size=0.5)
 
-p <- p + scale_y_continuous(breaks=seq(26, 56, 2)) +
+p <- p + coord_cartesian(ylim = c(26,58))+
+  scale_y_continuous(breaks=seq(26, 60, 2)) +
   scale_x_continuous(breaks=seq(1980, 2005, 5), expand=c(0,0) )
 
 p <- p + geom_line(data = subset(hours.long, Country == "United States"), aes(x = Year, y = Hours, group = Country), color ="brown") +
   annotate("segment", x=2000, xend=2002, y=35.5, yend=36, color="brown") +
-  annotate("text", x=2003, y=36.3, label="U.S. Medians", size=3.5, color="brown") + 
+  annotate("text", x=2003, y=36.3, label="U.S. Hours", size=3.5, color="brown") + 
   annotate("segment", x=2000, xend=2001, y=33.5, yend=32) + 
   annotate("text", x=2002, y=31.7, label="World Medians", size=3.5)
 
-p
 
-# Zoom in a bit to the IQR
-p + coord_cartesian(ylim=c(30, 38))
+p1 <- p + annotate("text", x=1999.9, y=56, label="Data represents hours worked per week for 52 countries   ", size=3, color="gray30") + 
+    annotate("text", x=2000, y=55, label="from 1980 to 2007. Outer lighter bands show the min/max  ", size=3, color="gray30") +
+    annotate("text", x=2000, y=54, label="hours for each year, and inner darker bands show the IQR.", size=3, color="gray30") + 
+    ggtitle("World's Working Hours") +
+    theme(plot.title=element_text(face="bold",hjust=.95,vjust=.8,color="#3C3C3C",size=20)) + 
+    annotate("text", x=1994.6, y=57.5, label="Weekly", size=4, fontface="bold")
 
+p1
 
-ggplot(yearStats, aes(x = Year, y = median)) +
-  geom_errorbar( aes( ymin = quant.25, ymax = quant.75), 
-                 color = "blue", width = 0.4) + 
-  stat_summary(fun.y = median, geom = "point", shape = 5, size = 3, color = "blue" ) +
-  geom_text( aes(x = Year, y = median, label = median), hjust = -.1, vjust = 1.2, size = 3, color = "DarkBlue") +
-  geom_line(data = hours.long[hours.long$Country == "United States",], aes(x = Year, y = Hours, color = Country, group = Country)) + 
-  geom_text(data = hours.long[hours.long$Country == "United States",], aes( x = Year, y = Hours, color = Country, group = Country, label = round(Hours, 2)), hjust = -.1, vjust = -1.2, size = 3, color = "DarkOrange") 
+# Zoom in a bit to the Inter-Quartile Range(IQR)
+p + coord_cartesian(ylim=c(30, 38)) + 
+  ggtitle("Inter-Quartile Range of Weekly Hours Worked Per Year Per Country") +
+  theme(plot.title=element_text(face="bold",color="#3C3C3C",size=12)) + 
+    geom_text(data = hours.long[hours.long$Country == "United States",], aes( x = Year, y = Hours, color = Country, group = Country, label = round(Hours, 2)), hjust = -.1, vjust = -1.2, size = 2, color = "brown") +
+  geom_text( aes(x = Year, y = median, label = median), hjust = -.1, vjust = 1.2, size = 2, color = "black") 
 
 ggplot(subset(hours.long, Country %in% c("Switzerland", "United States", "Japan", "United Kingdom", "France")), aes(x=Country, y=Hours, fill=Country)) +
   geom_boxplot() + 
   stat_summary(fun.y = mean, geom="point", shape = 5) +
   ylab("Hours Worked per Week") + xlab("") +
-  theme(legend.position="none")
+  theme(legend.position="none") + 
+  ggtitle("Box plots of Hours Worked per Week for 5 Countries") + 
+  theme(plot.title=element_text(face="bold",color="#3C3C3C",size=12))
 
 ggplot(subset(hours.long, Country %in% c("Switzerland", "United States", "Japan", "United Kingdom", "France")), aes(x = Year, y = Hours)) + 
   geom_line(aes(color = Country, group = Country)) + 
   theme(axis.text.x = element_text(angle = 45)) + 
   scale_y_continuous(breaks=seq(26, 56, 2)) +
   scale_x_continuous(breaks=seq(1980, 2005, 5), expand=c(0,0) ) + 
-  ylab("Hours Worked per Week") + xlab("")
+  ylab("Hours Worked per Week") + xlab("") + 
+  theme(plot.title=element_text(face="bold",color="#3C3C3C",size=12)) +
+  ggtitle("Change in Weekly Hours Worked from 1980-2007 for 5 Countries")
 
 ```
 
@@ -471,13 +481,13 @@ birthdays$Weekday <- factor(birthdays$Weekday, levels=c('Monday', 'Tuesday','Wed
 makePlots<- function(TimeLength){
 
   optional<- NULL
-  if(TimeLength == "Day")  optional<- scale_x_discrete(breaks = seq(1, 31, 1))
+  if(TimeLength == "Day")  optional<- scale_x_discrete(breaks = seq(1, 31, 1)) 
 
   ggplot(birthdays, aes_string(x = TimeLength, fill = TimeLength)) + 
     geom_histogram(binwidth = 1, color = "black", show_guide = FALSE) + 
     scale_fill_brewer(palette="Paired") + 
     stat_bin(aes(label=..count..), vjust=-.1, 
-             geom="text", position="identity") + 
+             geom="text", position="identity", size=3) + 
     xlab(TimeLength)+
     ylab(paste0("Number of Birthdays per ", TimeLength)) + 
     theme_tufte() + 
