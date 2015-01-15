@@ -24,7 +24,7 @@ library(gridExtra)
 ```
 
 
-Q1.1
+Q3.1
 
 ```{r}
 # a) Load the 'diamonds' data set in R Studio. 
@@ -50,7 +50,7 @@ levels(diamonds$color)
 
 ```
 
-Q1.2
+Q3.2
 
 ```{r}
 # Create a histogram of the price of
@@ -64,7 +64,7 @@ ggplot(diamonds, aes(x = price)) +
 
 ```
 
-Q1.3
+Q3.3
 
 Describe the shape and center of the price distribution. Include summary statistics like the mean and median.
 ```{r}
@@ -73,7 +73,7 @@ summary(diamonds$price)
 # The distribution is right-skewed with small amounts of very large prices driving up the mean, while the median remains a more robust measure of the center of the distribution.
 ```
 
-Q1.4
+Q3.4
 
 ```{r}
 
@@ -94,7 +94,7 @@ diamonds %>%
 
 ```
 
-Q1.5
+Q3.5
 
 ```{r}
 # Explore the largest peak in the
@@ -112,7 +112,7 @@ ggplot(diamonds, aes(x = price)) +
 
 ```
 
-Q1.6
+Q3.6
 ```{r}
 # Break out the histogram of diamond prices by cut.
 
@@ -130,7 +130,7 @@ ggplot(diamonds, aes(x = price)) +
 
 ```
 
-Q1.7
+Q3.7
 ```{r}
 # a) Which cut has the highest priced diamond?
 # Premium
@@ -153,7 +153,7 @@ diamonds %>%
 
 ```
 
-Q1.8
+Q3.8
 
 ```{r}
 # In the two last exercises, we looked at
@@ -208,7 +208,7 @@ qplot(x = price, data = diamonds) + facet_wrap(~cut, scales = "free")
 # be different for each histogram.
 ```
 
-Q1.9
+Q3.9
 
 ```{r}
 # Create a histogram of price per carat
@@ -234,7 +234,7 @@ ggplot(diamonds, aes(x = price/carat)) +
   facet_grid(cut~., scale = "free") + ylab("Count")
 ```
 
-Q1.10
+Q3.10
 
 ```{r}
 # Investigate the price of diamonds using box plots,
@@ -258,7 +258,7 @@ ggplot(diamonds, aes(x = clarity, y = price, color = cut)) +
 
 ```
 
-Q1.11
+Q3.11
 
 ```{r}
 # a) What is the price range for the middle 50% of the diamonds with color D?
@@ -289,7 +289,7 @@ diamonds %>%
 
 ```
 
-Q1.12
+Q3.12
 
 ```{r}
 # Investigate the price per carat of diamonds across
@@ -303,7 +303,7 @@ ggplot(diamonds, aes(x = color, y = price/carat, fill = color)) +
 
 ```
 
-Q1.13
+Q3.13
 
 ```{r}
 # Investigate the weight of the diamonds (carat) using a frequency polygon. Use different bin widths to see how the frequency polygon changes. What carat size has a count greater than 2000? Check all that apply.
@@ -325,7 +325,7 @@ ggplot(diamonds, aes(x=carat)) +
 
 ```
 
-Q1.14
+Q3.14
 
 ```{r, warning=FALSE}
 # The Gapminder website contains over 500 data sets with information about
@@ -428,7 +428,7 @@ ggplot(subset(hours.long, Country %in% c("Switzerland", "United States", "Japan"
 
 ```
 
-Q1.15
+Q3.15
 
 ```{r}
 # How many birthdays are in each month?
@@ -498,6 +498,376 @@ makePlots<- function(TimeLength){
 makePlots("Month")
 makePlots("Day")
 makePlots("Weekday")
+
+```
+
+Q4.1
+
+```{r}
+# In this problem set, you'll continue
+# to explore the diamonds data set.
+
+# Your first task is to create a
+# scatterplot of price vs x.
+# using the ggplot syntax.
+
+ggplot(diamonds, aes(x = x, y = price)) +
+  geom_point(alpha = 1/20) +
+  coord_cartesian(xlim=c(3.5, 12)) + 
+  scale_y_continuous(breaks=seq(1000, 19000, 2000),label=dollar)
+
+```
+
+Q4.2 
+```{r}
+# What are your observations about the scatterplot of price vs x?
+
+# The bulk of the data start at around x = 3.3 and price rises exponentially as it approaches 9. 
+# There also seems to be an artificial ceiling in price around $19k.
+
+```
+
+Q4.3
+```{r}
+# What is the correlation between price and x?
+with(diamonds, cor.test(price, x))
+
+# What is the correlation between price and y?
+with(diamonds, cor.test(price, y))
+
+# What is the correlation between price and z?
+with(diamonds, cor.test(price, z))
+```
+
+Q4.4
+```{r}
+# Create a simple scatter plot of price vs depth.
+ggplot(diamonds, aes(x = depth, y = price)) + geom_point(alpha = 1/20)
+
+```
+
+Q4.5
+```{r, warning=FALSE}
+# Change the code to make the transparency of the
+# points to be 1/100 of what they are now and mark
+# the x-axis every 2 units. 
+
+ggplot(data = diamonds, aes(x = depth, y = price)) + 
+  geom_point(alpha = 1/100) + 
+  scale_x_continuous(breaks = seq(min(diamonds$depth), max(diamonds$depth), 2),
+                     labels = seq(min(diamonds$depth), max(diamonds$depth), 2))
+```
+
+Q4.6
+```{r}
+# Based on the scatterplot of depth vs. price, most diamonds are between what values of depth?
+
+# 58-64
+
+```
+
+Q4.7
+```{r}
+# What's the correlation of depth vs. price?
+with(diamonds, cor.test(depth, price))
+
+# Based on the correlation coefficient, would you use depth to predict the price of a diamond? Why?
+
+# No.
+# The correlation is not equal to zero (p-value = 0.0134; likely due to the huge sample size),
+# but the power of the correlation is almost non-existent.
+# Depth alone would have virtually no predictive power for price.
+```
+
+Q4.8
+```{r, warning=FALSE}
+# Create a scatterplot of price vs carat
+# and omit the top 1% of price and carat
+# values.
+
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point(alpha=1/20) +
+  scale_x_continuous(limits=c(0, quantile(diamonds$carat, 0.99))) +
+  scale_y_continuous(breaks=seq(0, 18000, 2000), 
+                     limits=c(0 , quantile(diamonds$price, 0.99)),
+                     labels=dollar)
+
+```
+
+Q4.9
+```{r}
+# Create a scatterplot of price vs. volume (x * y * z).
+# This is a very rough approximation for a diamond's volume.
+
+# Create a new variable for volume in the diamonds data frame.
+# This will be useful in a later exercise.
+
+# Don't make any adjustments to the plot just yet.
+
+diamonds2 <- diamonds %>%
+  mutate(volume=x*y*z)
+
+ggplot(diamonds2, aes(x = volume, y = price)) + 
+  geom_point()
+
+```
+
+Q4.10
+```{r}
+# What are your observations from the price vs volume scatterplot?
+
+# There are 3 obvious outliers, with 1 massive diamond expanding the plot quite a bit.
+# Prices rise exponentially with volume making transformations of the x-scale a good idea.
+# There may also be diamonds with volumes at or near 0.
+```
+
+Q4.11
+```{r}
+# What's the correlation of price and volume?
+# Exclude diamonds that have a volume of 0 or that are greater than or equal to 800.
+
+with(subset(diamonds2, !(volume == 0 | volume >= 800) ), cor.test(price, volume))
+
+```
+
+Q4.12
+```{r}
+# Subset the data to exclude diamonds with a volume
+# greater than or equal to 800. Also, exclude diamonds
+# with a volume of 0. Adjust the transparency of the
+# points and add a linear model to the plot. (See the
+# Instructor Notes or look up the documentation of
+# geom_smooth() for more details about smoothers.)
+
+# We encourage you to think about this next question and
+# to post your thoughts in the discussion section.
+
+# Do you think this would be a useful model to estimate
+# the price of diamonds? Why or why not?
+
+smaller <- diamonds2 %>%
+  filter(volume != 0,
+         volume <= 800)
+
+ggplot(smaller, aes( x = volume, y = price)) + 
+  geom_point(alpha = 1/20) +
+  geom_smooth(method = "lm",
+              se = TRUE)
+
+# This is probably not the best model since the relationship doesn not appear to be normal. 
+# The residuals would show a heavy pattern as well 
+# instead of random scattering. 
+```
+
+Q4.13
+```{r}
+# Use the function dplyr package
+# to create a new data frame containing
+# info on diamonds by clarity.
+
+# Name the data frame diamondsByClarity
+
+# The data frame should contain the following
+# variables in this order.
+
+#       (1) mean_price
+#       (2) median_price
+#       (3) min_price
+#       (4) max_price
+#       (5) n
+
+# where n is the number of diamonds in each
+# level of clarity.
+
+diamondsByClarity<- diamonds %>%
+  group_by(clarity) %>%
+  summarise(mean_price = mean(price),
+            median_price = median(price),
+            min_price = min(price),
+            max_price = max(price),
+            n = n() ) %>%
+  arrange(clarity)
+
+```
+
+Q4.14
+```{r}
+# We’ve created summary data frames with the mean price
+# by clarity and color. You can run the code in R to
+# verify what data is in the variables diamonds_mp_by_clarity
+# and diamonds_mp_by_color.
+
+# Your task is to write additional code to create two bar plots
+# on one output image using the grid.arrange() function from the package
+# gridExtra.
+
+diamonds_by_clarity <- group_by(diamonds, clarity)
+diamonds_mp_by_clarity <- summarise(diamonds_by_clarity, mean_price = mean(price))
+
+diamonds_by_color <- group_by(diamonds, color)
+diamonds_mp_by_color <- summarise(diamonds_by_color, mean_price = mean(price))
+
+# ===================================================================
+
+c1 <- ggplot(diamonds_mp_by_clarity, aes(x=clarity, y=mean_price, fill=clarity)) +
+  geom_bar(stat = "identity", color = "black") +
+  scale_fill_brewer(palette="Set3") + 
+  guides(fill = guide_legend(ncol=2, title.hjust=0.3))
+
+c2 <- ggplot(diamonds_mp_by_color, aes(x=color, y=mean_price, fill=color)) +
+  geom_bar(stat = "identity", color = "black") +
+  scale_fill_brewer(palette="Set2") + 
+  guides(fill = guide_legend(ncol=2, title.hjust=0.4))
+
+grid.arrange(c1, c2)
+```
+
+Q4.15
+```{r}
+# What do you notice in each of the bar charts for mean price by clarity and mean price by color?
+
+# There's a downward trend in average diamond price as clarity goes from I1 to IF,
+# and an upward trend in average price as color goes from D to J.
+```
+
+Q4.16
+```{r, warning=FALSE, cache=TRUE}
+# The Gapminder website contains over 500 data sets with information about
+# the world's population. Your task is to continue the investigation you did at the
+# end of Problem Set 3 or you can start fresh and choose a different
+# data set from Gapminder.
+
+# If you’re feeling adventurous or want to try some data munging see if you can
+# find a data set or scrape one from the web.
+
+# In your investigation, examine pairs of variable and create 2-5 plots that make
+# use of the techniques from Lesson 4.
+
+# ======================================================================================================
+
+# Programme for International Student Assessment (PISA) is a triennial international survey
+# which aims to evaluate education systems worldwide by testing the skills and knowledge of 15-year-old students.
+# Around 510,000 students in 65 economies took part in PISA 2012 representing about 28 million 15-year-olds globally. 
+
+# Our dataset is composed of 485,490 test results from the 2012 PISA testing results.
+
+# http://www.oecd.org/pisa/aboutpisa/
+
+con <- url("http://beta.icm.edu.pl/PISAcontest/data/student2012.rda")
+load(con)
+
+# It's a large file, so alternatively, you can download the .rda files and load it directly.
+# load("student2012.rda")
+
+student2012 <- tbl_df(student2012)
+```
+
+```{r, warning=FALSE, fig.width=10, fig.height=8}
+# Each of the 5 PV variables for Reading, Math, and Science are plausible values created from tests which may have contained missing data. 
+# 5 different sets with imputations were created for completeness.
+# These are averaged together to get the estimated (mean) plausible value for each subject.
+
+## Scores variables have attributes which dplyr cannot use group_by with
+## These can be cast as numeric to remove attributes
+## mutate_each can apply a function(as.numeric) to each column matching a certain criteria
+
+country_data <- student2012 %>% 
+  rename(Gender = ST04Q01,
+         birth_year = ST03Q02,
+         birth_month = ST03Q01,
+         PC_at_home = ST26Q04,
+         Country = CNT) %>%
+  select(Gender, birth_year, birth_month, PC_at_home, Country,
+         PV1MATH, PV2MATH, PV3MATH, PV4MATH, PV5MATH, 
+         PV1READ, PV2READ, PV3READ, PV4READ, PV5READ,
+         PV1SCIE, PV1SCIE, PV1SCIE, PV1SCIE, PV1SCIE) %>%
+  mutate_each(funs(as.numeric), contains("MATH")) %>%
+  mutate_each(funs(as.numeric), contains("READ")) %>%
+  mutate_each(funs(as.numeric), contains("SCIE")) %>%
+  mutate(Math = (PV1MATH + PV2MATH + PV3MATH + PV4MATH + PV5MATH)/5,
+         Reading = (PV1READ + PV2READ + PV3READ + PV4READ + PV5READ)/5,
+         Science = (PV1SCIE + PV1SCIE + PV1SCIE + PV1SCIE + PV1SCIE)/5) 
+
+country_scores <- country_data %>%
+  group_by(Country, Gender) %>%
+  summarise(mean_math = mean(Math),
+            mean_reading = mean(Reading),
+            mean_science = mean(Science),
+            count = n() ) %>%
+  arrange(mean_math, mean_reading, mean_science)
+
+ggplot(country_scores, aes(x = mean_reading, y = mean_math, color = Gender, size=count)) +
+  geom_point() +
+  geom_smooth() +
+  geom_point(data = subset(country_scores, Country %in% c("United States of America", "Mexico", "Peru", "Qatar", "China-Shanghai", "Singapore", "Korea", "Finland", "Chile")), 
+             aes(label = Country),
+             color="#0266c8",
+             show_guide = FALSE) +
+  geom_text(data = subset(country_scores, Country %in% c("United States of America", "Mexico", "Peru", "Qatar", "China-Shanghai", "Singapore", "Korea", "Finland", "Chile")),
+            aes(label = Country),
+            color = "black",
+            size = 3,
+            vjust = -0.5,
+            show_guide = FALSE) +
+  #geom_abline(intercept = 0, slope = 1, linetype=2, color="orange") +
+  ylab("Average Math Score") + 
+  xlab("Average Reading Score") + 
+  ggtitle("Average Reading and Math Scores per country, by gender")
+
+# It seems to be a world-wide trend that boys are achieving higher scores in math than reading,
+# and girls are in turn doing better in reading than math on average.
+
+# We can see the US in the middle of the pack, while Asian countries are making up the majority at the top.
+
+ggplot(country_scores, aes(x = mean_reading, y = mean_science, color = Gender, size=count)) +
+  geom_point() +
+  geom_smooth() +
+  geom_point(data = subset(country_scores, Country %in% c("United States of America", "Mexico", "Peru", "Qatar", "China-Shanghai", "Singapore", "Korea", "Finland", "Chile")), 
+             aes(label = Country),
+             color="#0266c8",
+             show_guide = FALSE) +
+  geom_text(data = subset(country_scores, Country %in% c("United States of America", "Mexico", "Peru", "Qatar", "China-Shanghai", "Singapore", "Korea", "Finland", "Chile")),
+            aes(label = Country),
+            color = "black",
+            size = 3,
+            vjust = -0.5,
+            show_guide = FALSE) +
+  #geom_abline(intercept = 0, slope = 1, linetype=2, color="orange") +
+  ylab("Average Science Score") + 
+  xlab("Average Reading Score") + 
+  ggtitle("Average Reading and Science Scores per country, by gender")
+
+# The trend is similar for science vs reading.
+
+country_scores_PC <- country_data %>%
+  group_by(Country, PC_at_home) %>%
+  summarise(mean_math = mean(Math),
+            mean_reading = mean(Reading),
+            mean_science = mean(Science),
+            count = n() ) %>%
+  arrange(mean_math, mean_reading, mean_science)
+
+g1 <- ggplot(subset(country_scores_PC, !(is.na(PC_at_home))), aes(x = mean_reading, fill = PC_at_home, size=count)) +
+  geom_density(alpha=0.66) +
+  ylab("Density") + 
+  xlab("Average Reading Score") + 
+  ggtitle("Density Plot of Average Reading Scores with/without a PC at home")
+
+g2 <- ggplot(subset(country_scores_PC, !(is.na(PC_at_home))), aes(x = mean_math, fill = PC_at_home, size=count)) +
+  geom_density(alpha=0.66) +
+  ylab("Density") + 
+  xlab("Average Math Score") + 
+  ggtitle("Density Plot of Average Math Scores with/without a PC at home")
+
+g3 <- ggplot(subset(country_scores_PC, !(is.na(PC_at_home))), aes(x = mean_science, fill = PC_at_home, size=count)) +
+  geom_density(alpha=0.66) +
+  ylab("Density") + 
+  xlab("Average Science Score") + 
+  ggtitle("Density Plot of Average Science Scores with/without a PC at home")
+
+grid.arrange(g1, g2, g3, ncol=1)
+
+## Across all countries, those having a PC at home  had a with higher distribution of scores in reading, math, and science.
 
 ```
 
