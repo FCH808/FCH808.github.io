@@ -772,21 +772,15 @@ student2012 <- tbl_df(student2012)
 ## mutate_each can apply a function(as.numeric) to each column matching a certain criteria
 
 country_data <- student2012 %>% 
-  rename(Gender = ST04Q01,
+  mutate(Math = as.numeric((PV1MATH + PV2MATH + PV3MATH + PV4MATH + PV5MATH)/5),
+         Reading = as.numeric((PV1READ + PV2READ + PV3READ + PV4READ + PV5READ)/5),
+         Science = as.numeric((PV1SCIE + PV1SCIE + PV1SCIE + PV1SCIE + PV1SCIE)/5)) %>%
+  select(Gender = ST04Q01,
          birth_year = ST03Q02,
          birth_month = ST03Q01,
          PC_at_home = ST26Q04,
-         Country = CNT) %>%
-  select(Gender, birth_year, birth_month, PC_at_home, Country,
-         PV1MATH, PV2MATH, PV3MATH, PV4MATH, PV5MATH, 
-         PV1READ, PV2READ, PV3READ, PV4READ, PV5READ,
-         PV1SCIE, PV1SCIE, PV1SCIE, PV1SCIE, PV1SCIE) %>%
-  mutate_each(funs(as.numeric), contains("MATH")) %>%
-  mutate_each(funs(as.numeric), contains("READ")) %>%
-  mutate_each(funs(as.numeric), contains("SCIE")) %>%
-  mutate(Math = (PV1MATH + PV2MATH + PV3MATH + PV4MATH + PV5MATH)/5,
-         Reading = (PV1READ + PV2READ + PV3READ + PV4READ + PV5READ)/5,
-         Science = (PV1SCIE + PV1SCIE + PV1SCIE + PV1SCIE + PV1SCIE)/5) 
+         Country = CNT,
+         Math, Reading, Science)
 
 country_scores <- country_data %>%
   group_by(Country, Gender) %>%
@@ -868,6 +862,297 @@ g3 <- ggplot(subset(country_scores_PC, !(is.na(PC_at_home))), aes(x = mean_scien
 grid.arrange(g1, g2, g3, ncol=1)
 
 ## Across all countries, those having a PC at home  had a with higher distribution of scores in reading, math, and science.
+
+```
+
+Q5.1
+```{r, warning=FALSE, message=FALSE}
+# Create a histogram of diamond prices.
+# Facet the histogram by diamond color
+# and use cut to color the histogram bars.
+
+# The plot should look something like this.
+# http://i.imgur.com/b5xyrOu.jpg
+
+# Note: In the link, a color palette of type
+# 'qual' was used to color the histogram using
+# scale_fill_brewer(type = 'qual')
+
+ggplot(diamonds, aes(x = price, fill = cut)) +
+  geom_histogram() +
+  facet_wrap(~ color) +
+  scale_fill_brewer(type = 'qual') +
+  scale_x_log10(labels=dollar, expression(paste(Log[10], " of Price"))) +
+  ylab("Count")
+
+```
+
+Q5.2
+```{r, warning=FALSE}
+# Create a scatterplot of diamond price vs.
+# table and color the points by the cut of
+# the diamond.
+
+# The plot should look something like this.
+# http://i.imgur.com/rQF9jQr.jpg
+
+# Note: In the link, a color palette of type
+# 'qual' was used to color the scatterplot using
+# scale_color_brewer(type = 'qual')
+
+ggplot(diamonds, aes(x = table, y = price, color = cut)) + 
+  geom_jitter(size = 3) +
+  scale_x_continuous(breaks = seq(50, 80, 2),
+                     limits = c(50, 80)) +
+  scale_color_brewer(type = 'qual') +
+  theme_minimal()
+```
+
+Q5.3
+```{r}
+## What is the typical table range for the majority of diamonds of ideal cut?
+# 54 to 57
+
+## What is the typical table range for the majory of diamonds of premium cut?
+# 58 to 60
+
+## Use the graph that you created from the previous exercise to see the answer. You do not need to run summaries.
+
+```
+
+Q5.4
+
+```{r}
+# Create a scatterplot of diamond price vs.
+# volume (x * y * z) and color the points by
+# the clarity of diamonds. Use scale on the y-axis
+# to take the log10 of price. You should also
+# omit the top 1% of diamond volumes from the plot.
+
+# Note: Volume is a very rough approximation of
+# a diamond's actual volume.
+
+# The plot should look something like this.
+# http://i.imgur.com/excUpea.jpg
+
+# Note: In the link, a color palette of type
+# 'div' was used to color the scatterplot using
+# scale_color_brewer(type = 'div')
+
+diamonds <- diamonds %>% 
+  mutate(volume = x * y *z)
+
+ggplot(subset(diamonds, volume <= quantile(volume, 0.99) & volume > 0 ), aes(x = volume, y = price, color = clarity)) +
+  geom_jitter(size = 3) + 
+  scale_y_log10(labels=dollar) +
+  scale_color_brewer(type = 'div') + 
+  theme_minimal()
+```
+
+Q5.5
+```{r}
+# Many interesting variables are derived from two or more others.
+# For example, we might wonder how much of a person's network on
+# a service like Facebook the user actively initiated. Two users
+# with the same degree (or number of friends) might be very
+# different if one initiated most of those connections on the
+# service, while the other initiated very few. So it could be
+# useful to consider this proportion of existing friendships that
+# the user initiated. This might be a good predictor of how active
+# a user is compared with their peers, or other traits, such as
+# personality (i.e., is this person an extrovert?).
+
+# Your task is to create a new variable called 'prop_initiated'
+# in the Pseudo-Facebook data set. The variable should contain
+# the proportion of friendships that the user initiated.
+
+fb <- tbl_df(read.table("pseudo_facebook.tsv", header=TRUE))
+
+
+# fb <- fb %>%
+#    mutate(prop_initiated = ifelse(friend_count > 0, friendships_initiated/friend_count, 0))
+
+# Using code below instead will generate NA's when friend_count is 0 due to division by 0
+# But future exercises asking for averages will be different if we don't generate those NA's 
+
+fb <- fb %>%
+ mutate(prop_initiated = friendships_initiated/friend_count)
+
+```
+
+Q5.6
+```{r}
+# Create a line graph of the proportion of
+# friendships initiated ('prop_initiated') vs.
+# tenure and color the line segment by
+# year_joined.bucket.
+
+# Recall, we created year_joined.bucket in Lesson 5
+# by first creating year_joined from the variable tenure.
+# Then, we used the cut function on year_joined to create
+# four bins or cohorts of users.
+
+# (2004, 2009]
+# (2009, 2011]
+# (2011, 2012]
+# (2012, 2014]
+
+# The plot should look something like this.
+# http://i.imgur.com/vNjPtDh.jpg
+# OR this
+# http://i.imgur.com/IBN1ufQ.jpg
+
+fb <- fb %>%
+  mutate(year_joined = floor(2014 - tenure/365),
+         year_joined_bucket = cut(year_joined, breaks=c(2004, 2009, 2011, 2012, 2014))) 
+
+## Adding in 0's for the mean function instead of leaving out NA's gives a better approximation 
+## for the proportion of friendships initiated for this plot.
+
+fb2 <- fb %>%
+    mutate(prop_initiated = ifelse(friend_count > 0, friendships_initiated/friend_count, 0))
+
+ggplot(subset(fb2, tenure > 0), aes(x=tenure, y=prop_initiated)) +
+  geom_line(aes(color=year_joined_bucket), stat='summary', fun.y=mean) + 
+  theme_minimal()
+
+
+```
+
+Q5.7
+```{r}
+# Smooth the last plot you created of
+# of prop_initiated vs tenure colored by
+# year_joined.bucket. You can use larger
+# bins for tenure or add a smoother to the plot.
+
+ggplot(subset(fb, tenure > 0), aes(x=tenure, y=prop_initiated)) +
+  #geom_line(aes(color=year_joined_bucket), stat='summary', fun.y=mean) +
+  geom_smooth(aes(color = year_joined_bucket))
+
+```
+
+Q5.8
+```{r}
+## On average, which group initiated the greatest
+## poportion of its Facebook friendships? The plot with
+## the smoother that you created in the last exercise can
+## help you answer this question.
+
+## People who joined after 2012.
+```
+
+Q5.9
+```{r}
+## For the group with the largest proportion of 
+## friendships initated, what is the group's average 
+## (mean) proportion on friendships initiated?
+
+fb %>%
+  filter(year_joined_bucket == "(2012,2014]") %>%
+  summarise(avg = mean(prop_initiated, na.rm=TRUE))
+
+## Why do you think this group's proportion of friendships initiated is higher than the others?
+
+# They have newer accounts. To get started after first creating an account, 
+# you have to build your online network of friends based on your existing network of friends. 
+# After this initial population, someone may add/acquire new friends 
+# at a lower rate allowing the proportion to even out slightly.
+# The younger cohort may also have fundamentally different patterns of acquisition;
+# 2005 wasn't too long ago and Facebook was first targeted at a college-age demographic, 
+# who are now in their late twenties and early thirties.
+# Rates might have already been lower in general for this group, 
+# who never were in their mid-teens and starting ubiquitous Facebook accounts.
+
+```
+
+Q5.10
+```{r}
+# Create a scatter plot of the price/carat ratio
+# of diamonds. The variable x should be
+# assigned to cut. The points should be colored
+# by diamond color, and the plot should be
+# faceted by clarity.
+
+# The plot should look something like this.
+# http://i.imgur.com/YzbWkHT.jpg.
+
+# Note: In the link, a color palette of type
+# 'div' was used to color the histogram using
+# scale_color_brewer(type = 'div')
+
+ggplot(diamonds, aes(x = cut, y = price/carat, color = color)) + 
+  geom_jitter() + 
+  facet_wrap(~clarity) + 
+  scale_color_brewer(type = 'div')
+```
+
+Q5.11
+```{r}
+# The Gapminder website contains over 500 data sets with information about
+# the world's population. Your task is to continue the investigation you did at the
+# end of Problem Set 4 or you can start fresh and choose a different
+# data set from Gapminder.
+
+# If you're feeling adventurous or want to try some data munging see if you can
+# find a data set or scrape one from the web.
+
+# In your investigation, examine 3 or more variables and create 2-5 plots that make
+# use of the techniques from Lesson 5.
+
+
+## Proficiency scores to assign proficency levels assigned to students.
+prof_scores <- c(0, 358, 420, 482, 545, 607, 669, 1000)
+
+country_data <- student2012 %>%
+  mutate(Math = as.numeric((PV1MATH + PV2MATH + PV3MATH + PV4MATH + PV5MATH)/5),
+         Reading = as.numeric((PV1READ + PV2READ + PV3READ + PV4READ + PV5READ)/5),
+         Science = as.numeric((PV1SCIE + PV1SCIE + PV1SCIE + PV1SCIE + PV1SCIE)/5),
+         math_levels = cut(Math, breaks = prof_scores, 
+                           labels = paste("Level", 1:7), ordered_result = TRUE),
+         reading_levels = cut(Reading, breaks = prof_scores, 
+                              labels = paste("Level", 1:7), ordered_result = TRUE),
+         science_levels = cut(Science, breaks = prof_scores,
+                              labels = paste("Level", 1:7), ordered_result = TRUE)) %>%
+  select(Gender = ST04Q01,
+         birth_year = ST03Q02,
+         birth_month = ST03Q01,
+         PC_at_home = ST26Q04,
+         Country = CNT,
+         books_at_home = ST28Q01,
+         at_home_mother = ST11Q01,
+         at_home_father = ST11Q02,
+         mother_job = ST15Q01,
+         mother_schooling = ST13Q01,
+         father_job = ST19Q01,
+         father_schooling = ST17Q01,
+         own_room = ST26Q02,
+         internet = ST26Q06,
+         home_book_count = ST28Q01,
+         computer_count = ST27Q03,
+         first_pc_use = IC03Q01,
+         first_internet_use = IC04Q01,
+         use_internet_at_school = IC05Q01,
+         internet_out_of_sch_wd = IC06Q01,
+         internet_out_of_sch_we = IC07Q01,
+         internet_for_fun = IC08Q06,
+         internet_at_home = IC01Q04,
+         internet_at_school = IC02Q04,
+         Math, Reading, Science)
+
+#####################################################
+country_gender <- country_data %>%
+  group_by(Country, Gender) %>%
+  summarise(avg_math = mean(Math),
+            avg_reading = mean(Reading),
+            avg_science = mean(Science),
+            n = n() ) %>%
+  arrange(avg_math, avg_reading, avg_science)
+
+# ggplot(country_data, aes(x = Math, y = Reading, color =  Gender)) +
+#   geom_jitter(alpha = 1/20) + 
+#   geom_smooth(aes(color = Gender))
+
 
 ```
 
