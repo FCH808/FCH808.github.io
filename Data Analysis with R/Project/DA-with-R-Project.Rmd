@@ -1,0 +1,422 @@
+---
+title: "Data Analysis with R"
+author: "Fernando Hernandez"
+date: "Monday, January 19, 2015"
+output: html_document
+---
+
+```{r libraries, message=FALSE, warning=FALSE}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(scales)
+library(gridExtra)
+```
+
+## Introduction
+
+On May 30, 2014 MIT and Harvard released de-identified data from 16 HarvardX and MITx courses offered in 2012-13.[1]
+
+The data contains records from 476,532 students covering 641,138 separate course registrations.[2]
+
+
+## Initial Exploration
+
+When exploring a new dataset, it's always a good idea to look at the structure with str(). The data set provides demographic and anonymized online activity data, including grades.
+
+```{r load_data}
+setwd("data")
+mooc_data <- tbl_df(read.csv("HMXPC13_DI_v2_5-14-14.csv", na.strings = c("NA", "")))
+
+dim(mooc_data)
+
+str(mooc_data)
+
+
+
+```
+
+The exact meanings of the variables can looked up in the "Person Course Documentation.pdf". First, let's tidy up the data a bit by separating course_id, which contains 3 different types of information, into 3 separate columns. We can also add Age using the user-provided birth year. [2]
+
+We will then add the full title of the courses based on the Course Codes from the "Person Course Documentation.pdf".
+
+```{r }
+levels(mooc_data$course_id)
+
+levels(mooc_data$gender) <- c("Female", "Male", "Other")
+
+mooc_data <- mooc_data %>%
+  separate(course_id, into = c("Institution", "Course_Code", "Semester"), sep="/", convert=TRUE) %>%
+  mutate(Age = 2014 - YoB,
+         certified = factor(certified, labels=c("No", "Yes"))) %>%
+  rename(Country = final_cc_cname_DI,
+         Level_of_Edu = LoE_DI,
+         Registration_Date = start_time_DI,
+         Last_Interaction = last_event_DI)
+
+course_names <- data.frame("Course_Code" = factor(c("CB22x", "CS50x", "ER22x", "PH207x", "PH278x", "14.73x",
+                                             "2.01x", "3.091x", "6.002x", "6.00x", "7.00x", "8.02x", "8.MReV")),
+                           "Full_Title" = c("The Ancient Greek Hero", "Intro to Computer Science I",
+                                            "Justice", "Health in Numbers: Quant. Methods", 
+                                            "Human Health & Global Envir. Change",
+                                            "The Challenges of Global Poverty", "Elements of Structures",
+                                            "Intro to Solid State Chemistry", "Circuits and Electronics",
+                                            "Intro to C.S. and Programming", "Intro to Biology",
+                                            "Electricity and Magnetism", "Mechanics Review"))
+
+mooc_data <- left_join(mooc_data, course_names, by="Course_Code")
+
+# http://web.mit.edu/graphicidentity/colors.html
+# http://www.hbs.edu/marketing/color.html
+
+mooc_data <- mooc_data %>%
+  mutate(School_Color = ifelse(Institution == "HarvardX", "#A41034", "#000000"))
+
+school_colors <- mooc_data$School_Color
+names(school_colors) <- mooc_data$Institution
+
+```
+
+
+
+```{r warning=FALSE, message=FALSE}
+
+ggplot(mooc_data, aes(x=grade)) + geom_freqpoly()
+summary(mooc_data$grade)
+
+mooc_data_active <- mooc_data %>%
+  filter(viewed == 1 & nevents > 0)
+
+ggplot(mooc_data_active, aes(x=grade)) + geom_freqpoly()
+
+mooc_data_active <- mooc_data %>%
+  filter(viewed == 1 & nevents > 0 & grade > 0)
+
+ggplot(mooc_data_active, aes(x=grade)) + geom_freqpoly()
+
+## Active Users - those who:
+## 1.) Viewed the Courseware section at least once
+## 2.) Had at least 1 interaction with the the course beyond registration
+## 3.) Explored at least 1/2 of the chapters of the course in the Courseware
+## 4.) Had a final grade that was more 0.0%
+mooc_data_active <- mooc_data %>%
+  filter(viewed == 1 & nevents > 0 & grade > 0.0 & explored == 1)
+
+ggplot(mooc_data_active, aes(x=grade)) + geom_freqpoly()
+
+
+## Add Active_User as a feature
+mooc_data <- mooc_data %>%
+  mutate(Active_User = ifelse( (viewed == 1 & nevents > 0 & grade > 0.0 & explored == 1), 1, 0),
+         Active_User = factor(Active_User, labels=c("No", "Yes")))
+
+table(mooc_data$Active_User, useNA="always")
+
+## About 4.1% of online students meet the criteria for being an active student
+prop.table(table(mooc_data$Active_User))
+
+ggplot(subset(mooc_data, !is.na(Active_User)), aes(x=Active_User)) + geom_histogram()
+
+## About 2.8% of registered students complete a given course and receive a certificate (50%-80% depending on course)
+prop.table(table(mooc_data$certified))
+
+ggplot(subset(mooc_data, !is.na(certified)), aes(x=certified)) + geom_histogram()
+
+## Grades of Active Users
+ggplot(subset(mooc_data, Active_User == "Yes"), aes(x=grade)) + geom_freqpoly(aes(color=Institution), binwidth=0.01)
+ggplot(subset(mooc_data, Active_User == "Yes"), aes(x=grade)) + geom_freqpoly(aes(color=Full_Title), binwidth=0.01)
+ggplot(subset(mooc_data, Active_User == "Yes"), aes(x=grade)) + geom_freqpoly(aes(color=Country), binwidth=0.01)
+ggplot(subset(mooc_data, Active_User == "Yes"), aes(x=grade)) + geom_freqpoly(aes(color=gender), binwidth=0.01)
+ggplot(subset(mooc_data, Active_User == "Yes"), aes(x=grade)) + geom_freqpoly(aes(color=Level_of_Edu), binwidth=0.01)
+
+## A small of users below 10 years old looks suspect. 
+## Interesting split at 50%. 
+ggplot(mooc_data, aes(x=Age, y=grade)) + geom_jitter(aes(color=Institution), alpha=1/10) + scale_y_continuous(labels=percent, breaks=seq(0, 1, 0.1)) + scale_x_continuous(breaks=seq(0, 80, 10)) + scale_color_manual(values = school_colors)
+
+# Popularity
+ggplot(mooc_data, aes(x=Full_Title)) + geom_histogram(aes(fill = Institution)) + theme(axis.text.x=element_text(angle=90, size=9)) + scale_fill_manual(values = school_colors) + coord_flip() + theme_minimal()
+
+# Gender Enrollment
+ggplot(subset(mooc_data, (!is.na(gender) & gender != "Other")), aes(x=Full_Title)) + geom_histogram(aes(fill=gender), position="dodge", color="black") + theme_minimal() + theme(axis.text.x=element_text(angle=90, size=9)) + coord_flip()
+
+## CS50 is a pass/fail 0%/100% course
+mooc_summary <- mooc_data %>%
+  filter(!is.na(grade)) %>%
+  group_by(Full_Title, Institution) %>%
+  summarise(avg_grade = mean(grade),
+            n = n())
+
+ggplot(mooc_summary, aes(x=reorder(Full_Title, avg_grade), y=avg_grade)) + geom_bar(aes(fill=Institution), stat="identity") + theme(axis.text.x=element_text(angle=90, size=9)) + scale_fill_manual(values = school_colors) + coord_flip() + theme_minimal() + scale_y_continuous(labels=percent) 
+
+## What about among Active Users?
+mooc_summary <- mooc_data %>%
+  filter(!is.na(grade),
+         Active_User == "Yes") %>%
+  group_by(Full_Title, Institution) %>%
+  summarise(avg_grade = mean(grade),
+            n = n())
+
+ggplot(mooc_summary, aes(x=reorder(Full_Title, avg_grade), y=avg_grade)) + geom_bar(aes(fill=Institution), stat="identity") + theme(axis.text.x=element_text(angle=90, size=9)) + scale_fill_manual(values = school_colors) + coord_flip() + theme_minimal() + scale_y_continuous(labels=percent) 
+
+
+# Events to grades
+ggplot(mooc_data, aes(x=nevents, y=grade)) + geom_jitter(alpha=1/10)
+
+ggplot(mooc_data, aes(x=nplay_video, y=grade)) + geom_jitter(alpha=1/10)
+
+ggplot(mooc_data, aes(x=ndays_act, y=grade)) + geom_jitter(alpha=1/10)
+
+ggplot(mooc_data, aes(x=nchapters, y=grade)) + geom_jitter(alpha=1/10)
+
+ggplot(mooc_data, aes(x=nforum_posts, y=grade)) + geom_jitter(alpha=1/10)
+
+ggplot(subset(mooc_data, Age > 5), aes(x=Age, y=grade)) + geom_jitter(alpha=1/10) + scale_x_continuous(breaks = seq(5, 80, by=5)) + theme_minimal()
+
+# ggplot(subset(mooc_data, Age > 10), aes(x=Age)) + geom_histogram(binwidth=1, color="black", fill="orange") + scale_x_continuous(breaks=seq(10, 85, 5)) + scale_y_continuous(labels=comma)
+
+table(mooc_data$gender) # Only 17 gender marked as "Other"; leaving out for plotting
+
+
+
+# Certified percentages
+ggplot(mooc_data, aes(x=certified, y=..count../sum(..count..))) + geom_bar() + scale_y_continuous(labels=percent)
+
+
+# Countries
+
+country_grade <- mooc_data %>%
+  filter(!is.na(grade)) %>%
+  group_by(Country) %>%
+  summarise(avg_grade = mean(grade))
+
+ggplot(country_grade, aes(x=reorder(Country, avg_grade), y=avg_grade)) + geom_bar(stat="identity") + coord_flip()
+
+# Education
+
+
+# Among Active Users, not much difference in avg grade per education level
+edu_grade <- mooc_data %>%
+  filter(!is.na(Level_of_Edu),
+         Active_User == "Yes") %>%
+  mutate(Level_of_Edu = factor(Level_of_Edu, levels = c("Less than Secondary", "Secondary", "Bachelor's", "Master's", "Doctorate"))) %>%
+  group_by(Level_of_Edu) %>%
+  summarise(avg_grade = mean(grade))
+
+ggplot(edu_grade, aes(x=Level_of_Edu, y=avg_grade)) + geom_bar(stat="identity")
+
+
+```
+
+# Final Plots
+
+```{r}
+## Overall
+cert <- mooc_data %>%
+  filter(!is.na(certified)) %>%
+  group_by(certified) %>%
+  summarise(n=n()) %>%
+  mutate(perc = n/sum(n))
+
+ggplot(cert, aes(x=certified, y=perc, fill=certified)) + 
+  geom_histogram(stat="identity", color="black") + 
+  scale_y_continuous(labels=percent) +
+  geom_text(aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")),
+            color="black", size=6, vjust = -0.1)
+
+## Popularity of courses.
+mooc_pop <- mooc_data %>%
+  group_by(Full_Title, Institution) %>%
+  summarise(n = n())
+
+ggplot(mooc_pop, aes(x=reorder(Full_Title, n), y=n, fill=Institution)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x=element_text(angle=90, size=9)) +
+  scale_fill_manual(values = school_colors) + 
+  coord_flip() + 
+  theme_minimal() + 
+  scale_y_continuous(labels=comma)
+
+
+ggplot(mooc_data, aes(x=Age)) + geom_bar(binwidth=1, fill="orange", color="black") + scale_x_continuous(breaks=seq(0, 85, 5)) + scale_y_continuous(labels=comma)
+
+age_grades <- mooc_data %>%
+  filter(!is.na(grade),
+         Active_User == "Yes",
+         Age > 5) %>%
+  group_by(Age) %>%
+  summarise(avg_grade = mean(grade),
+            median_grade = median(grade),
+            sd = sd(grade),
+            lower = min(grade),
+            upper = max(grade),
+            quant.25 = quantile(grade, probs=0.25, na.rm=TRUE),
+            quant.75 = quantile(grade, probs=0.75, na.rm=TRUE),
+            n = n())
+
+ggplot(age_grades, aes(x=Age, y=avg_grade)) + geom_point() + geom_line()
+
+
+p <- ggplot(age_grades, aes(x=Age, y=avg_grade)) + 
+  theme(plot.background = element_blank(),
+                panel.grid.minor = element_blank(),
+                panel.grid.major = element_blank(),
+                panel.border = element_blank(),
+                panel.background = element_blank(),
+                axis.ticks = element_blank(),
+                axis.title = element_blank()) +
+  geom_linerange(age_grades, mapping=aes(x=Age, ymin=lower, ymax=upper), colour = "wheat2", alpha=1, size=3) + 
+  geom_linerange(age_grades, mapping=aes(x=Age, ymin=quant.25, ymax=quant.75), colour = "wheat4", size=3) +
+  geom_line(age_grades, mapping=aes(x=Age, y=avg_grade, group=1)) +
+  geom_vline(xintercept = 12, colour = "wheat4", linetype=1, size=1, hjust=0) + 
+  geom_hline(yintercept=seq(0, 1, 0.1), color="white", linetype=1) 
+
+dottedAges <- seq(15, 75, 10) 
+
+p <- p + geom_vline(xintercept = dottedAges, color="wheat4", linetype=3, size=0.5)
+
+p + coord_cartesian(ylim = c(0,1.02)) +
+  scale_y_continuous(labels=percent) +
+  scale_x_continuous(breaks=seq(12, 82, 5), expand=c(0,0) ) +
+  ggtitle("Grades") +
+  theme(plot.title=element_text(face="bold",hjust=0,vjust=.8,color="#3C3C3C",size=20)) + 
+  annotate("text", x=14, y=1, label="by Age", size=4, fontface="bold") + 
+  annotate("text", x=25, y=.25,   label="Data represents average grades at each age from ages", size=3, color="gray30") + 
+    annotate("text", x=25, y=.23, label="12 to 79. Lighter outer bands show the min/max grade ", size=3, color="gray30") +
+    annotate("text", x=25, y=.21, label="for each age, and darker inner bands show the IQR.  ", size=3, color="gray30")
+
+
+## Most students who register have a bachelor's
+edu <- mooc_data %>%
+  filter(!is.na(Level_of_Edu)) %>%
+  group_by(Level_of_Edu) %>%
+  summarise(n=n()) %>%
+  mutate(Level_of_Edu = factor(Level_of_Edu, levels = c("Less than Secondary", "Secondary", "Bachelor's", "Master's", "Doctorate")),
+         perc = n/sum(n))
+
+e1 <- ggplot(edu, aes(x=Level_of_Edu, y=perc)) + 
+  geom_bar(stat="identity", fill="#A31F34") +
+  scale_y_continuous(labels=percent, limits=c(0, 0.50)) + 
+  geom_text(aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")),
+            color="black", size=5, vjust = -0.1)  +
+  ggtitle("Any Registered Student") + 
+  theme_minimal()
+
+edu2 <- mooc_data %>%
+  filter(!is.na(Level_of_Edu),
+         Active_User == "Yes") %>%
+  group_by(Level_of_Edu) %>%
+  summarise(n=n()) %>%
+  mutate(Level_of_Edu = factor(Level_of_Edu, levels = c("Less than Secondary", "Secondary", "Bachelor's", "Master's", "Doctorate")),
+         perc = n/sum(n))
+
+e2 <- ggplot(edu2, aes(x=Level_of_Edu, y=perc)) +
+  geom_bar(stat="identity", fill="#A31F34") +
+  scale_y_continuous(labels=percent, limits=c(0, 0.50)) + 
+  geom_text(aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")),
+            color="black", size=5, vjust = -0.1) + 
+  ggtitle("Active Users") + 
+  theme_minimal()
+
+## When looking at Active Users, higher education 
+grid.arrange(e1, e2)
+
+########Active Users #############
+
+ggplot(mooc_summary, aes(x=reorder(Full_Title, avg_grade), y=avg_grade)) + geom_bar(aes(fill=Institution), stat="identity") + theme(axis.text.x=element_text(angle=90, size=9)) + scale_fill_manual(values = school_colors) + coord_flip() + theme_minimal() + scale_y_continuous(labels=percent) 
+
+
+mooc_gender_active <- mooc_data %>%
+  filter(!is.na(gender),
+         gender != "Other",
+         Active_User == "Yes") %>%
+  group_by(gender) %>%
+  summarise(avg_grade = mean(grade, na.rm=TRUE),
+            n=n())
+
+# Grades among active users by gender
+ggplot(mooc_gender_active, aes(x=gender)) + geom_bar(aes(fill=gender, y=avg_grade), stat="identity") +
+  coord_flip() + 
+  scale_y_continuous(labels=percent) +
+  geom_text(aes(family="mono", fontface="bold", y=avg_grade, label=paste(round(avg_grade, 3)*100, "%", sep="")),
+            color="white", size=10, hjust=1)
+
+######## Gender ################
+
+## Gender differences in completing courses
+mooc_gender <- mooc_data %>%
+  filter(!is.na(gender),
+         gender != "Other") %>%
+  group_by(certified, gender) %>%
+  summarise(n=n()) %>%
+  group_by(gender) %>%
+  mutate(percentage = n/sum(n))
+
+ggplot(mooc_gender, aes(x=certified, y=percentage, fill=certified)) + geom_bar(stat="identity", color="black") +
+  scale_y_continuous(labels=percent) + facet_wrap(~gender) + 
+  geom_text(aes(family="mono", fontface="bold", y=percentage, label=paste(round(percentage, 3)*100, "%", sep="")),
+            color="black", size=6, vjust = -0.1) +
+  theme_minimal()
+
+# Gender Enrollment
+
+gender_enroll <- mooc_data %>%
+  filter(!is.na(gender), 
+         gender != "Other") %>%
+  group_by(Full_Title, gender) %>%
+  summarise(n = n()) 
+
+ggplot(gender_enroll, aes(x=reorder(Full_Title, n), y=n, fill=gender) ) +
+  geom_bar(stat="identity", position="dodge", color="black") +
+  theme_minimal() +
+  coord_flip() + 
+  scale_y_continuous(labels=comma)
+
+############## Country #############
+
+country_grade <- mooc_data %>%
+  filter(!is.na(grade),
+         Active_User == "Yes") %>%
+  group_by(Country) %>%
+  summarise(avg_grade = mean(grade))
+
+ggplot(country_grade, aes(x=reorder(Country, avg_grade), y=avg_grade)) + geom_bar(stat="identity", fill="#A31F34") + coord_flip() + scale_y_continuous(labels = percent) + 
+  geom_text(aes(family="mono", fontface="bold", y=avg_grade, label=paste(round(avg_grade, 3)*100, "%", sep="")),
+            color="white", size=3, hjust=1.5) + 
+  theme_minimal()
+
+country_cert <- mooc_data %>%
+  group_by(Country, certified) %>%
+  summarise(n = n()) %>%
+  group_by(Country) %>%
+  mutate(perc = n/sum(n))
+
+ggplot(subset(country_cert, certified=="Yes"), aes(x=reorder(Country, perc), y=perc)) + geom_bar(stat="identity", fill="#A31F34") + coord_flip() + scale_y_continuous(labels = percent) + 
+  geom_text(aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")),
+            color="white", size=3, hjust=1.5) + 
+  theme_minimal()
+
+country_age <- mooc_data %>%
+  filter(!is.na(Age)) %>%
+  group_by(Country) %>%
+  summarise(avg_age = mean(Age)) 
+
+ggplot(country_age, aes(x=reorder(Country, avg_age), y=avg_age)) + geom_bar(stat="identity", fill="#A31F34") + coord_flip() + geom_text(aes(family="mono", fontface="bold", y=avg_age, label=round(avg_age, 2)),
+            color="white", size=3, hjust=1.5) 
+
+```
+
+
+```{r}
+# http://web.mit.edu/graphicidentity/colors.html
+MIT_hex <- "#A31F34"
+MIT_accent <- "#8A8B8C"
+
+# http://www.hbs.edu/marketing/color.html
+Harvard_hex <- "#A41034"
+Harvard_accent <- "#faae53"
+
+```
+
+[1] http://newsoffice.mit.edu/2014/mit-and-harvard-release-de-identified-learning-data-open-online-courses
+
+[2] http://thedata.harvard.edu/dvn/dv/mxhx
