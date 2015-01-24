@@ -29,9 +29,9 @@ The data contains records from 476,532 students covering 641,138 separate course
 
 ## Initial Exploration
 
-When exploring a new dataset, it's always a good idea to look at the structure with str(). 
-
 This data set provides demographic and anonymized online activity data, including grades.
+
+When exploring a new dataset, it's always a good idea to look at the structure with str(). 
 
 ```{r load_data, warning=FALSE,message=FALSE}
 
@@ -41,14 +41,13 @@ mooc_data <- tbl_df(read.csv("HMXPC13_DI_v2_5-14-14.csv", na.strings = c("NA", "
 dim(mooc_data)
 
 str(mooc_data)
-
-
-
 ```
 
 The exact meanings of the variables can looked up in the "Person Course Documentation.pdf". First, let's tidy up the data a bit by separating course_id, which contains 3 different types of information, into 3 separate columns. We can also add Age using the user-provided birth year. [2]
 
 We will then add the full title of the courses based on the Course Codes from the "Person Course Documentation.pdf".
+
+![MITx/HarvardX Course Descriptions](mitx-harvardx-courses.png)
 
 ```{r warning=FALSE,message=FALSE}
 levels(mooc_data$course_id)
