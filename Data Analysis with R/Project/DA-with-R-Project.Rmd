@@ -20,18 +20,21 @@ library(gridExtra)
 library(extrafont)
 ```
 
+[Github Source Code](https://github.com/FCH808/FCH808.github.io/tree/master/Data%20Analysis%20with%20R/Project) and [Up-to-date Nanodegree Projects](http://fch808.github.io/) are available.
+
 ## Introduction
 
-On May 30, 2014 MIT and Harvard released de-identified data from 13 HarvardX and MITx courses offered in 2012-13.[1]
+EdX is a massive open online course (MOOC) provider and nonprofit online learning provider. It is available world-wide, mostly at no charge. Along with [Coursera](https://www.coursera.org/)  and [Udacity](https://www.udacity.com/) , it is one of three major MOOC providers. Edx was founded by MIT and Harvard in May 2012 and as of October 22, 2014, has over 3 million users taking 300 offered courses online. [[1]](http://en.wikipedia.org/wiki/EdX) 
 
-The data contains records from 476,532 students covering 641,138 separate course registrations.[2]
+On May 30, 2014 MIT and Harvard released de-identified data from 13 HarvardX and MITx courses offered in the inaugural 2012-13 time period.[[2]](http://newsoffice.mit.edu/2014/mit-and-harvard-release-de-identified-learning-data-open-online-courses) 
 
+This data contains records from 476,532 students covering 641,138 separate course registrations.[[3]](http://thedata.harvard.edu/dvn/dv/mxhx) 
 
-## Initial Exploration
+## Initial Exploration and Data Cleanup
 
-This data set provides demographic and anonymized online activity data, including grades.
+This data set provides demographic and anonymized online activity data, including final grades.
 
-When exploring a new dataset, it's always a good idea to look at the structure with str(). 
+When exploring a new dataset, it's always a good idea to start with a look at the structure of the data with str(). 
 
 ```{r load_data, warning=FALSE,message=FALSE}
 
@@ -43,7 +46,7 @@ dim(mooc_data)
 str(mooc_data)
 ```
 
-The exact meanings of the variables can looked up in the "Person Course Documentation.pdf". First, let's tidy up the data a bit by separating course_id, which contains 3 different types of information, into 3 separate columns. We can also add Age using the user-provided birth year. [2]
+The exact meanings of the variables can looked up in the "Person Course Documentation.pdf". First, let's tidy up the data a bit by separating course_id, which contains 3 different types of information, into 3 separate columns. We can also add Age using the user-provided birth year. [3]
 
 We will then add the full title of the courses based on the Course Codes from the "Person Course Documentation.pdf".
 
@@ -64,15 +67,15 @@ mooc_data <- mooc_data %>%
          certified = factor(certified, labels=c("No", "Yes")),
          Level_of_Edu = factor(Level_of_Edu, levels = c("Less than Secondary", "Secondary", "Bachelor's", "Master's", "Doctorate")))
 
-## Add in full course titles from codebook.[2]
+## Add in full course titles from codebook.[3]
 course_names <- data.frame("Course_Code" = factor(c("CB22x", "CS50x", "ER22x", "PH207x", "PH278x", "14.73x",
                                              "2.01x", "3.091x", "6.002x", "6.00x", "7.00x", "8.02x", "8.MReV")),
                            "Full_Title" = c("The Ancient Greek Hero", "Intro to Computer Science I",
-                                            "Justice", "Health in Numbers: Quant. Methods", 
-                                            "Human Health & Global Envir. Change",
-                                            "The Challenges of Global Poverty", "Elements of Structures",
-                                            "Intro to Solid State Chemistry", "Circuits and Electronics",
-                                            "Intro to C.S. and Programming", "Intro to Biology",
+                                            "Justice", "Health in #'s: Quant. Methods", 
+                                            "Human Hlth & Glob Envir Chng",
+                                            "Challenges of Glob. Poverty", "Elements of Structures",
+                                            "Intro to Solid State Chem.", "Circuits and Electronics",
+                                            "Intro to C.S. & Programming", "Intro to Biology",
                                             "Electricity and Magnetism", "Mechanics Review"))
 
 mooc_data <- left_join(mooc_data, course_names, by="Course_Code")
@@ -327,7 +330,7 @@ ggplot(subset(mooc_data, !is.na(Active_User)), aes(x=Active_User)) + geom_histog
 
 ```
 
-## Multivariate
+## Multivariate Exploration
 
 ```{r warning=FALSE,message=FALSE}
 
@@ -423,6 +426,11 @@ ggplot(mooc_data, aes(x=nforum_posts, y=grade)) + geom_jitter(alpha=1/10)
 
 ```{r, warning=FALSE, message=FALSE}
 
+# Age and gender
+# Summary Statistics for Age by gender are very similar.
+by(mooc_data$Age, mooc_data$gender, summary)
+
+
 # Certified percentages
 ggplot(mooc_data, aes(x=certified, y=..count../sum(..count..))) + geom_bar() + scale_y_continuous(labels=percent)
 
@@ -432,11 +440,9 @@ country_grade <- mooc_data %>%
   filter(!is.na(grade)) %>%
   group_by(Country) %>%
   summarise(avg_grade = mean(grade))
+
 # Average grade
-
 ggplot(country_grade, aes(x=reorder(Country, avg_grade), y=avg_grade)) + geom_bar(stat="identity") + coord_flip()
-
-# Education
 
 # Among Active Users, there isn't much of a difference in final grades distributions
 edu_grade <- mooc_data %>%
@@ -487,7 +493,7 @@ cert <- mooc_data %>%
   summarise(n=n()) %>%
   mutate(perc = n/sum(n))
 
-ggplot(cert, aes(x=certified, y=perc, fill=certified)) + 
+completion <- ggplot(cert, aes(x=certified, y=perc, fill=certified)) + 
   geom_histogram(stat="identity", color="black") + 
   scale_y_continuous(labels=percent) +
   geom_text(aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")),
@@ -496,6 +502,7 @@ ggplot(cert, aes(x=certified, y=perc, fill=certified)) +
   ggtitle("Percentage of Registered Students\nThat Earned Certificates") + xlab("Earned Certification?") + ylab("Percentage Who Earned Certification") +
   theme(text=element_text(family="mono"))
   
+completion
 ```
 
 Female students had a slightly higher course completion percentage, but overall, there wasn't a large difference in completion rate between the sexes.
@@ -529,14 +536,16 @@ country_cert <- mooc_data %>%
   group_by(Country) %>%
   mutate(perc = n/sum(n))
 
-ggplot(subset(country_cert, certified=="Yes"), aes(x=reorder(Country, perc), y=perc)) +
+completionCountry <- ggplot(subset(country_cert, certified=="Yes"), aes(x=reorder(Country, perc), y=perc)) +
   geom_bar(stat="identity", fill="#A31F34") +
   coord_flip() +
   scale_y_continuous(labels = percent) + 
   geom_text(aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")),
             color="white", size=3, hjust=1.5) + 
-  theme_minimal() + ggtitle("Course Completion Percentage by Country") +
+  theme_minimal() + ggtitle("Course Completion % by Country") +
   theme(text=element_text(family="Calibri")) + ylab("Percentage Who Earned Certification") + xlab("Country")
+
+completionCountry
 
 ```
 
@@ -551,7 +560,7 @@ mooc_pop <- mooc_data %>%
   group_by(Full_Title, Institution) %>%
   summarise(n = n())
 
-ggplot(mooc_pop, aes(x=reorder(Full_Title, n), y=n, fill=Institution)) +
+popAll <- ggplot(mooc_pop, aes(x=reorder(Full_Title, n), y=n, fill=Institution)) +
   geom_bar(stat="identity") +
   theme(axis.text.x=element_text(angle=90, size=9)) +
   scale_fill_manual(values = school_colors) + 
@@ -560,6 +569,8 @@ ggplot(mooc_pop, aes(x=reorder(Full_Title, n), y=n, fill=Institution)) +
   scale_y_continuous(labels=comma) + 
   ggtitle("Number of Registered Users per Course") + xlab("Course Name") + ylab("# of Regsitered Users") +
   theme(text=element_text(family="Calibri"))
+
+popAll
 ```
 
 Almost 3 times more males registered for courses than females.
@@ -593,12 +604,38 @@ ge1 <- ggplot(gender_enroll, aes(x=reorder(Full_Title, n), y=n, fill=gender) ) +
   theme_minimal() +
   coord_flip() + 
   scale_y_continuous(labels=comma) +
-  scale_fill_manual(values=c("#CC79A7", "#56B4E9")) + 
-  ggtitle("Course Enrollment by Gender") + xlab("Course Name") + ylab("# of Enrollments")
+  scale_fill_manual(values=c("#CC79A7", "#56B4E9"), name="Gender") + 
+  ggtitle("Course Enrollment by Gender") + xlab("Course Name") + ylab("# of Enrollments") + 
+  theme(text=element_text(family="Calibri"))
 
 ge1
 
 ```
+
+The U.S. has by far the most registered students (28.7%), with India(13.8%) and Unknown/Other(12.8%) being the 2nd and 3rd most popular choices for country.
+
+
+```{r,message=FALSE,warning=FALSE}
+country_pop <- mooc_data %>%
+  group_by(Country) %>%
+  summarise(n = n()) %>%
+  mutate(perc = n/sum(n)) %>%
+  arrange(-n)
+
+countryEnroll <- ggplot(country_pop, aes(x=reorder(Country, n), y=n) ) +
+  geom_bar(stat="identity", position="dodge", color="black", fill="#A31F34") +
+  theme_minimal() +
+  coord_flip() + 
+  scale_y_continuous(labels=comma, breaks=seq(0, 200000, 25000), limits=c(0, 200000)) +
+  ggtitle("Course Enrollment by Country") + xlab("Country") + ylab("# of Enrollments") + 
+  theme(text=element_text(family="Calibri"), axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_text(aes(family="mono", fontface="bold", y=n, label=paste(round(perc, 3)*100, "%", sep="")),
+            color="black", size=3, hjust=-.1)
+
+countryEnroll
+
+```
+
 
 # Age
 
@@ -618,6 +655,39 @@ ggplot(mooc_data, aes(x=Age)) +
 
 ```
 
+If we look at a density plot of the distributions of age by gender (for those over 10 years of age), we can see more male students in the 17-22 age range, and more women in the 25-30 year old range.
+
+```{r, warning=FALSE,message=FALSE}
+ggplot(subset(mooc_data, gender != "Other" & Age > 10), aes(x=Age, fill=gender)) + 
+  geom_density(binwidth=1, alpha=0.2) +  
+  #coord_cartesian(xlim=c(12, 60))
+  scale_x_continuous(breaks=seq(0, 85, 5)) + 
+  scale_y_continuous(labels=percent) +
+  scale_fill_manual(values=c("#CC79A7", "#56B4E9")) + 
+  ggtitle("Distribution of Ages for Registered Students by Gender") + xlab("Age") + ylab("Count") + 
+  theme(text=element_text(family="Calibri")) + 
+  theme_minimal()
+
+```
+
+When we look at active users, this difference becomes much more apparent. The male percentage of students peaks at 21, while female percentage peaks at around 27. This will prove to be important information when we look at the distribution of education levels among genders.
+
+
+```{r}
+ageGender <- ggplot(subset(mooc_data, gender != "Other" & Age > 10 & Active_User == "Active"), aes(x=Age, fill=gender)) + 
+  geom_density(binwidth=1, alpha=0.5) +  
+  scale_x_continuous(breaks=seq(10, 85, 5)) + 
+  scale_y_continuous(labels=percent) +
+  scale_fill_manual(values=c("#CC79A7", "#56B4E9")) + 
+  ggtitle("Distribution of Ages for Registered Students by Gender\n for Active Students over 10 years of age") + xlab("Age") + ylab("Count") + 
+  theme(text=element_text(family="Calibri")) + 
+  theme_minimal()
+
+ageGender
+
+```
+
+
 The U.S., Spain, Nigeria, and Japan had the oldest population of registered students while Morocco, Egypt, and India had the youngest populations of registered students.
 
 ```{r,message=FALSE,warning=FALSE}
@@ -626,14 +696,16 @@ country_age <- mooc_data %>%
   group_by(Country) %>%
   summarise(avg_age = mean(Age)) 
 
-ggplot(country_age, aes(x=reorder(Country, avg_age), y=avg_age)) +
+countryAge <- ggplot(country_age, aes(x=reorder(Country, avg_age), y=avg_age)) +
   geom_bar(stat="identity", fill="#A31F34") +
   coord_flip(ylim=c(22, 34)) +
   geom_text(aes(family="mono", fontface="bold", y=avg_age, 
                 label=round(avg_age, 2)), color="white", size=3, hjust=1.2) +
-  ggtitle("Average Age for Registered Users by Country") + xlab("Country") + ylab("Average Age") + 
+  ggtitle("Avg. Age for Registered Users by Country") + xlab("Country") + ylab("Average Age") + 
   theme(text=element_text(family="Calibri"))
 
+
+countryAge
 ```
 
 # Education
@@ -678,7 +750,7 @@ e2 <- ggplot(edu2, aes(x=Level_of_Edu, y=perc)) +
 grid.arrange(e1, e2)
 ```
 
-Within each gender, males have noticeably higher percentages of registered students in Secondary school and while female have higher percentages of students with master's degrees. This difference becomes more pronounced among active users.
+Within each gender, males have noticeably higher percentages of registered students in Secondary school and while female have higher percentages of students with master's degrees. This difference becomes more pronounced among active users. This shouldn't be too surprising since the density percentage of males peaked around 21, while females peaked around 27.
 
 ```{r, message=FALSE, warning=FALSE, fig.height=8, fig.width=12}
 
@@ -690,20 +762,6 @@ mooc_edu1 <- mooc_data %>%
   summarize(n=n()) %>%
   mutate(perc = n/sum(n))
 
-e3 <- ggplot(mooc_edu1, aes(x=Level_of_Edu, y=perc, fill=gender)) + geom_bar(stat="identity", position="dodge", color="black") +
-  scale_fill_manual(values=c("#CC79A7", "#56B4E9")) +  
-  geom_text(data=subset(mooc_edu1, gender=="Female"), 
-            aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")), 
-            color="#CC79A7", size=4, vjust = -0.2, hjust=1.3) +
-  geom_text(data=subset(mooc_edu1, gender=="Male"), 
-            aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")), 
-            color="#56B4E9", size=4, vjust = -0.2, hjust=-0.3) +
-  scale_y_continuous(labels=percent, breaks=seq(0,0.45,0.05), limits=c(0, 0.45)) + 
-  theme_minimal() + 
-  theme(text=element_text(family="Calibri")) + 
-  ggtitle("Percentage with each Education Level within each Gender for All Registered Students") +
-  ylab("Percentage within Gender") + xlab("Level of Education")
-
 mooc_edu2 <- mooc_data %>%
   filter(!is.na(Level_of_Edu),
          !is.na(gender),
@@ -713,19 +771,25 @@ mooc_edu2 <- mooc_data %>%
   summarize(n=n()) %>%
   mutate(perc = n/sum(n))
 
-e4 <- ggplot(mooc_edu2, aes(x=Level_of_Edu, y=perc, fill=gender)) + geom_bar(stat="identity", position="dodge", color="black") +
+plotEdu <- function(data=NULL, Title=NULL){
+  ggplot(data, aes(x=Level_of_Edu, y=perc, fill=gender)) +
+  geom_bar(stat="identity", position="dodge", color="black") +
   scale_fill_manual(values=c("#CC79A7", "#56B4E9")) +  
-  geom_text(data=subset(mooc_edu2, gender=="Female"), 
+  geom_text(data=subset(data, gender=="Female"), 
             aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")), 
             color="#CC79A7", size=4, vjust = -0.2, hjust=1.3) +
-  geom_text(data=subset(mooc_edu2, gender=="Male"), 
+  geom_text(data=subset(data, gender=="Male"), 
             aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")), 
             color="#56B4E9", size=4, vjust = -0.2, hjust=-0.3) +
   scale_y_continuous(labels=percent, breaks=seq(0,0.45,0.05), limits=c(0, 0.45)) + 
   theme_minimal() + 
   theme(text=element_text(family="Calibri")) + 
-  ggtitle("Percentage with each Education Level within each Gender for Active Students") +
+  ggtitle(Title) +
   ylab("Percentage within Gender") + xlab("Level of Education")
+}
+
+e3 <- plotEdu(data=mooc_edu1, Title="Percentage with each Education Level within each Gender for All Registered Students")
+e4 <- plotEdu(data=mooc_edu2, Title="Percentage with each Education Level within each Gender for Active Students")
 
 grid.arrange(e3, e4)
 
@@ -781,9 +845,10 @@ ge2 <- ggplot(mooc_gender_active, aes(x=reorder(Full_Title, avg_grade), y=avg_gr
   theme_minimal() +
   coord_flip() + 
   scale_y_continuous(labels=percent, breaks=seq(0, 1, 0.1)) +
-  scale_fill_manual(values=c("#CC79A7", "#56B4E9")) + 
+  scale_fill_manual(values=c("#CC79A7", "#56B4E9"), name="Gender") + 
   ggtitle("Average Grades per Course by Gender for Active Users") + xlab("Course Name") + ylab("Average Grade in Course") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(text=element_text(family="Calibri"))
 
 ge2
 ```
@@ -843,7 +908,7 @@ Averages grades for the different levels of education for active users showed la
 
 
 ```{r, message=FALSE, warning=FALSE}
-ggplot(subset(mooc_data, Active_User == "Active" & !is.na(Level_of_Edu)), aes(x=Level_of_Edu, y=grade, fill=Level_of_Edu)) +
+gradesEdu <- ggplot(subset(mooc_data, Active_User == "Active" & !is.na(Level_of_Edu)), aes(x=Level_of_Edu, y=grade, fill=Level_of_Edu)) +
   geom_boxplot() +
   scale_y_continuous(breaks=seq(0, 1, .05), labels=percent) +
   scale_fill_brewer(type="seq", palette=5, name="Education Level", guide=FALSE) + 
@@ -855,6 +920,7 @@ ggplot(subset(mooc_data, Active_User == "Active" & !is.na(Level_of_Edu)), aes(x=
   ylab("Grade") + xlab("Level of Education") +
   theme(text=element_text(family="Calibri"))
 
+gradesEdu
 ```
 
 If we look at just those who earned a certificate, this progression in average grades by education level continues.
@@ -882,38 +948,127 @@ country_grade <- mooc_data %>%
   group_by(Country) %>%
   summarise(avg_grade = mean(grade))
 
-ggplot(country_grade, aes(x=reorder(Country, avg_grade), y=avg_grade)) + 
+gradesCountry <- ggplot(country_grade, aes(x=reorder(Country, avg_grade), y=avg_grade)) + 
   geom_bar(stat="identity", fill="#A31F34") +
   coord_flip() +
   scale_y_continuous(labels = percent) + 
   geom_text(aes(family="mono", fontface="bold", y=avg_grade, 
                 label=paste(round(avg_grade, 3)*100, "%", sep="")), color="white", size=3, hjust=1.5) + 
   theme_minimal() + 
-  ggtitle("Average Grades by Country for Active Users") + ylab("Average Grade") + xlab("Country")
+  ggtitle("Avg. Grades by Country for Active Users") + ylab("Average Grade") + xlab("Country") + 
+  theme(text=element_text(family="Calibri"))
 
+gradesCountry
 ```
 
 
-# Final Plots
+# Final Plots and Summary
 
-```{r, warning=FALSE, message=FALSE}
+Finally, I would like to summarize with a few main questions about the student cohort who attended 13 of edX's inaugural courses offered from 2012-2013. [[2]](http://newsoffice.mit.edu/2014/mit-and-harvard-release-de-identified-learning-data-open-online-courses) 
 
+### What courses are popular?
 
-```
+The most popular courses by far were Intro to Computer Science courses offered by both MITx and HarvardX. These two courses alone accounted for almost 300,000 (45.9%) of all registrations. 
 
-
-```{r, warning=FALSE, message=FALSE}
-
-grid.arrange(ge1, ge2, ncol=1)
-
-```
+Among males, these courses dominated the registration numbers. While females on the other hand were more evenly distributed through the offered humanities courses as well.
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.height=10,fig.width=12}
+grid.arrange(popAll, ge1)
 
 ```
 
+### How do the students differ in gender, age, and education?
 
-[1] http://newsoffice.mit.edu/2014/mit-and-harvard-release-de-identified-learning-data-open-online-courses
+First, from this point on we will look mostly at active users since a massive portion of students for MOOC's will register, but never log in to class or show almost no activity. We define "active students" fairly loosely as meeting 4 criteria:
 
-[2] http://thedata.harvard.edu/dvn/dv/mxhx
+1. Viewed the Courseware section containing lectures, quizzes, and readings at least once.
+2. Had at least 1 interaction with the the course beyond registration.
+3. Explored at least 1/2 of the chapters of the course in the Courseware.
+4. Had a final grade that was at least more than 0.0%.
+
+Males and females were very similar in average ages (Female:29.5, Male:28.6), but the distributions of those ages varied by a non-trivial amount. Males had the highest age density at around 21 years of age, while females peaked in density of ages at around 27. 
+
+This difference in distribution seemed to manifest itself in the education levels as well, with a higher percentage of females having post-graduate degrees, while a higher percentage of males had only Secondary school educations so far. This is presumably due in part to the difference in age distributions.
+
+```{r, warning=FALSE, message=FALSE, fig.height=10, fig.width=12}
+grid.arrange(ageGender, e4)
+```
+
+### How are grades distributed?
+
+Among active users, females tended to do better in the online courses. The average overall difference was +1.8% for females, but after viewing the breakdown per course, this difference may have been artificially smaller due in part to Intro to Computer Science I.
+
+This course was pass/fail with the active users averaging 100% (Since one condition was not getting a 0.0%) and had a much larger number of males taking the course. This lack of a continuum from 0% to 100%, coupled with the larger numbers of registrants may have artifically inflated average scores for males a bit.
+
+If we filter out this course, the difference becomes +3.3% for females. While this is still not a large difference, this helps to explain some discrepancies between the course breakdown of grades, and overall grades.
+
+We can also see that having a post-graduate degree translates into higher median scores, while the average (dark diamonds in boxplots) stays fairly equal. This might possibly help explain the bump in grades for the slightly older, slightly more educated female population. 
+
+
+```{r, warning=FALSE, message=FALSE, fig.height=10, fig.width=12}
+grid.arrange(ge2, gradesEdu)
+```
+
+### How do countries differ?
+
+EdX is globally available with a very low barrier for entry. This presents an opportunity for education in many places where it might not be available locally or where economic resources may be scarce. 
+
+The U.S. and India were the two largest sources of registered students making up nearly half (42.5%) of all registrations.
+
+Overall, only about 2.8% of students who registered completed the course and earned a certificate. Spain and Poland nearly tripled the average completion rate, with Greece and the Russian Federation doubling the average certification rate. Interestingly, the U.S., which had by the far most registrations, only had a 2.4% certification rate, slightly below the overall average.
+
+```{r, warning=FALSE, message=FALSE, fig.height=10,fig.width=12}
+grid.arrange(countryEnroll, completionCountry)
+```
+
+As far as average grades go, four of the top six certification percentage countries(Germany, Russian Federation, Portugal, Spain) also had the highest average scores across all courses.
+
+Interestingly, many of these top performing countries were also younger on average, with the U.S. and Spain being the only countries with average ages over 30.
+
+```{r, warning=FALSE, message=FALSE, fig.height=10,fig.width=12}
+grid.arrange(gradesCountry, countryAge)
+```
+
+
+# Reflection
+
+## Issues
+
+This dataset was not completely clean, with about 15.6% of records showing some inconsistency between log tables of different variables. 
+
+Also, there were many fields that were NA, which may or may not have been missing at random. This could naturally affect any conclusions drawn. 
+
+I would also have liked to have had temporal data rather than metadata for variables like total number of events, video plays, etc. This would have made for better data for possibly creating a predictive model for student performance.
+
+I struggled a bit at first with exactly what I expected to learn from this dataset. I had initially thought number of forums posts or some such behavior activity might show more apparent correlations. 
+
+It really helped to just systematically go through each variable with some quick and dirty plots and see what the data showed me. There is still much to be learned from this dataset, and more questions to find and answer.
+
+## Conclusion
+
+Overall, males and females appear to be fairly equal in final grades when taking education levels and age into account. But there is still a very large difference in which genders take which courses.
+
+Computer Science courses are heavily favored by males, even though females do just as well or slightly better when it comes to final grades. 
+
+There was more variety than expected across many countries, with the U.S. showing more much initial registration interest, but other countries being more committed.
+
+Having completed many courses in the 3 top MOOC platforms, EdX, Coursera, and Udacity, I was really interested in this MOOC dataset. It was interesting to see where I fall in the different distributions.
+
+I am also guilty of contributing to some of the non-certification statistics. Given the low barrier for entry (and exit), it is easy to look for interesting/relevant courses, register, and just "check them out" without having to worry about any financial loss like in traditional courses if you don't decide that it's what you needed. 
+
+This has really helped me flesh out my varied interests in data analytics. I look forward to analyzing more intriguing datasets in the future, and hope you found some of the insights into this dataset as interesting as I did.
+
+
+
+# References
+
+[1] http://en.Wikipedia.org/wiki/EdX
+
+[2] http://newsoffice.mit.edu/2014/mit-and-harvard-release-de-identified-learning-data-open-online-courses
+
+[3] http://thedata.harvard.edu/dvn/dv/mxhx
+
+[Github Source Code](https://github.com/FCH808/FCH808.github.io/tree/master/Data%20Analysis%20with%20R/Project)
+
+[Nanodegree Projects](http://fch808.github.io/)
