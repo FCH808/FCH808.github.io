@@ -1692,7 +1692,7 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Data used -<a href=https://mapzen.com/metro-extracts/> MapZen Weekly OpenStreetMaps Metro Extracts</a></p>
-<p>Data Cleaning Sourcecode: <a href=http://fch808.github.io/Data%20Wrangling%20with%20MongoDB%20-%20Code.html>ipython notebook</a>, <a href=https://github.com/FCH808/FCH808.github.io/tree/master/Data%20Wrangling%20with%20MongoDB>github</a></p>
+<p>Data Cleaning Source Code: <a href=http://fch808.github.io/Data%20Wrangling%20with%20MongoDB%20-%20Code.html>ipython notebook</a>, <a href=https://github.com/FCH808/FCH808.github.io/tree/master/Data%20Wrangling%20with%20MongoDB>github</a></p>
 <p>My Nanodegree Portal: <a href=http://fch808.github.io/>fch808.github.io</a></p>
 <p>Map Areas: - <a href=https://s3.amazonaws.com/metro-extracts.mapzen.com/honolulu_hawaii.osm.bz2>Honolulu, HI, U.S.A. </a> - <a href=https://s3.amazonaws.com/metro-extracts.mapzen.com/albuquerque_new-mexico.osm.bz2> Albuquerque, NM, U.S.A. </a></p>
 </div>
@@ -1718,7 +1718,7 @@ div#notebook {
 </ol>
 <ul>
 <li><a href="#abbr">Address abbreviations</a></li>
-<li><a href="#zipcodes">Zipcodes</a></li>
+<li><a href="#zipcodes">Zip codes</a></li>
 <li><a href="#combine_cities">Combining multiple cities</a></li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
@@ -1759,7 +1759,7 @@ div#notebook {
 <ul>
 <li>Street names with different types of abbreviations. (i.e. 'Clark Ave SE' or 'Eubank Northeast Ste E-18')</li>
 <li>Inconsistent postal codes ('HI96826', '96826-0007', '89197')</li>
-<li>Two different cities needed to be accessed from one database</li>
+<li>Multiple cities needed to be accessed from one database</li>
 </ul>
 </div>
 </div>
@@ -1779,7 +1779,7 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="address-abbreviations"><strong>Address abbreviations</strong><a name="abbr"></a></h3>
-<p>The initial cleaning script used had a check for before and after address cleaning. This showed some new abbreviations which needed to be accounted for, such as directions (S,E,SE,etc) and location specific (Ste,Lp,etc.)</p>
+<p>The initial cleaning script had a check for before and after address cleaning. This showed some new abbreviations which needed to be accounted for, such as directions (S,E,SE,etc) and location specific (Ste,Lp,etc.)</p>
 </div>
 </div>
 </div>
@@ -1831,7 +1831,7 @@ In&nbsp;[]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-<h3 id="zipcodes"><strong>Zipcodes</strong><a name="zipcodes"></a></h3>
+<h3 id="zip-codes"><strong>Zip codes</strong><a name="zipcodes"></a></h3>
 </div>
 </div>
 </div>
@@ -1840,8 +1840,8 @@ In&nbsp;[]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Initially, some cleanup is needed for the zipcodes. This includes 1. Removing the 4 digit postcode suffix. 2. Removing state letters from postcode 3. Convert to int (not strictly required)</p>
-<p>After adding a zipcode cleaning function, all zipcodes adhered to a 5 digit code, but a few (such as 89197 and 87100) with only 1 entry may have been entered incorrectly since they may belong to other countries. <a name="pipeline_function"></a></p>
+<p>Initially, some cleanup was needed for the zip codes. This included 1. Removing the 4 digit postcode suffix. 2. Removing state letters from postcode 3. Converting to int (not strictly required)</p>
+<p>After adding a zip code cleaning function, all zip codes adhered to a 5 digit code, but a few (such as 89197 and 87100) with only 1 entry may have been entered incorrectly since they may belong to other countries. <a name="pipeline_function"></a></p>
 </div>
 </div>
 </div>
@@ -1920,8 +1920,8 @@ In&nbsp;[]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Two cities were chosen for this project. One city, Abluquerque, was my hometown, and the other, Honolulu, is where I had lived for the last 7 years. It would be interesting to compare the different distributions present in each city, and posed a small problem of modifying the initial MongoDB loading script to accomodate multiple cities.</p>
-<p>The solution was to add a 'city_name' tag name to be passed in with the json data when loading. We can also make use of projecting to clean up what's returned since we are having to match cities first, then group by multiple conditions.</p>
+<p>Two cities were chosen for this project. One city, Albuquerque, was my birth city, and the other, Honolulu, is where I had lived for the last 7 years. It would be interesting to compare the different distributions present in each city. This also posed a small problem of modifying the initial MongoDB loading script to accommodate multiple cities.</p>
+<p>The solution was to add a 'city_name' tag name to be passed in with the json data when loading. We could then easily add this key-value pair to each record. We can also make use of projections to clean up what's returned since we are having to match cities first, then group by multiple conditions.</p>
 </div>
 </div>
 </div>
@@ -2184,7 +2184,7 @@ In&nbsp;[1]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="additional-data-exploration-using-mongodb"><strong>3. Additional Data Exploration using MongoDB</strong><a name="exploration"></a></h2>
-<p>Since we are reusing the <a href="#pipeline_function">make_city_pipeline() function defined earlier</a> when examining zipcodes, we can just show the pipline that is passed in for our new MongoDB pymongo queries. Everything else would remain the same.</p>
+<p>Since we are reusing the <a href="#pipeline_function">make_city_pipeline() function defined earlier</a> when examining zip codes, we can just show the pipeline that is passed in for our new MongoDB pymongo queries. Everything else would remain the same.</p>
 </div>
 </div>
 </div>
@@ -2202,7 +2202,7 @@ In&nbsp;[1]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Parking is by far the most reported amenity in either city.</strong> In the U.S., we need to find places to park our automobiles, even on small islands.</p>
+<p><strong>Parking is by far the most reported amenity in either city.</strong> It seem that it is most important to find places to park our automobiles, even on small islands.</p>
 </div>
 </div>
 </div>
@@ -2317,7 +2317,7 @@ In&nbsp;[]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Religion is bigger and more one-sided in the Southwest.</strong> Albuquerque is very christian with plentiful churches. Honolulu doesn't report many churches and includes Buddhism as a major relative percentage.</p>
+<p><strong>Religion is bigger and more one-sided in the Southwest.</strong> Albuquerque is very Christian with plentiful churches. Honolulu doesn't report many churches and includes Buddhism as a major relative percentage of those entered.</p>
 </div>
 </div>
 </div>
@@ -2435,7 +2435,7 @@ In&nbsp;[]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Far-away cities have similar fast food entrenchment, until the third choice.</strong> Next, let's see who these chains are..</p>
+<p><strong>Far-away cities have similar types of fast food entrenchment, until the third choice.</strong> Next, let's see who these chains are..</p>
 </div>
 </div>
 </div>
@@ -2561,7 +2561,7 @@ In&nbsp;[]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Auto repair shops more popular in the expansive southwest.</strong> This makes sense since many more miles are put onto automobiles in the much larger state of New Mexico.</p>
+<p><strong>Auto repair shops are more popular in the expansive southwest.</strong> This makes sense since many more miles are put onto automobiles in the much larger state of New Mexico.</p>
 </div>
 </div>
 </div>
@@ -2620,7 +2620,7 @@ In&nbsp;[]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Most popular convenience stores are regional.</strong></p>
+<p><strong>The most popular convenience stores are regional.</strong></p>
 </div>
 </div>
 </div>
@@ -2696,10 +2696,11 @@ In&nbsp;[]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>When checking the output of the data as it was being cleaned, I found that a lot of the earlier data was already cleaned fairly well. This makes sense since these are weekly extracts of data. It was amazing to me how easily multiple cities could be aggregated, and how quickly new cleaning functions could be added into different substages of cleaning.</p>
+<p>When checking the output of the data as it was being cleaned, I found that a lot of the earlier data was already cleaned fairly well. This makes sense since these are weekly extracts of data so newer data would not have had time to be cleaned by anyone.</p>
+<p>It was also amazing to me how easily multiple cities could be aggregated, and how quickly new cleaning functions could be added into different sub-stages of cleaning.</p>
 <p>It doesn't seem that it would be too hard to flesh out more robust cleaning algorithms, and run a script semi-regularly to clean the data automatically.</p>
 <p>Also, I did not get a chance to use MongoDB's geospatial querying, but there is a fair amount of lat/lon data that might be able to use this type of querying.</p>
-<p>These two cities are fairly small when compared to other, more active cities in OpenStreetMap, so API pulls from other databases like google maps might be able to better populate points of interest for the less active areas.</p>
+<p>These two cities are fairly small when compared to other more active cities in OpenStreetMap, so API pulls from other databases like google maps might be able to better populate points of interest for the less active areas.</p>
 </div>
 </div>
 </div>
