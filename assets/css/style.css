@@ -465,13 +465,19 @@ img::-moz-selection{background:transparent;}
 }
 
 #Nanodegree .item p {
-    margin-top: 20px;
+    margin-top: 10px;
     color: #666;
 }
 
 #Nanodegree .item i {
     margin-bottom: 25px;
     color: #62C370;
+}
+
+.course_text {
+    margin-top: 5px;
+    padding-left: 15%;
+    text-align: left;
 }
 
 /* DATA SCIENCE SPEC */
@@ -495,7 +501,7 @@ img::-moz-selection{background:transparent;}
 }
 
 #DataSciSpec .item p {
-    margin-top: 20px;
+    margin-top: 10px;
     color: #666;
 }
 
