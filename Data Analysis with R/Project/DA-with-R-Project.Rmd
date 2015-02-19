@@ -4,6 +4,7 @@ author: "Fernando Hernandez"
 date: "Monday, January 19, 2015"
 output:
   html_document:
+    toc: true
     highlight: espresso
     theme: journal
   pdf_document: default
@@ -11,16 +12,27 @@ geometry: margin=1in
 fontsize: 10pt
 ---
 
-```{r libraries, message=FALSE, warning=FALSE}
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(scales)
-library(gridExtra)
-library(extrafont)
-```
+<style type="text/css">
+
+#TOC {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  overflow:auto;
+}
+body {
+  max-width: 1600px;
+  margin: auto;
+  margin-left:260px;
+  line-height: 20px;
+}
+</style>
+
 
 [Github Source Code](https://github.com/FCH808/FCH808.github.io/tree/master/Data%20Analysis%20with%20R/Project) and [Up-to-date Nanodegree Projects](http://fch808.github.io/) are available.
+
 
 ## Introduction
 
@@ -35,6 +47,15 @@ This data contains records from 476,532 students covering 641,138 separate cours
 This data set provides demographic and anonymized online activity data, including final grades.
 
 When exploring a new dataset, it's always a good idea to start with a look at the structure of the data with str(). 
+
+```{r libraries, message=FALSE, warning=FALSE}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(scales)
+library(gridExtra)
+library(extrafont)
+```
 
 ```{r load_data, warning=FALSE,message=FALSE}
 
@@ -536,14 +557,25 @@ country_cert <- mooc_data %>%
   group_by(Country) %>%
   mutate(perc = n/sum(n))
 
+# total_perc <- country_cert %>%
+#   group_by(certified) %>%
+#   summarise(n=sum(n)) %>%
+#   ungroup() %>%
+#   mutate(perc=n/sum(n),
+#          Country='Total %')
+# country_perc <- rbind(country_cert, total_perc)
+#
+# Total % messes up ggplot2 plot ordering for some reason when trying to color.
+
 completionCountry <- ggplot(subset(country_cert, certified=="Yes"), aes(x=reorder(Country, perc), y=perc)) +
   geom_bar(stat="identity", fill="#A31F34") +
+  #geom_bar(data=subset(country_perc, (Country=='Total %'& certified=='Yes')), stat='identity', fill='black') +
   coord_flip() +
   scale_y_continuous(labels = percent) + 
   geom_text(aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")),
             color="white", size=3, hjust=1.5) + 
   theme_minimal() + ggtitle("Course Completion % by Country") +
-  theme(text=element_text(family="Calibri")) + ylab("Percentage Who Earned Certification") + xlab("Country")
+  theme(text=element_text(family="Calibri")) + ylab("Percentage Who Earned Certification within Each Country") + xlab("Country")
 
 completionCountry
 
@@ -696,14 +728,20 @@ country_age <- mooc_data %>%
   group_by(Country) %>%
   summarise(avg_age = mean(Age)) 
 
+total_age <- data.frame(Country = 'Total Average',
+                        avg_age = mean(country_age$avg_age))
+
+country_age <- rbind(country_age, total_age)
+
 countryAge <- ggplot(country_age, aes(x=reorder(Country, avg_age), y=avg_age)) +
+  theme_minimal() +
   geom_bar(stat="identity", fill="#A31F34") +
+  geom_bar(data=subset(country_age, Country=='Total Average'), fill='black', stat='identity') + 
   coord_flip(ylim=c(22, 34)) +
   geom_text(aes(family="mono", fontface="bold", y=avg_age, 
                 label=round(avg_age, 2)), color="white", size=3, hjust=1.2) +
   ggtitle("Avg. Age for Registered Users by Country") + xlab("Country") + ylab("Average Age") + 
   theme(text=element_text(family="Calibri"))
-
 
 countryAge
 ```
@@ -722,15 +760,6 @@ edu <- mooc_data %>%
   summarise(n=n()) %>%
   mutate(perc = n/sum(n))
 
-e1 <- ggplot(edu, aes(x=Level_of_Edu, y=perc)) + 
-  geom_bar(stat="identity", fill="#A31F34", color="black") +
-  scale_y_continuous(labels=percent, limits=c(0, 0.50)) + 
-  geom_text(aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")),
-            color="black", size=5, vjust = -0.1)  +
-  ggtitle("Percentage with each Education Level for All Registered Students") + ylab("Percentage") + xlab("Level of Education") +
-  theme_minimal() + 
-  theme(text=element_text(family="Calibri"))
-
 edu2 <- mooc_data %>%
   filter(!is.na(Level_of_Edu),
          Active_User == "Active") %>%
@@ -738,16 +767,22 @@ edu2 <- mooc_data %>%
   summarise(n=n()) %>%
   mutate(perc = n/sum(n))
 
-e2 <- ggplot(edu2, aes(x=Level_of_Edu, y=perc)) +
+plotLevelEdu <- function(data=NULL, Title=NULL){
+  ggplot(data, aes(x=Level_of_Edu, y=perc)) + 
   geom_bar(stat="identity", fill="#A31F34", color="black") +
   scale_y_continuous(labels=percent, limits=c(0, 0.50)) + 
   geom_text(aes(family="mono", fontface="bold", y=perc, label=paste(round(perc, 3)*100, "%", sep="")),
-            color="black", size=5, vjust = -0.1) + 
-  ggtitle("Percentage with each Education Level for Active Users") + ylab("Percentage") + xlab("Level of Education") +
+            color="black", size=5, vjust = -0.1)  +
+  ggtitle(Title) + ylab("Percentage") + xlab("Level of Education") +
   theme_minimal() + 
-  theme(text=element_text(family="Calibri"))
+  theme(text=element_text(family="Calibri"))  
+}
+
+e1 <- plotLevelEdu(data=edu, Title="Percentage with each Education Level for All Registered Students")
+e2 <- plotLevelEdu(data=edu2, Title="Percentage with each Education Level for Active Users")
 
 grid.arrange(e1, e2)
+
 ```
 
 Within each gender, males have noticeably higher percentages of registered students in Secondary school and while female have higher percentages of students with master's degrees. This difference becomes more pronounced among active users. This shouldn't be too surprising since the density percentage of males peaked around 21, while females peaked around 27.
@@ -908,7 +943,8 @@ Averages grades for the different levels of education for active users showed la
 
 
 ```{r, message=FALSE, warning=FALSE}
-gradesEdu <- ggplot(subset(mooc_data, Active_User == "Active" & !is.na(Level_of_Edu)), aes(x=Level_of_Edu, y=grade, fill=Level_of_Edu)) +
+gradesEdu <- ggplot(subset(mooc_data, Active_User == "Active" & !is.na(Level_of_Edu)), 
+                    aes(x=Level_of_Edu, y=grade, fill=Level_of_Edu)) +
   geom_boxplot() +
   scale_y_continuous(breaks=seq(0, 1, .05), labels=percent) +
   scale_fill_brewer(type="seq", palette=5, name="Education Level", guide=FALSE) + 
@@ -948,8 +984,16 @@ country_grade <- mooc_data %>%
   group_by(Country) %>%
   summarise(avg_grade = mean(grade))
 
+## Add a country for Total avg grade
+total_grades <- data.frame(Country = 'Total Average',
+                           avg_grade = mean(country_grade$avg_grade))
+
+country_grade <- rbind(country_grade, total_grades)
+
+
 gradesCountry <- ggplot(country_grade, aes(x=reorder(Country, avg_grade), y=avg_grade)) + 
   geom_bar(stat="identity", fill="#A31F34") +
+  geom_bar(data=subset(country_grade, Country=='Total Average'), fill='black', stat='identity') + 
   coord_flip() +
   scale_y_continuous(labels = percent) + 
   geom_text(aes(family="mono", fontface="bold", y=avg_grade, 
@@ -1068,6 +1112,8 @@ This has really helped me flesh out my varied interests in data analytics. I loo
 [2] http://newsoffice.mit.edu/2014/mit-and-harvard-release-de-identified-learning-data-open-online-courses
 
 [3] http://thedata.harvard.edu/dvn/dv/mxhx
+
+[4] http://minimaxir.com/2014/07/online-class-charts/
 
 [Github Source Code](https://github.com/FCH808/FCH808.github.io/tree/master/Data%20Analysis%20with%20R/Project)
 
