@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identifying Fraud at Enron</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><h3 id="identifying-fraud-at-enron-using-emails-and-financial-data">Identifying Fraud at Enron Using Emails and Financial Data</h3>
+
+
+
+<h4 id="project-4-udacity-nanodegree-fernando-hernandez">Project 4 - Udacity Nanodegree  - Fernando Hernandez</h4>
+
+<p><a href="https://github.com/FCH808/FCH808.github.io/tree/master/Intro%20to%20Machine%20Learning/ud120-projects/final_project">Source Code</a> <br>
+<a href="http://fch808.github.io/">Current Nanodegree Projects</a></p>
+
+
+
+<h3 id="introduction">Introduction</h3>
+
+<p>Enron Corporation was one of the world’s major electricity, natural gas, communications and pulp and paper companies with approximately 20,000 staff before its bankruptcy at the end of 2001<a href="#fn:enron" id="fnref:enron" title="See footnote" class="footnote">1</a>. Accounting fraud perpetrated by top executives resulted in one of the largest bankruptcies in U.S. History.</p>
+
+<p>Enron is also unique in that over 600,000 typically confidential emails from 158 employees were released after the bankruptcy.<a href="#fn:enron_corpus" id="fnref:enron_corpus" title="See footnote" class="footnote">2</a> <a href="#fn:enron_corpus2" id="fnref:enron_corpus2" title="See footnote" class="footnote">3</a> Detailed financial records of many executives were also released during the fraud trials. <a href="#fn:enron_pdf" id="fnref:enron_pdf" title="See footnote" class="footnote">4</a>
+
+</p><p>For this project, predictive models were built using scikit learn<a href="#fn:scikit" id="fnref:scikit" title="See footnote" class="footnote">5</a>, numpy<a href="#fn:numpy" id="fnref:numpy" title="See footnote" class="footnote">6</a>, and pandas<a href="#fn:pandas" id="fnref:pandas" title="See footnote" class="footnote">7</a> modules in Python. The target of the predictions were persons-of-interest (POI’s) who were ‘individuals who were indicted, reached a settlement, or plea deal with the government, or testified in exchange for prosecution immunity.’  Financial compensation data and aggregate email statistics from the Enron Corpus were used as features for prediction.</p>
+
+
+
+<h3 id="analysis">Analysis</h3>
+
+<blockquote>
+  <h4 id="summarize-for-us-the-goal-of-this-project-and-how-machine-learning-is-useful-in-trying-to-accomplish-it-as-part-of-your-answer-give-some-background-on-the-dataset-and-how-it-can-be-used-to-answer-the-project-question-were-there-any-outliers-in-the-data-when-you-got-it-and-how-did-you-handle-those">Summarize for us the goal of this project and how machine learning is useful in trying to accomplish it.  As part of your answer, give some background on the dataset and how it can be used to answer the project question.  Were there any outliers in the data when you got it, and how did you handle those?</h4>
+</blockquote>
+
+<p>The goal of this project wass the build a prediction model to identify persons-of-interest (POI’s.) There were 146 total records and 18 POIs in the original dataset. I tried to perform as little data snooping <a href="#fn:learning_from_data" id="fnref:learning_from_data" title="See footnote" class="footnote">8</a> as possible when filtering obvious outliers and problem records.</p>
+
+
+
+<h4 id="outliers">Outliers</h4>
+
+<p><strong>TOTAL</strong> was removed as it was simply a record totaling all of the financial statistics from the financial data.</p>
+
+<hr>
+
+<p><strong>Eugene E. Lockhart</strong> was removed during data processing since this row had no entries for any feature.</p>
+
+<hr>
+
+<p>note: <strong>The Travel Agency in the Park</strong> was found after the fact but not removed since data snooping might have potentially played a role in this decision.</p>
+
+<p>I had to be careful to not go looking deep into the characteristics of each feature since there was no explicit hold-out testing set, and any record could be included in both training and testing depending on how each split was made in cross-validation. After these two records were removed, there were 144 remaining data points to use for prediction.</p>
+
+
+
+<h4 id="problem-records">Problem records</h4>
+
+<p>Records for <strong>Robert Belfer</strong> and <strong>Sanjay Bhatnagar</strong> were identified as out-of-sync when they introduced erroneous data during feature creation. </p>
+
+<p>These two records were fixed to be in sync with the PDF<a href="#fn:enron_pdf" id="fnref:enron_pdf" title="See footnote" class="footnote">9</a> file of financial data. All other records were also validated for accuracy as well making sure the totals added up correctly to the PDF spreadsheet that the data came from.</p>
+
+<blockquote>
+  <h4 id="what-features-did-you-end-up-using-in-your-poi-identifier-and-what-selection-process-did-you-use-to-pick-them-did-you-have-to-do-any-scaling-why-or-why-not-as-part-of-the-assignment-you-should-attempt-to-engineer-your-own-feature-that-doesnt-come-ready-made-in-the-datasetexplain-what-feature-you-tried-to-make-and-the-rationale-behind-it-you-do-not-necessarily-have-to-use-it-in-the-final-analysis-only-engineer-and-test-it-if-you-used-an-algorithm-like-a-decision-tree-please-also-give-the-feature-importances-of-the-features-that-you-use">What features did you end up using in your POI identifier, and what selection process did you use to pick them?  Did you have to do any scaling?  Why or why not?  As part of the assignment, you should attempt to engineer your own feature that doesn’t come ready-made in the dataset–explain what feature you tried to make, and the rationale behind it.  (You do not necessarily have to use it in the final analysis, only engineer and test it.)  If you used an algorithm like a decision tree, please also give the feature importances of the features that you use.</h4>
+</blockquote>
+
+<p>Totals, ratios, and exponential values of financial and email data were added to the data set. Added features were continually removed as long as the cross-validated scores of selected models went up.</p>
+
+<p>For the final optimal model, only totals were kept since these were the only added features which consistently provided an increase in the evaluation metrics. This is most likely because introducing so many other new features into such a small dataset added a lot of mulit-collinearity which negatively affected model selection. </p>
+
+<p>During the <strong>**GridSearchCV<a href="#fn:gridsearch" id="fnref:gridsearch" title="See footnote" class="footnote">10</a> pipeline<a href="#fn:pipeline" id="fnref:pipeline" title="See footnote" class="footnote">11</a></strong> search, all features were first scaled to be between 0 and 1 using a <strong>MinMaxScaler<a href="#fn:minmax" id="fnref:minmax" title="See footnote" class="footnote">12</a></strong> since PCA and various models such as Logistic Regression perform optimally with scaled features. The features needed to be scaled since they were on vastly different scales, ranging from hundreds of e-mails to millions of dollars.</p>
+
+<p><strong>SelectKBest<a href="#fn:selectkbest" id="fnref:selectkbest" title="See footnote" class="footnote">13</a></strong> and Principal Components Analysis (<strong>PCA<a href="#fn:pca" id="fnref:pca" title="See footnote" class="footnote">14</a></strong>) dimension reduction were then used as part of the GridSearchCV pipeline when searching the estimator parameter space. These two steps were run during each of the cross-validation loops used in the grid search for optimal parameters. The K-best features were selected using the <em>Anova F-value</em> classification  scoring function. The resulting K-best features were then fed into PCA dimensionality reduction. Finally, the resultant N principal components were fed into a <strong>classification algorithm<a href="#fn:classification" id="fnref:classification" title="See footnote" class="footnote">15</a></strong>.</p>
+
+<p>Classification algorithms were tested since this is a classic binary classification task. <br>
+<strong>Logistic Regression<a href="#fn:logreg" id="fnref:logreg" title="See footnote" class="footnote">16</a></strong> ended up performing the best. Linear Support Vector Classifier (<strong>Linear-SVC<a href="#fn:l-svc" id="fnref:l-svc" title="See footnote" class="footnote">17</a></strong>), which is similar to a Support Vector Machines with a ‘linear’ kernel, also gave similar scores. Support Vector Machines Classifier (<strong>SVM-C<a href="#fn:svc" id="fnref:svc" title="See footnote" class="footnote">18</a></strong>) with ‘rbf’ kernel was the third best performing model tested, and gave fairly good scores as well. <strong>Stochastic Gradient Descent<a href="#fn:sgd" id="fnref:sgd" title="See footnote" class="footnote">19</a></strong>, <strong>K-Means Classifiers<a href="#fn:kmeans" id="fnref:kmeans" title="See footnote" class="footnote">20</a></strong>, <strong>ExtraTrees<a href="#fn:et" id="fnref:et" title="See footnote" class="footnote">21</a></strong> and <strong>Random Forests<a href="#fn:rf" id="fnref:rf" title="See footnote" class="footnote">22</a></strong> were also tested with moderate success.</p>
+
+<blockquote>
+  <h4 id="what-does-it-mean-to-tune-the-parameters-of-an-algorithm-and-what-can-happen-if-you-dont-do-this-well-how-did-you-tune-the-parameters-of-your-particular-algorithm-some-algorithms-dont-have-parameters-that-you-need-to-tuneif-this-is-the-case-for-the-one-you-picked-identify-and-briefly-explain-how-you-would-have-done-it-if-you-used-say-a-decision-tree-classifier">What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm?  (Some algorithms don’t have parameters that you need to tune–if this is the case for the one you picked, identify and briefly explain how you would have done it if you used, say, a decision tree classifier).</h4>
+</blockquote>
+
+<p>Algorithms may perform differently using different parameters depending on the structure of your data. If you don’t do this well, you can over-tune an algorithm to predict your training data extremely well, but fail miserably on unseen data. Each algorithm was tuned using an exhaustive grid search over any major tune-able parameters, over 1000 randomized stratified cross-validation stratified splits. The results were scored in each split on the hold-out testing portion, and the score was averaged over all 1000 splits. The parameters which gave the highest average score were selected for the final model.</p>
+
+<p>Major models and parameters tuned over and final parameters found were:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Parameters</th>
+  <th>Logistic Regression<a href="#fn:logreg" id="fnref:logreg" title="See footnote" class="footnote">23</a></th>
+  <th>Linear Support Vector Classifier<a href="#fn:l-svc" id="fnref:l-svc" title="See footnote" class="footnote">24</a></th>
+  <th>Support Vector Machines - Classifier<a href="#fn:svc" id="fnref:svc" title="See footnote" class="footnote">25</a></th>
+  <th>PCA<a href="#fn:pca" id="fnref:pca" title="See footnote" class="footnote">26</a></th>
+  <th>SelectKBest<a href="#fn:selectkbest" id="fnref:selectkbest" title="See footnote" class="footnote">27</a></th>
+</tr>
+</thead>
+<tbody><tr>
+  <td><strong>C</strong>: Value of the regularization constraint</td>
+  <td>1e-3</td>
+  <td>1e-5</td>
+  <td>1</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>class_weight:</strong> Over-/undersamples samples of each class (inversely proportional to class frequencies)</td>
+  <td>‘auto’</td>
+  <td>‘auto’</td>
+  <td>‘auto’</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>tol:</strong> Tolerance for stopping criteria</td>
+  <td>1e-64</td>
+  <td>1e-32</td>
+  <td>1e-3</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>n_components:</strong>  # of components to explain % of variance</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>0.5</td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>whiten:</strong> decorrelation transformation</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>False</td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>selection:</strong> Number of top features to select.</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>17</td>
+</tr>
+<tr>
+  <td><strong>gamma:</strong> Kernel coefficient</td>
+  <td></td>
+  <td></td>
+  <td>0.0</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>kernel:</strong></td>
+  <td></td>
+  <td>‘linear’</td>
+  <td>‘rbf’</td>
+  <td></td>
+  <td></td>
+</tr>
+</tbody></table>
+
+
+<blockquote>
+  <h4 id="what-is-validation-and-whats-a-classic-mistake-you-can-make-if-you-do-it-wrong-how-did-you-validate-your-analysis">What is validation, and what’s a classic mistake you can make if you do it wrong?  How did you validate your analysis?</h4>
+</blockquote>
+
+<p>Validation is the processed of checking to see how your model performs on unseen data.  A classic mistake would be tuning your model be able to predict your training data very well , but then having it perform poorly on unseen out-of-sample testing data. This is called overfitting. One of the major goals in validation is to avoid overfitting, which can be accomplished through a process called cross-validation.</p>
+
+
+
+<h3 id="cross-validation">Cross-validation</h3>
+
+<p>Cross-validation is the process of randomly splitting the data into training and testing data. Then the model can train on the training data, and be validated on the testing data.</p>
+
+<p>The model selection process was validated using 1000 randomized <strong>stratified cross-validation splits<a href="#fn:stratified" id="fnref:stratified" title="See footnote" class="footnote">28</a></strong> and selecting the parameters which performed best on average over the 1000 splits. A similar validation procedure was used in tester.py to evaluate the resulting final models that were selected. </p>
+
+<p>Since the dataset for this project is so small, a hold-out set was not used. For final model assessment, precision, recall, F1-score and F2-score were averaged over 1000 randomized  90%-training/10%-testing splits to measure out-of-sample accuracy in tester.py.</p>
+
+<p>An explicit hold-out set was not used because with only 144 data points and 18 poi’s, a stratified hold-out set of 20% would leave only around 3 POI points to do a one-time final test on. This would also not give much confidence in the precision of the performance metrics on such a small hold-out set, while also negatively impacting the ability to create the model. </p>
+
+<p>This is further addressed in the context of data-starved predictive modeling by Kuhn and Kjell (2013) and Hawkins et. all (2003).</p>
+
+<blockquote>
+  <blockquote>
+    <p>”[…]when the number of samples is not large, a strong case can be made that a test set should be avoided because every sample may be needed for model building. […] Additionally, the size of the test set may not have sufficient power or precision to make reasonable judgements.” <a href="#fn:applied_pm" id="fnref:applied_pm" title="See footnote" class="footnote">29</a>
+  </p></blockquote>
+</blockquote>
+
+<hr>
+
+<blockquote>
+  <blockquote>
+    <p>Hawkins et al. (2003) concisely summarize this point:“holdout samples of  tolerable size [… ] do not match the cross-validation itself for reliability in assessing model fit and are hard to motivate.” <a href="#fn:assessing_cv" id="fnref:assessing_cv" title="See footnote" class="footnote">30</a> </p>
+  </blockquote>
+</blockquote>
+
+
+
+<h3 id="tuning-by-grid-search">Tuning by Grid Search</h3>
+
+<p>Furthermore, parameters were tuned with a grid-search (<strong>GridSearchCV<a href="#fn:gridsearch" id="fnref:gridsearch" title="See footnote" class="footnote">31</a></strong>) over 1000 stratified shuffled cross-validation 90%-training/ 10%-testing splits to emulate the same testing procedure used in tester.py. This is because the KBest selection and PCA reduction were done within each 1000 cross-validation split, instead of outside the selection process.  K-best selection and PCA reduction being in the inner loop was done to give a less biased estimate of performance on any new unseen data that this model might be used for.</p>
+
+<p>When the final model was selected, it was fit to the training data and showed that 17 features were selected, then reduced into 2 principal components to be used in the final logistic regression classification model. </p>
+
+<p>These feature <em>might</em> change slightly when fit again each time in the tester.py since the final model is a pipeline which selects the k-best features inside of the pipeline. Below are the final 17 features chosen when the entire dataset was fit to the final chosen model pipeline:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Top  17 Features</th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>salary</td>
+  <td>to_messages</td>
+  <td>total_payments</td>
+  <td>exercised_stock_options</td>
+  <td></td>
+</tr>
+<tr>
+  <td>bonus</td>
+  <td>restricted_stock</td>
+  <td>shared_receipt_with_poi</td>
+  <td>total_stock_value</td>
+  <td></td>
+</tr>
+<tr>
+  <td>expenses</td>
+  <td>loan_advances</td>
+  <td>other</td>
+  <td>from_this_person_to_poi</td>
+  <td>director_fees</td>
+</tr>
+<tr>
+  <td>deferred_income</td>
+  <td>long_term_incentive</td>
+  <td>from_poi_to_this_person</td>
+  <td>total_compensation</td>
+  <td></td>
+</tr>
+<tr>
+  <td>director_fees</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+</tbody></table>
+
+
+<p>The scoring function for picking the best models/parameters was a mix of maximizing the recall of the models searched over, while keeping the precision at or above 0.3.</p>
+
+
+
+<h3 id="analysis-performance">Analysis Performance</h3>
+
+<p>For our model, accuracy would be a sub-optimal evaluation metric due to the sparsity of POI’s being predicted.  If we just guessed ‘Not a POI’ for everyone, we would attain 87.5% accuracy while not finding any perpetrators of fraud. For evaluating our model, we will be using both precision and recall.</p>
+
+
+
+<h4 id="precision-fractrue-positivetrue-positive-false-positive32"><script type="math/tex" id="MathJax-Element-1">Precision = \frac{True Positive}{True Positive + False Positive}</script><a href="#fn:recall-precision" id="fnref:recall-precision" title="See footnote" class="footnote">32</a>   :</h4>
+
+<p>Precision can be thought of as the ratio of how often your model is actually correct in identifying a positive  label to the total times it guesses a positive label. A higher precision score would mean less false positives.</p>
+
+<p>Precision might be important in giving true customers discounts with frequent buyer status at checkout time. We would want to make sure all true customers get discounts smoothly to ensure customer loyalty, even if we get some some false positives and give discounts to some people who don’t have frequent buyer status.</p>
+
+<p>In our case, if we were using the model to judge whether or not to investigate someone as a possible person of interest, it would be how often the people we chose to investigate turned out to really be persons of interest.</p>
+
+<hr>
+
+
+
+<h4 id="recall-fractrue-positivetrue-positive-false-negative33"><script type="math/tex" id="MathJax-Element-2">Recall = \frac{True Positive}{True Positive + False Negative}</script><a href="#fn:recall-precision" id="fnref:recall-precision" title="See footnote" class="footnote">33</a></h4>
+
+<p>Recall can be thought of as the ratio of how often your model correctly identifies a label as positive to how many total positive labels there actually are. A higher recall score would mean less false negatives. </p>
+
+<p>Recall might be more important if used in security credential scanning; we would like to make sure no unauthorized people get into a secured facility even if we have to reject authorized credentials a few extra times and have people re-scan their credentials.</p>
+
+<p>In our case, if we were use the model to decide whether or not to investigate someone as a possible person of interest, it would be how many persons of interest did we identify out of the total amount of persons of interest that there were. </p>
+
+<p>For this project, I could argue that in the context of searching for perpetrators of fraud in one of the largest cases of corporate fraud, recall is the most important criteria of the two. We would like to find all people who were involved, even if it means we have to investigate and clear more extra innocent people. </p>
+
+<p>With the previous thoughts about the importance of recall in mind, the models were optimized toward higher recall, while maintaining a 0.3 precision threshold. </p>
+
+<table>
+<thead>
+<tr>
+  <th>Model</th>
+  <th>GridSearch Recall Est.</th>
+  <th>Recall</th>
+  <th>Precision</th>
+  <th>KBest Features</th>
+  <th>PCA components</th>
+  <th>Class Weight</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>Logistic Regression</td>
+  <td>0.9215</td>
+  <td>0.92700</td>
+  <td>0.30640</td>
+  <td>17</td>
+  <td>2</td>
+  <td>‘auto’</td>
+</tr>
+<tr>
+  <td>Linear SVC</td>
+  <td>0.8935</td>
+  <td>0.88750</td>
+  <td>0.29657</td>
+  <td>17</td>
+  <td>2</td>
+  <td>‘auto’</td>
+</tr>
+<tr>
+  <td>SVM-C</td>
+  <td>0.8255</td>
+  <td>0.83050</td>
+  <td>0.29269</td>
+  <td>17</td>
+  <td>2</td>
+  <td>‘auto’</td>
+</tr>
+</tbody></table>
+
+
+<p>For our models, we attained pretty high recall, ensuring that for the most part, we were able to identify POI’s that existed. Our precision was at 0.3, showing that we had a decent amount of false positives and investigated a good portion of innocent people in our quest for finding POI’s.</p>
+
+
+
+<h3 id="observations">Observations</h3>
+
+<p>An interesting observation was that tuning class weights played the biggest role in being able to tune the model to give better recall, precision, f1 (or roc-auc) depending on the which is more desirable. For the final models, ‘auto’ was used which ‘automatically adjust weights inversely proportional to class frequencies.’<a href="#fn:weights" id="fnref:weights" title="See footnote" class="footnote">34</a>
+
+</p><p>This made sense since were so few POI’s, they would need to given more weight to help prevent missing predicting them (false negatives.)</p>
+
+<p>I would like to have also found a more intelligent way to add new features, and prune them back than the univariate K-best selection process. Perhaps removing correlated features, based on correlations with each other as well as all other features in the dataset.</p>
+
+<p>Some custom scoring functions were tried with minimal success (RandomForest as a custom KBest scorer) while increasing run-time. This might need to be explored further as well to get better performance.</p>
+
+
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>This dataset presented interesting challenges for dealing with smaller, but still complex, datasets. The data still needed to cleaned, and intelligently approached to create informative models. Cross-validation techniques and workflow pipelines were paramount in creating reliable predictive models. </p>
+
+<p>I thoroughly enjoyed exploring some of the machine learning techniques and data workflows required for data analysis in Python!</p>
+
+<div class="footnotes"><hr><ol><li id="fn:enron"><a href="http://en.wikipedia.org/wiki/Enron">http://en.wikipedia.org/wiki/Enron</a> <a href="#fnref:enron" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:enron_corpus"><a href="http://en.wikipedia.org/wiki/Enron_Corpus">http://en.wikipedia.org/wiki/Enron_Corpus</a> <a href="#fnref:enron_corpus" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:enron_corpus2"><a href="http://www.cs.cmu.edu/~./enron/">http://www.cs.cmu.edu/~./enron/</a> <a href="#fnref:enron_corpus2" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:enron_pdf"><a href="http://news.findlaw.com/legalnews/lit/enron/">http://news.findlaw.com/legalnews/lit/enron/</a> <a href="#fnref:enron_pdf" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:scikit"><a href="http://scikit-learn.org/stable/index.html">http://scikit-learn.org/stable/index.html</a> <a href="#fnref:scikit" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:numpy"><a href="http://www.numpy.org/">http://www.numpy.org/</a> <a href="#fnref:numpy" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:pandas"><a href="http://pandas.pydata.org/">http://pandas.pydata.org/</a> <a href="#fnref:pandas" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:learning_from_data">Abu-Mostafa, Y.S., Magdon-Ismail, M., Lin, H.T.(2012) Learning From Data. <br>
+AMLbook.com. pp. 173-177  <a href="#fnref:learning_from_data" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:enron_pdf"><a href="http://news.findlaw.com/legalnews/lit/enron/">http://news.findlaw.com/legalnews/lit/enron/</a> <a href="#fnref:enron_pdf" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:gridsearch"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html">http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html</a> <a href="#fnref:gridsearch" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:pipeline"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html</a> <a href="#fnref:pipeline" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:minmax"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html">http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html</a> <a href="#fnref:minmax" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:selectkbest"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html">http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html</a> <a href="#fnref:selectkbest" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:pca"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html</a> <a href="#fnref:pca" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:classification"><a href="http://en.wikipedia.org/wiki/Statistical_classification">http://en.wikipedia.org/wiki/Statistical_classification</a> <a href="#fnref:classification" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:logreg"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html</a> <a href="#fnref:logreg" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:l-svc"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html</a> <a href="#fnref:l-svc" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:svc"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html</a> <a href="#fnref:svc" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:sgd"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier">http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier</a> <a href="#fnref:sgd" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:kmeans"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html">http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html</a> <a href="#fnref:kmeans" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:et"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html">http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html</a> <a href="#fnref:et" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:rf"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html</a> <a href="#fnref:rf" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:logreg"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html</a> <a href="#fnref:logreg" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:l-svc"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html</a> <a href="#fnref:l-svc" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:svc"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html</a> <a href="#fnref:svc" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:pca"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html</a> <a href="#fnref:pca" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:selectkbest"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html">http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html</a> <a href="#fnref:selectkbest" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:stratified"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.cross_validation.StratifiedShuffleSplit.html">http://scikit-learn.org/stable/modules/generated/sklearn.cross_validation.StratifiedShuffleSplit.html</a> <a href="#fnref:stratified" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:applied_pm">Kuhn M., Kjell J.(2013).  Applied Predictive Modeling. Springer. pp.67 <a href="#fnref:applied_pm" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:assessing_cv">Hawkins D, Basak S, Mills D (2003). “Assessing Model Fit by Cross– <br>
+Validation.” Journal of Chemical Information and Computer Sciences, <br>
+43(2), 579–586 <a href="#fnref:assessing_cv" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:gridsearch"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html">http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html</a> <a href="#fnref:gridsearch" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:recall-precision"><a href="http://en.wikipedia.org/wiki/Precision_and_recall">http://en.wikipedia.org/wiki/Precision_and_recall</a> <a href="#fnref:recall-precision" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:recall-precision"><a href="http://en.wikipedia.org/wiki/Precision_and_recall">http://en.wikipedia.org/wiki/Precision_and_recall</a> <a href="#fnref:recall-precision" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:weights"><a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html</a> <a href="#fnref:weights" title="Return to article" class="reversefootnote">↩</a></li></ol></div></div></body>
+</html>
