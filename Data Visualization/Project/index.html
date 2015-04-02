@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<meta http-equiv="refresh" content="60">
+<meta http-equiv="refresh" content="120">
 <html>
 <style>
 	/* Beautiful CSS styling here for now. */
@@ -10,10 +10,10 @@
 		stroke-width: 0.25px;
 		fill: grey;
 	}*/
-	linepath {
-		stroke: black;
-		stroke-width: 2;
-		fill: none;
+
+	.linepath {
+		stroke: DarkRed;
+		opacity: 1;
 	}
 
 	.draggable {
@@ -38,8 +38,10 @@
 	} 
 
 	.circle {
-		fill: blue;
-		opacity: 0.0;		
+		fill: ForestGreen;
+		opacity: 1;	
+		stroke-width: 0.1px;
+		stroke: black;
 	}
 
 	.circle:hover {
@@ -50,13 +52,14 @@
 	.world {
 		fill: gray;
 		stroke-width: 0.25px;
-		stroke: white;
+		stroke: black;
 	}
+
 
 </style> 
 <body>
 
-
+<h2>Year: </h2> 
 
 
 	<div id="mapViz"></div>
@@ -107,6 +110,8 @@
 		.append("svg")
 		.attr("width", width)
 		.attr("height", height)
+		.style("background-color", "#A5DEFF") //Color the water in the main svg
+		
 	//	.attr("class", "draggable")
 	//.append("g")
 		.call(zoom)
@@ -138,13 +143,14 @@
           .attr('class', 'field');                                      // NEW
 
         tooltip.append('div')                                           // NEW
-          .attr('class', 'year');                                       // NEW
+          .attr('class', 'institution');                                // NEW
 
         tooltip.append('div')                                           // NEW
           .attr('class', 'city');                                       // NEW
 //////////////////////////////////////////////////////////////////////////////
 
 	d3.json("data/world-110m2.json", function(error, world) {
+
 
 		//draw the world
 		worldGroup.selectAll("path")
@@ -157,119 +163,152 @@
 
 		d3.csv("data/all_acquired.csv", function(error, cities) {
 
+			years = d3.set()
+
 			cities.forEach( function(d){
+				// Convert year to interger
+  				years.add(+d.year)
+			})
+			years = years.values()
+/*
+			function agg_year(leaves) {
+				// leaves here is an array of filtered data from d3.nest().key()
+				// in this case, it's each subset of cities, for each year
+				// We can get the number of entries with length on the subset
+				// which contains one data object for each row
+				var total_per_year = leaves.length;
+
+				return {
+					'total_per_year': total_per_year
+				};
+			}
+
+			var nested = d3.nest()
+							.key( function(d) {
+								return d.year;
+							})
+							.rollup(agg_year)
+							.entries(cities)
+
+			// Now nested is an aggregated dataset of counts of number of nobel prize
+			// winners for each year.
+*/
+			cities.forEach( function(d){
+				// Convert year to interger
   				d.year = +d.year
+  				//Translate lon/lat into x/y once for using later.
+  				d.birth_x = projection([d.birth_lon, d.birth_lat])[0]
+  				d.birth_y = projection([d.birth_lon, d.birth_lat])[1]
+  				d.acquired_x = projection([d.acquired_lon, d.acquired_lat])[0]
+  				d.acquired_y = projection([d.acquired_lon, d.acquired_lat])[1]
 			})
 
+			//debugger;
 
-			worldGroup.selectAll("line")
-				.data(cities)
-				.enter()
+			function update(year) {
+
+            d3.select("h2")
+              .text("Year: " + year);
+
+			var filtered = cities.filter( function (d) { return d.year === year; })
+
+
+			//debugger;
+			var nobelLines = worldGroup.selectAll("line")
+								.data(filtered, function(d) { return d.year; })
+			
+
+			//nobelLines.exit().remove();
+			//debugger;
+
+			nobelLines.enter()
 				.append("line")
-				.filter(function (d) {return d.year > 1900 && d.year < 1911})
-				
-				.style("stroke", "steelblue")
-				.style("opacity", .5)
+				.attr("class", "linepath")
 				// Make lines for each data point with the start and end at the 
 				// same birth country lon/lat
-				.attr("x1", function(d) {
-						return projection([d.birth_lon, d.birth_lat])[0];
-					})
-				.attr("y1", function(d) {
-						return projection([d.birth_lon, d.birth_lat])[1];
-					})
-				.attr("x2", function(d) {
-						return projection([d.birth_lon, d.birth_lat])[0];
-					})
-				.attr("y2", function(d) {
-						return projection([d.birth_lon, d.birth_lat])[1];
-					})
+				.attr("x1", function(d) { return d.birth_x; })
+				.attr("y1", function(d) { return d.birth_y; })
+				.attr("x2", function(d) { return d.birth_x; })
+				.attr("y2", function(d) { return d.birth_y; })
 				// transition one end point from to the country acquired lon/lat
 				.transition()
-				.duration(4000)
-				.attr("x2", function(d) {
-						return projection([d.acquired_lon, d.acquired_lat])[0];
-					})
-				.attr("y2", function(d) {
-						return projection([d.acquired_lon, d.acquired_lat])[1];
-					})
+				.delay(500)
+				.duration(3000)
+				.style("opacity", .2)
+				.attr("x2", function(d) { return d.acquired_x })
+				.attr("y2", function(d) { return d.acquired_y; });
+				
+				//nobelCircles.exit().remove()
 
+				// Create see through empty circles for each person at each birth country 
+				// for each year. Add circles after lines to keep them on top for tooltip.
+				var nobelCircles = worldGroup.selectAll("circle")
+									.data(filtered, function(d) { return d.year; })
 
-			// Create see through empty circles for each person at each birth country
-			worldGroup.selectAll(".circle")
-				.data(cities)
-				.enter()
+				nobelCircles.enter()
 				//.append("a")
 				//	.attr("xlink:href", function(d) {
 				//		return "https://www.google.com/search?q=" + d.city;
 				//	})
 				.append("circle")
-				.filter(function (d) {return d.year > 1900 && d.year < 1911})
-				.attr("class", "circle")
-					.attr("cx", function(d) {
-						return projection([d.birth_lon, d.birth_lat])[0];
-					})
-					.attr("cy", function(d) {
-						return projection([d.birth_lon, d.birth_lat])[1];
-					})
+				.on("mouseover", mouseover)
+				.on("mouseout", mouseout)
+				.on("mousedown", animateFirst)
+					.attr("class", "circle")
+					.attr("cx", function(d) { return d.birth_x; })
+					.attr("cy", function(d) { return d.birth_y; })
+					.attr("r", 0)
+					.transition()
+					.duration(250)
+					.attr("r", 10)
+					.ease("bounce")
+					.transition()
+					.duration(250)
+					.ease("bounce")
 					.attr("r", 3)
-					// Moved to .CSS
-					//.style("fill", "blue")
-					//.style("opacity", "0.0")
-
 			// Transition the circle to the countries acquired, while filling in the
 			// circles opacity to 0.1 to be seen.
 			//worldGroup.selectAll("circle")
 					.transition()
-					.duration(4000)
+					.duration(3000)
 					.ease("cubic-in-out") //default
-					.attr("cx", function(d) {
-						return projection([d.acquired_lon, d.acquired_lat])[0];
-					})
-					.attr("cy", function(d) {
-						return projection([d.acquired_lon, d.acquired_lat])[1];
-					})
-					//.style("fill", "blue")
+					.attr("cx", function(d) { return d.acquired_x; })
+					.attr("cy", function(d) { return d.acquired_y; })
 					.attr("r", 2)
-					.style("opacity", .5)
+					.style("opacity", .3)
+					.style("fill", "gold")
 
-				// Give the endpoint circles mouseover tooltips, and clickable animation.
-				worldGroup.selectAll("circle")
-					// Fill these circles with orange while moused over, and make 
-					// them solid filled circles.
-					.on("mouseover", function(d) {
+			// Give mouseover tooltips, and clickable animations.
+			function mouseover(d) {
+				// Fill these circles with DarkRed while moused over, and make 
+				// them solid filled circles.
+				d3.select(this).style("opacity", 1)
 
-						d3.select(this).style("opacity", 1)
+				// Display the tooltip at the x,y coord on the #mapViz html area
+				tooltip.style("top", (d3.event.pageY + 10) + "px")
+					   .style("left", (d3.event.pageX + 10) + "px");
+				tooltip.select(".name").html(d.name);
+				tooltip.select(".field").html("Field: " + d.field + ", " + d.year);
+				tooltip.select(".institution").html("Inst. :" + d.institution);
+				tooltip.select(".city").html("City: " + d.city + ", " + d.current_country_name_acquired)
+				tooltip.style("display", "block");
+				}
 
-						// Display the tooltip at the x,y coord on the #mapViz html area
-						tooltip.style("top", (d3.event.pageY + 10) + "px")
-							   .style("left", (d3.event.pageX + 10) + "px");
-						tooltip.select(".name").html(d.name);
-						tooltip.select(".field").html("Field: " + d.field);
-						tooltip.select(".year").html("Year :" + d.year);
-						tooltip.select(".city").html("City: " + d.city + ", " + d.current_country_name_acquired)
-						tooltip.style("display", "block");
-						})
-					// Make the circle attributes return to defaults and
-					// tooltip disappear when moused off of.
-					.on("mouseout", function() {
+			function mouseout(d) {
+				// Make the circle attributes return to defaults and
+				// tooltip disappear when moused off of.
+				d3.select(this).style("opacity", .2)
+				tooltip.style("display", "none")
+				}
 
-						d3.select(this).style("opacity", .5)
-
-						tooltip.style("display", "none")
-
-						})
-
-					// Make an animation when a circle is clicked.
-					.on("mousedown", animateFirst);
-			
+			// Make an animation when a circle is clicked.
 			// http://christopheviau.com/d3_tutorial/
 			// Make larger..
 			function animateFirst() {
 				d3.select(this)
 				.transition()
 				  .delay(0)
-				  .duration(200)
+				  .duration(100)
 				  .attr("r", 10)
 				  .each("end", animateSecond)
 				};
@@ -282,9 +321,27 @@
 				    // Add for loop
 				    //.each("end", animateFirst)
 				};
+
+			};
+
+
+			var year_idx = 0;
+
+			var year_interval = setInterval(function() {
+				update(+years[year_idx]);
+	
+				year_idx++;
+
+				if(year_idx >= years.length) {
+					clearInterval(year_interval);
+				}
+			}, 1000);
+
+
 		});
 
 	});	
+
 	//Functions:
 
 	function zoomed() {
@@ -319,3 +376,37 @@
 
 </body>
 </html>
+
+
+<!--
+			var force = d3.layout.force()
+				.nodes(cities)
+				.size([width, height])
+				.on("tick", tick)
+				.charge(300)
+				.gravity(0.1)
+
+			force.start()
+
+			node = worldGroup.selectAll("circle")
+				.data(force.nodes())
+				.enter()
+				.append("circle")
+				.style("fill", "steelblue")
+				.attr("r", 10)
+
+			function tick() {
+				
+				node.each(messWithPosition());
+
+				node.attr("cx", function(d) { return d.birth_x; })
+					.attr("cy", function(d) { return d.birth_y})
+			}
+
+			function messWithPosition(){
+				return function(d) {
+					d.birth_x += 0
+					d.birth_y += 0
+				}
+			}
+*/ -->
