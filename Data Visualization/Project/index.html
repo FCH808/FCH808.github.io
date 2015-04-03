@@ -86,7 +86,8 @@ path {
 	var width = 960,
 		height = 500,		//http://bl.ocks.org/patricksurry/6621971
 	    rotate = -10,        // so that [-60, 0] becomes initial center of projection
-    	maxlat = 83;        // clip northern and southern poles (infinite in mercator)
+    	nodes = [],
+    	node;        
 
 	var projection = d3.geo.mercator()
 		.rotate([rotate,0])
@@ -178,6 +179,9 @@ path {
         tooltip.append('div')                                           // NEW
           .attr('class', 'city');                                       // NEW
 //////////////////////////////////////////////////////////////////////////////
+
+
+
 
 	d3.json("data/world-110m.json", function(error, world) {
 
@@ -278,15 +282,27 @@ path {
 					return "M" + d.birth_x + "," + d.birth_y + "A" + dr + "," + dr + " 0 0,1 " + d.acquired_x + "," + d.acquired_y;
 				}
 
+
+				function translateAlong(path) {
+					 var l = path.getTotalLength();
+					 return function(d, i, a) {
+					 	return function(t) {
+					 		var p = path.getPointAtLength(t * l);
+					 			return "translate(" + p.x + "," + p.y + ")";
+					 	};
+					 };
+				}			
+
+
+
 				var filtered = nobel.filter( function (d) { return +d.year === +year; })
 
 				var people = worldGroup.selectAll("people")
 									.data(filtered)
 									.enter()
+				
 
-									
-
-
+				
 				people.append("svg:path")
 					.attr("class", "arc linepath")
 					// Make lines for each data point with the start and end at the 
@@ -295,7 +311,7 @@ path {
 					//.attr("y1", function(d) { return d.birth_y; })
 					//.attr("x2", function(d) { return d.birth_x; })
 					//.attr("y2", function(d) { return d.birth_y; })
-					.attr("d", makeArc2)
+					.attr("d", makeArc1)
 					// transition one end point from to the country acquired lon/lat
 					.transition()
 					.delay(500)
@@ -309,11 +325,10 @@ path {
 
 				// Create see through empty circles for each person at each birth country 
 				// for each year. Add circles after lines to keep them on top for tooltip.
-				var nobelCircles = worldGroup.selectAll("circle")
-									.data(filtered)
+				//var nobelCircles = worldGroup.selectAll("circle")
+				//					.data(filtered)
 
-				console.log(filtered)
-
+				/*
 				people.append("circle")
 					.on("mouseover", mouseover)
 					.on("mouseout", mouseout)
@@ -341,39 +356,41 @@ path {
 						.attr("r", 2)
 						.style("opacity", .3)
 						.style("fill", "gold")
-
-					//var path = worldGroup.append("path")
-				//debugger;
-
-					/*
-					worldGroup.selectAll(".point")
-						.data(filtered, function(d) { return d.year; })
-					  .enter().append("circle")
-					  	.attr("r", 4)
-					  	.attr("transform", function(d) { return "translate(" + [d.birth_x, d.birth_y] + ")"; });
-
-					var circle = worldGroup.append("circle")
-						.attr("r", 13)
-						.attr("transform", "translate(" + 100 + "," + 50 + ")");
-
-					transition();
-
-					function transition() {
-						circle.transition()
-							.duration(1000)
-							.attrTween("transform", translateAlongPath(path.node()))
-					}
-
-					function translateAlongPath(path) {
-						var tl = path.getTotalLength();
-						return function(d, i, a) {
-							return function(t) {
-								var p = path.getPointAtLength(t * tl);
-								return "translate(" + p.x + "," + p.y + ")";
-							};
-						};
-					}
 				*/
+				
+				people.append("circle")
+					.on("mouseover", mouseover)
+					.on("mouseout", mouseout)
+					.on("mousedown", animateFirst)
+						.attr("class", "circle")
+							.attr("r", 0)
+							.attr("transform", function(d) {
+								return "translate(" + d.birth_x + "," + d.birth_y + ")"; })
+						.transition()
+						.duration(250)
+						.attr("r", 10)
+						.ease("bounce")
+						.transition()
+						.duration(250)
+						.ease("bounce")
+						.attr("r", 3)
+						.transition()
+						.duration(3000)
+						.ease("cubic-in-out") //default;
+						.attr("transform", function(d) {
+							return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
+						.attr("r", 2)
+						.style("opacity", .3)
+						.style("fill", "gold")
+			
+
+
+
+				//circle.transition()
+				//	.attrTween("transform", translateAlong(path.node()))
+					
+				
+
 
 				};
 
