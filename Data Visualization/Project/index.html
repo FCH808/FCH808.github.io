@@ -40,30 +40,25 @@
 	.circle {
 		fill: ForestGreen;
 		opacity: 1;	
-		stroke-width: 0.1px;
+		stroke-width: 0.2px;
 		stroke: black;
-	}
-
-	.circle:hover {
-	  fill: DarkRed;
-	  opacity: 0;
 	}
 
 	.world {
 		fill: gray;
 		stroke-width: 0.25px;
-		stroke: black;
+		stroke: gray;
 	}
 
-.sphere, .graticule {
-  stroke: gray; 
-  stroke-width: 0.1px;
-}
+	.sphere, .graticule {
+	  stroke: gray; 
+	  stroke-width: 0.1px;
+	}
 
-path {
-  fill: none;
-  stroke-linejoin: round;
-}
+	path {
+	  fill: none;
+	  stroke-linejoin: round;
+	}
 
 </style> 
 <body>
@@ -97,7 +92,8 @@ path {
 		//.precision(.3)
 		//.center([0, 00])
 
-
+	var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
+		circleSize = 6; 
 
 
 	var path = d3.geo.path()
@@ -118,7 +114,7 @@ path {
 		.on("dragend", dragended);
 
 	var zoom = d3.behavior.zoom()
-		.scaleExtent([1, 10]) // Controls the amount of allowable magnification.
+		.scaleExtent([1, 30]) // Controls the amount of allowable magnification.
 		.on("zoom", zoomed);
 
 	var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in <body>
@@ -132,7 +128,7 @@ path {
 		
 	//	.attr("class", "draggable")
 	//.append("g")
-		
+
 		//.call(drag);
 
 	var graticule = d3.geo.graticule();  //Graticule is a geographic grid.
@@ -148,7 +144,7 @@ path {
 		.datum(graticule)
 		.attr("class", "graticule")
 		.attr("d", path)
-		.style("fill","#A5D3FF")
+
 
 	//var g = mainSVG.append("g");
 
@@ -206,18 +202,11 @@ path {
 			.attr("d", path)
 			.style("fill", "#CDC")
 			.style("stroke-width", 0.3)
-			.style("stroke", "black")
+			.style("stroke", "gray")
 
 
-		d3.csv("data/all_acquired.csv", function(error, nobel) {
+		d3.csv("data/nobel_test.csv", function(error, nobel) {
 
-			years = d3.set()
-
-			nobel.forEach( function(d){
-				// Convert year to interger
-  				years.add(+d.year)
-			})
-			years = years.values()
 /*
 			function agg_year(leaves) {
 				// leaves here is an array of filtered data from d3.nest().key()
@@ -240,16 +229,28 @@ path {
 
 			// Now nested is an aggregated dataset of counts of number of nobel prize
 			// winners for each year.
+
 */
+			function jitter(min, max) {
+			    return Math.random() * (max - min) + min;
+			}
+
+			years = d3.set() // Set of years for iterating through.
+
 			nobel.forEach( function(d){
 				// Convert year to interger
-  				d.year = +d.year
-  				//Translate lon/lat into x/y once for using later.
-  				d.birth_x = projection([d.birth_lon, d.birth_lat])[0]
-  				d.birth_y = projection([d.birth_lon, d.birth_lat])[1]
-  				d.acquired_x = projection([d.acquired_lon, d.acquired_lat])[0]
-  				d.acquired_y = projection([d.acquired_lon, d.acquired_lat])[1]
+  				d.year_won = +d.year_won
+  				// Translate lon/lat into x/y once for using later.
+  				// Jitter the coordinates slightly to avoid some overplotting.
+  				d.birth_x = projection([d.born_lon, d.born_lat])[0] * jitter(.99, 1)
+  				d.birth_y = projection([d.born_lon, d.born_lat])[1] * jitter(.99, 1)
+  				d.acquired_x = projection([d.inst_lon, d.inst_lat])[0] * jitter(.99, 1)
+  				d.acquired_y = projection([d.inst_lon, d.inst_lat])[1] * jitter(.99, 1)
+  				// Grab years for our years set while we're here.
+  				years.add(+d.year_won)
 			})
+
+			years = years.values() // Get the values in the set.
 
 			//debugger;
 
@@ -295,7 +296,7 @@ path {
 
 
 
-				var filtered = nobel.filter( function (d) { return +d.year === +year; })
+				var filtered = nobel.filter( function (d) { return +d.year_won === +year; })
 
 				var people = worldGroup.selectAll("people")
 									.data(filtered)
@@ -358,7 +359,7 @@ path {
 						.style("fill", "gold")
 				*/
 				
-				people.append("circle")
+				var circles = people.append("circle")
 					.on("mouseover", mouseover)
 					.on("mouseout", mouseout)
 					.on("mousedown", animateFirst)
@@ -368,22 +369,22 @@ path {
 								return "translate(" + d.birth_x + "," + d.birth_y + ")"; })
 						.transition()
 						.duration(250)
-						.attr("r", 10)
+						.attr("r", circleSize/currentZoom)
 						.ease("bounce")
 						.transition()
 						.duration(250)
 						.ease("bounce")
-						.attr("r", 3)
+						.attr("r", (circleSize/2) /currentZoom)
 						.transition()
 						.duration(3000)
 						.ease("cubic-in-out") //default;
 						.attr("transform", function(d) {
 							return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
-						.attr("r", 2)
-						.style("opacity", .3)
-						.style("fill", "gold")
+						.attr("r", circleSize/currentZoom)
+						.style("opacity", .4)
+						.style("fill", "#FBD714")
+				
 			
-
 
 
 				//circle.transition()
@@ -398,6 +399,7 @@ path {
 				var year_idx = 0;
 
 				var year_interval = setInterval(function() {
+
 					update(+years[year_idx]);
 		
 					year_idx++;
@@ -416,25 +418,46 @@ path {
 	//Functions:
 
 	// Give mouseover tooltips, and clickable animations.
+
+	//Function to move selection to top of renedering queue.
+	d3.selection.prototype.moveToFront = function() { 
+	  return this.each(function() { 
+	    this.parentNode.appendChild(this); 
+	  }); 
+	}; 
+
 	function mouseover(d) {
-		// Fill these circles with DarkRed while moused over, and make 
-		// them solid filled circles.
-		d3.select(this).style("opacity", 1)
 
 		// Display the tooltip at the x,y coord on the #mapViz html area
 		tooltip.style("top", (d3.event.pageY + 10) + "px")
 			   .style("left", (d3.event.pageX + 10) + "px");
 		tooltip.select(".name").html(d.name);
-		tooltip.select(".field").html("Field: " + d.field + ", " + d.year);
+		tooltip.select(".field").html("Field: " + d.field + ", " + d.year_won);
 		tooltip.select(".institution").html("Inst. :" + d.institution);
-		tooltip.select(".city").html("City: " + d.city + ", " + d.current_country_name_acquired)
+		tooltip.select(".city").html("City: " + d.inst_city )
 		tooltip.style("display", "block");
+
+		// When mousing over, make solid and larger
+		d3.select(this)
+			.transition()
+			.duration(400)
+			.style("opacity", .95)
+			.attr("r", 6*circleSize/currentZoom)
+			.attr("stroke-width", 4*currentZoom)
+			.style("fill", "red");
+		// Move moused over circle to be rendered above all other circles.
+		//d3.select(this).moveToFront();
 		}
 
 	function mouseout(d) {
 		// Make the circle attributes return to defaults and
 		// tooltip disappear when moused off of.
-		d3.select(this).style("opacity", .2)
+		d3.select(this)
+			.transition()
+			.duration(200)
+			.style("opacity", .2)
+			.attr("r", circleSize/currentZoom)
+			.style("fill", "transparent")
 		tooltip.style("display", "none")
 		}
 
@@ -446,7 +469,7 @@ path {
 		.transition()
 		  .delay(0)
 		  .duration(100)
-		  .attr("r", 10)
+		  .attr("r", (circleSize*4) /currentZoom)
 		  .each("end", animateSecond)
 		};
 	// Then return to normal size.
@@ -454,7 +477,7 @@ path {
 		d3.select(this)
 		  .transition()
 		    .duration(200)
-		    .attr("r", 2)
+		    .attr("r", circleSize/currentZoom)
 		    // Add for loop
 		    //.each("end", animateFirst)
 		};
@@ -464,20 +487,17 @@ path {
 
 		//d3.event.sourceEvent.preventDefault();
 		// d3.event.translate is equivalent since this d3.event is the zoom() parent zoom() function.
-		// zoom() used for clarity. Not sure which would be more efficient.
+		// d3.event syntax used for clarity. Not sure which would be more efficient.
 		//console.log(zoom.translate  ())
-
-		// http://computationallyendowed.com/blog/2013/01/21/bounded-panning-in-d3.html
-		//var trans_coords = zoom.translate(),
-		//	tx = trans_coords[0],
-		//	ty = trans_coords[1];
-
-		//	tx = Math.min(tx, 0); //Bind left scrolling to not go below 0.
-		//	tx = Math.max(tx, width - 180);
-		//	ty = Math.min(ty, 0);
+		window.currentZoom = d3.event.scale;
+		// Scaled zooming
+		// https://groups.google.com/forum/#!topic/d3-js/z9kqLRj7Puo
 
 		worldGroup.attr("transform", "translate(" + 
-			zoom.translate().join(",") + ")scale(" + zoom.scale() + ")" );
+				d3.event.translate.join(",") + ")scale(" + d3.event.scale + ")" )
+			.style("stroke-width", 1/d3.event.scale)  // Scale lines as you zoom.
+			.selectAll("circle").attr("r", circleSize/d3.event.scale); 
+													  
 		
 		//g.selectAll("path")
 		//	.attr("d", path.projection(projection));
