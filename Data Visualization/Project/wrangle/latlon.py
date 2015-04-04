@@ -54,8 +54,7 @@ def find_lon_lat(location):
     try:
         lat = country_json['results'][0]['geometry']['location']['lat']
         lon = country_json['results'][0]['geometry']['location']['lng']
-        #country_long_name = country_json['results'][0]['address_components'][0]['long_name']
-        
+
         for result in country_json['results']:
             for address_component in result['address_components']:
                 ##if address_component['types'] == ['locality', 'political']:

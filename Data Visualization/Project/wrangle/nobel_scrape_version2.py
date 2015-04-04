@@ -69,21 +69,112 @@ nobel.born_city[nobel.born_city == "Nitzkydorf, Banat, Romania"] = 'Nitchidorf, 
 nobel.born_city[nobel.born_city == "Casteldàwson, Northern Ireland"] = 'Castledawson, Northern Ireland'
 nobel.born_city[nobel.born_city == "Bad Salzbrunn, Germany"] = 'Szczawno-Zdrój, Poland'
 
+# Fix some records that are missing info on the website.
+nobel.query('location_at_award == "None"')
+# Marie Curie was not affiliated with a university, but received the award 
+# jointly with her husband who was affiliated with/at a uni in Paris, France.
+nobel.award_city[(nobel.location_at_award == 'None') & (nobel.year_won == 1903)] = 'Paris, France'
+nobel.location_at_award[(nobel.location_at_award == 'None') & (nobel.year_won == 1903)] = 'None, Paris, France'
+
+# Working at UofM-AN form 1981 onward, awarded in 1999.
+nobel.location_at_award[nobel.name == 'Martinus J.G. Veltman'] = 'University of Michigan-Ann Arbor, Ann Arbor, MI, USA'
+nobel.award_city[nobel.name == 'Martinus J.G. Veltman'] = 'Ann Arbor, MI, USA'
+nobel.institution[nobel.name == 'Martinus J.G. Veltman'] = 'University of Michigan-Ann Arbor'
+
+# Worked at this corp when received. got $10,000 bonus.
+nobel.location_at_award[nobel.name == 'Kary B. Mullis'] = 'Cetus Corporation, Emeryville, California'
+nobel.award_city[nobel.name == 'Kary B. Mullis'] = 'Emeryville, California'
+nobel.institution[nobel.name == 'Kary B. Mullis'] = 'Cetus Corporation'
+
+# Retired at the time living in Chestefield. - NYTimes.com
+nobel.location_at_award[nobel.name == 'William S. Knowles'] = 'None - retired, Chesterfield, MO, USA'
+nobel.award_city[nobel.name == 'William S. Knowles'] = 'Chesterfield, MO, USA'
+nobel.institution[nobel.name == 'William S. Knowles'] = 'None'
+
+# Awarded jointly with colleague while at UofWA with colleague.
+nobel.location_at_award[nobel.name == 'J. Robin Warren'] = 'University of Western Australia, Perth, Australia'
+nobel.award_city[nobel.name == 'J. Robin Warren'] = 'Perth, Australia'
+nobel.institution[nobel.name == 'J. Robin Warren'] = 'University of Western Australia'
+
+# Living in Paris, France at the time of award
+nobel.location_at_award[nobel.name == 'Ivan Alekseyevich Bunin'] = 'None, Paris, France'
+nobel.award_city[nobel.name == 'Ivan Alekseyevich Bunin'] = 'Paris, France'
+nobel.institution[nobel.name == 'Ivan Alekseyevich Bunin'] = 'None'
+
+# Became a citizen of Spain in 1993, lived most of time there thereafter, awarded 2010
+nobel.location_at_award[nobel.name == 'Mario Vargas Llosa'] = 'None, Madrid, Spain'
+nobel.award_city[nobel.name == 'Mario Vargas Llosa'] = 'Madrid, Spain'
+nobel.institution[nobel.name == 'Mario Vargas Llosa'] = 'None'
+
+# Working at University of Salzburg 1969-1977, awarded 1974
+nobel.location_at_award[nobel.name == 'Friedrich August von Hayek'] = 'University of Salzburg, Salzburg, Austria'
+nobel.award_city[nobel.name == 'Friedrich August von Hayek'] = 'Salzburg, Austria'
+nobel.institution[nobel.name == 'Friedrich August von Hayek'] = 'University of Salzburg'
+
+# Spent his professional life working at Stockholm University
+nobel.location_at_award[nobel.name == 'Gunnar Myrdal'] = 'Stockholm University, Stockholm, Sweden'
+nobel.award_city[nobel.name == 'Gunnar Myrdal'] = 'Stockholm, Sweden'
+nobel.institution[nobel.name == 'Gunnar Myrdal'] = 'Stockholm University'
+
+# Le Duc Tho - located in North Vietnam. Fix error in lookup
+nobel.award_city[nobel.award_city == 'Democratic Republic of Vietnam'] = 'North Vietnam'
+
+##############################################################################
+# 
+# 
+# nobel.to_csv('../data/nobel_info_updated.csv, index=FALSE')
+##############################################################################
+
+
+
+
+
 
 all_cities = set(nobel.born_city).union( set(nobel.award_city) )
-all_cities.remove('None')
+# all_cities.remove('None')
 all_cities = list(all_cities)
 # Those without ',' are most likely just countries from peace/literature awards
 just_countries = [x for x in all_cities if len(x.split(',')) <= 1]
 
+##############################################################################
+# coords = find_lon_lat_to_df(all_cities)
+
+# Fix some records.
+# coords.country[coords.location == "Nicosia, Cyprus"] = "Republic of Cyprus"
+# coords.country_short_name[coords.location == "Nicosia, Cyprus"] = "CY"
+# coords.country_short_name[coords.location == "Wailacama, East Timor"] = "TL"
+# coords.country[coords.location == "Wailacama, East Timor"] = "Timor-Leste"
+
+# City currently not grabbed. Empty.
+#del coords['city_name']
+
+# coords.to_csv('../data/nobel_coords.csv', index=False)
+##############################################################################
+coords = pd.read_csv('../data/nobel_coords.csv')
 
 
-all_acquired = pd.merge(nobel, df, left_index=True, how='inner',
+nobel_locations = pd.merge(nobel, coords, left_index=True, how='inner',
                         left_on=['born_city'], right_on=['location'])
 
-all_acquired.rename(columns={'lon':'born_lon', 'lat':'born_lat'}, inplace=True)
+nobel_locations.reset_index(drop=True)      
+                   
+del nobel_locations['location'] # Delete location key
 
-all_acquired = pd.merge(all_acquired, df, left_index=True, how='inner',
-                        left_on=['inst_city'], right_on=['location'])
-                        
-all_acquired.rename(columns={'lon':'inst_lon', 'lat':'inst_lat'}, inplace=True)
+nobel_locations.rename(columns={'lon':'born_lon', 'lat':'born_lat',
+                                'country':'born_country', 
+                                'country_short_name': 'born_ctry_short_name'},
+                                inplace=True)
+                                
+nobel_locations = pd.merge(nobel_locations, coords, left_index=True, how='inner',
+                        left_on=['award_city'],
+                        right_on=['location'])
+
+del nobel_locations['location'] # Delete location key
+nobel_locations.reset_index(drop=True) 
+nobel_locations.rename(columns={'lon':'award_lon', 'lat':'award_lat',
+                                'country':'award_country', 
+                                'country_short_name': 'award_ctry_short_name'},
+                                inplace=True)  
+##############################################################################
+# nobel_locations.to_csv('../data/nobel_locations.csv', index=False)
+##############################################################################
