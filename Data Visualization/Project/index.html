@@ -320,7 +320,7 @@
 					.style("opacity", .2)
 					//.attr("x2", function(d) { return d.acquired_x })
 					//.attr("y2", function(d) { return d.acquired_y; });
-					.attr("d", makeArc2)
+					.attr("d", makeArc2);
 
 					//nobelCircles.exit().remove()
 
@@ -384,7 +384,6 @@
 						.style("opacity", .4)
 						.style("fill", "#FBD714")
 				
-			
 
 
 				//circle.transition()
@@ -420,11 +419,22 @@
 	// Give mouseover tooltips, and clickable animations.
 
 	//Function to move selection to top of renedering queue.
+	// http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
 	d3.selection.prototype.moveToFront = function() { 
 	  return this.each(function() { 
 	    this.parentNode.appendChild(this); 
 	  }); 
 	}; 
+
+	//Function to move selection to back of renedering queue.
+	d3.selection.prototype.moveToBack = function() { 
+	    return this.each(function() { 
+	        var firstChild = this.parentNode.firstChild; 
+	        if (firstChild) { 
+	            this.parentNode.insertBefore(this, firstChild); 
+	        } 
+	    }); 
+	};
 
 	function mouseover(d) {
 
@@ -442,11 +452,12 @@
 			.transition()
 			.duration(400)
 			.style("opacity", .95)
-			.attr("r", 6*circleSize/currentZoom)
+			.attr("r", 3*circleSize/currentZoom)
 			.attr("stroke-width", 4*currentZoom)
 			.style("fill", "red");
 		// Move moused over circle to be rendered above all other circles.
-		//d3.select(this).moveToFront();
+		// 
+		// d3.select(this).moveToFront();
 		}
 
 	function mouseout(d) {
