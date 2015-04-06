@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<meta http-equiv="refresh" content="120000">
+<meta http-equiv="refresh" content="300000">
 <html>
 <style>
 	/* Beautiful CSS styling here for now. */
@@ -64,6 +64,7 @@
 <body>
 
 <h2>Year: </h2> 
+<button>Pause</button>
 
 
 	<div id="mapViz"></div>
@@ -80,20 +81,18 @@
 	//Needed for? ^
 	var width = 960,
 		height = 500,		//http://bl.ocks.org/patricksurry/6621971
-	    rotate = -10,        // so that [-60, 0] becomes initial center of projection
-    	nodes = [],
-    	node;        
+	    rotate = -10;       
 
 	var projection = d3.geo.mercator()
 		.rotate([rotate,0])
-		//.scale(1) 			// we'll scale up to match viewport shortly.	
 		.translate([width/2, height/2])
 		//.clipAngle(90 + 1e-6) // http://bl.ocks.org/mbostock/5731578 gets rid of the white space strip
 		//.precision(.3)
-		//.center([0, 00])
+		.center([15, 20])
+		.scale(180)
 
 	var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
-		circleSize = 6; 
+		circleSize = 4; // Size of circles
 
 
 	var path = d3.geo.path()
@@ -114,7 +113,7 @@
 		.on("dragend", dragended);
 
 	var zoom = d3.behavior.zoom()
-		.scaleExtent([1, 30]) // Controls the amount of allowable magnification.
+		.scaleExtent([.9, 30]) // Controls the amount of allowable magnification.
 		.on("zoom", zoomed);
 
 	var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in <body>
@@ -173,6 +172,9 @@
           .attr('class', 'institution');                                // NEW
 
         tooltip.append('div')                                           // NEW
+          .attr('class', 'born');                                       // NEW
+
+        tooltip.append('div')                                           // NEW
           .attr('class', 'city');                                       // NEW
 //////////////////////////////////////////////////////////////////////////////
 
@@ -205,7 +207,7 @@
 			.style("stroke", "gray")
 
 
-		d3.csv("data/nobel_test.csv", function(error, nobel) {
+		d3.csv("data/nobel_locations.csv", function(error, nobel) {
 
 /*
 			function agg_year(leaves) {
@@ -242,10 +244,10 @@
   				d.year_won = +d.year_won
   				// Translate lon/lat into x/y once for using later.
   				// Jitter the coordinates slightly to avoid some overplotting.
-  				d.birth_x = projection([d.born_lon, d.born_lat])[0] * jitter(.99, 1)
-  				d.birth_y = projection([d.born_lon, d.born_lat])[1] * jitter(.99, 1)
-  				d.acquired_x = projection([d.inst_lon, d.inst_lat])[0] * jitter(.99, 1)
-  				d.acquired_y = projection([d.inst_lon, d.inst_lat])[1] * jitter(.99, 1)
+  				d.birth_x = projection([d.born_lon, d.born_lat])[0] * jitter(.9999, 1)
+  				d.birth_y = projection([d.born_lon, d.born_lat])[1] * jitter(.9999, 1)
+  				d.acquired_x = projection([d.award_lon, d.award_lat])[0] * jitter(.99, 1)
+  				d.acquired_y = projection([d.award_lon, d.award_lat])[1] * jitter(.99, 1)
   				// Grab years for our years set while we're here.
   				years.add(+d.year_won)
 			})
@@ -304,7 +306,7 @@
 				
 
 				
-				people.append("svg:path")
+				var arcs = people.append("svg:path")
 					.attr("class", "arc linepath")
 					// Make lines for each data point with the start and end at the 
 					// same birth country lon/lat
@@ -389,18 +391,79 @@
 				//circle.transition()
 				//	.attrTween("transform", translateAlong(path.node()))
 					
-				
-
-
 				};
 
 
-				var year_idx = 0;
+			var year_idx = 0;
 
+			// Class object for a timer to add to years_idx.
+			function goYears(callback, delay) {
+				var timerID, start, remaining = delay;
+
+				// Pause the timer
+				this.pause = function() {
+					window.clearTimeout(timerID);
+					remaining -= new Date() - start;
+				};
+
+				//Reset the timer
+				//this.reset = function() {
+				//	window.clearTimeout(timerID);
+				//	remaining = new Date();
+				//}
+
+				var resume = function() {
+					start = new Date();
+					timerID = window.setTimeout(function() {
+						remaining = delay;
+						resume();
+						callback();
+					}, remaining) 
+				};
+
+				this.resume = resume;
+				this.resume();
+				}
+
+				var timer = new goYears(function() {
+					// If timer is being resumed after all years have already been cycled through...
+					if(year_idx === 0) {
+						// ... remove all circle and arc classes first to restart animation.
+						d3.selectAll(".circle").remove();
+						d3.selectAll(".arc").remove();
+					}
+
+					update(+years[year_idx]);
+
+					year_idx++
+
+					if(year_idx >= years.length) {
+						timer.pause();
+						// If all years have been cycled through, reset the year index back to 0
+						year_idx = 0
+						// Show that button can now be used to reset the animation
+						d3.select('button').text('Reset')
+					}
+			}, 10); // Transition time in millisec between switching years.
+
+
+		// Interactions / Clickables:
+		d3.select('button').on('click',function(d,i){
+			var self = d3.select(this);
+			if (self.text() == "Pause"){
+				timer.pause()
+				self.text("Play");
+			}else{
+				self.text("Pause");
+				timer.resume()
+			}
+		});
+
+				/*
 				var year_interval = setInterval(function() {
 
 					update(+years[year_idx]);
-		
+			
 					year_idx++;
 
 					if(year_idx >= years.length) {
@@ -408,16 +471,23 @@
 					}
 
 				}, 1000);
+				*/
+			
 
 
 		});
 
 	});	
 
+
+
+	
+
+
+
+
 	//Functions:
-
-	// Give mouseover tooltips, and clickable animations.
-
+	
 	//Function to move selection to top of renedering queue.
 	// http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
 	d3.selection.prototype.moveToFront = function() { 
@@ -436,15 +506,17 @@
 	    }); 
 	};
 
+	// Give mouseover tooltips, and clickable animations.
 	function mouseover(d) {
 
 		// Display the tooltip at the x,y coord on the #mapViz html area
 		tooltip.style("top", (d3.event.pageY + 10) + "px")
 			   .style("left", (d3.event.pageX + 10) + "px");
 		tooltip.select(".name").html(d.name);
-		tooltip.select(".field").html("Field: " + d.field + ", " + d.year_won);
+		tooltip.select(".field").html("Field: " + d.nobel_field + ", " + d.year_won);
 		tooltip.select(".institution").html("Inst. :" + d.institution);
-		tooltip.select(".city").html("City: " + d.inst_city )
+		tooltip.select(".city").html("Location: " + d.award_city )
+		tooltip.select(".born").html("Born: " + d.born_city)
 		tooltip.style("display", "block");
 
 		// When mousing over, make solid and larger
