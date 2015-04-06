@@ -20,7 +20,7 @@
 		cursor: move;
 	}
 
-	.tooltip {                                                       /* NEW */
+	.myTooltip {                                                       /* NEW */
 	background: #eee; 
     border: 2px solid #a1a1a1;	
 	border-radius: 25px;                                              /* NEW */
@@ -33,7 +33,6 @@
 	position: absolute;                                             /* NEW */
 	text-align: center;                                             /* NEW */
 	top: 95px;                                                      /* NEW */
-
     z-index: 10;                                                    /* NEW */
 	} 
 
@@ -63,17 +62,24 @@
 </style> 
 <body>
 
+
+
+
+<!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script> -->
+<script type="text/javascript" src="js/d3.v3.min.js"></script>
+<script type="text/javascript" src="js/topojson.v1.min.js"></script>
+<!-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
 <h2>Year: </h2> 
-<button>Pause</button>
-
-
-	<div id="mapViz"></div>
-	<!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script> -->
-	<script type="text/javascript" src="js/d3.v3.min.js"></script>
-	<script type="text/javascript" src="js/topojson.v1.min.js"></script>
-	<!-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script> -->
-	<!-- <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+<button type="button" class="btn btn-warning" id="animation_btn">Pause</button>
+<button type="button" class="btn btn-info" id="paths_btn">Paths</button>
+<button type="button" class="btn btn-info" id="people_btn">People</button>
+<div id="mapViz"></div>
 
 	<script>
 		/*Java java */
@@ -94,6 +100,7 @@
 	var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
 		circleSize = 4; // Size of circles
 
+	var color = d3.scale.category10();
 
 	var path = d3.geo.path()
 		.projection(projection);
@@ -152,29 +159,29 @@
 	//var acquiredGroup = mainSVG.append("g");
 
 // http://zeroviscosity.com/d3-js-step-by-step/step-5-adding-tooltips   //////
-        var tooltip = d3.select('#mapViz')                              // NEW
+        var myTooltip = d3.select('#mapViz')                              // NEW
           .append('div')                                                // NEW
-          .attr('class', 'tooltip');                                    // NEW
+          .attr('class', 'myTooltip');                                    // NEW
 
-        tooltip.append('div')                                           // NEW
+        myTooltip.append('div')                                           // NEW
           .attr('class', 'name');                                       // NEW
              
-        tooltip.append('div')                                           // NEW
+        myTooltip.append('div')                                           // NEW
           .attr('class', 'count');                                      // NEW
 
-        tooltip.append('div')                                           // NEW
+        myTooltip.append('div')                                           // NEW
           .attr('class', 'percent');                                    // NEW
 
-        tooltip.append('div')                                           // NEW
+        myTooltip.append('div')                                           // NEW
           .attr('class', 'field');                                      // NEW
 
-        tooltip.append('div')                                           // NEW
+        myTooltip.append('div')                                           // NEW
           .attr('class', 'institution');                                // NEW
 
-        tooltip.append('div')                                           // NEW
+        myTooltip.append('div')                                           // NEW
           .attr('class', 'born');                                       // NEW
 
-        tooltip.append('div')                                           // NEW
+        myTooltip.append('div')                                           // NEW
           .attr('class', 'city');                                       // NEW
 //////////////////////////////////////////////////////////////////////////////
 
@@ -384,7 +391,7 @@
 							return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
 						.attr("r", circleSize/currentZoom)
 						.style("opacity", .4)
-						.style("fill", "#FBD714")
+						.style("fill", function(d) { return color(d.nobel_field);})
 				
 
 
@@ -397,6 +404,7 @@
 			var year_idx = 0;
 
 			// Class object for a timer to add to years_idx.
+			// http://stackoverflow.com/questions/7279567/how-do-i-pause-a-window-setinterval-in-javascript/7282347#7282347
 			function goYears(callback, delay) {
 				var timerID, start, remaining = delay;
 
@@ -423,56 +431,46 @@
 
 				this.resume = resume;
 				this.resume();
+				};
+
+			var timer = new goYears(function() {
+			// If timer is being resumed after all years have already been cycled through...
+				if(year_idx === 0) {
+					// ... remove all circle and arc classes first to restart animation.
+					d3.selectAll(".circle").remove();
+					d3.selectAll(".arc").remove();
 				}
 
-				var timer = new goYears(function() {
-					// If timer is being resumed after all years have already been cycled through...
-					if(year_idx === 0) {
-						// ... remove all circle and arc classes first to restart animation.
-						d3.selectAll(".circle").remove();
-						d3.selectAll(".arc").remove();
-					}
+				update(+years[year_idx]);
 
-					update(+years[year_idx]);
+				year_idx++
 
-					year_idx++
-
-					if(year_idx >= years.length) {
-						timer.pause();
-						// If all years have been cycled through, reset the year index back to 0
-						year_idx = 0
-						// Show that button can now be used to reset the animation
-						d3.select('button').text('Reset')
-					}
-			}, 10); // Transition time in millisec between switching years.
+				if(year_idx >= years.length) {
+					timer.pause();
+					// If all years have been cycled through, reset the year index back to 0
+					year_idx = 0
+					// Show that button can now be used to reset the animation
+					d3.select('button').text('Reset').attr('class', 'btn btn-danger')
+				};
+		}, 50); // Transition time in millisec between switching years.
 
 
 		// Interactions / Clickables:
-		d3.select('button').on('click',function(d,i){
+		d3.select('#animation_btn').on('click',function(d,i){
 			var self = d3.select(this);
 			if (self.text() == "Pause"){
 				timer.pause()
-				self.text("Play");
+				self.text("Play").attr('class', 'btn btn-success');
 			}else{
-				self.text("Pause");
+				self.text("Pause").attr('class', 'btn btn-warning');
 				timer.resume()
 			}
 		});
 
-				/*
-				var year_interval = setInterval(function() {
+		d3.select('#paths_btn').on('click', function(d,i) {
+			var self = d3.select(this);
 
-					update(+years[year_idx]);
-			
-					year_idx++;
-
-					if(year_idx >= years.length) {
-						clearInterval(year_interval);
-					}
-
-				}, 1000);
-				*/
-			
+		})
 
 
 		});
@@ -510,14 +508,14 @@
 	function mouseover(d) {
 
 		// Display the tooltip at the x,y coord on the #mapViz html area
-		tooltip.style("top", (d3.event.pageY + 10) + "px")
+		myTooltip.style("top", (d3.event.pageY + 10) + "px")
 			   .style("left", (d3.event.pageX + 10) + "px");
-		tooltip.select(".name").html(d.name);
-		tooltip.select(".field").html("Field: " + d.nobel_field + ", " + d.year_won);
-		tooltip.select(".institution").html("Inst. :" + d.institution);
-		tooltip.select(".city").html("Location: " + d.award_city )
-		tooltip.select(".born").html("Born: " + d.born_city)
-		tooltip.style("display", "block");
+		myTooltip.select(".name").html(d.name);
+		myTooltip.select(".field").html("Field: " + d.nobel_field + ", " + d.year_won);
+		myTooltip.select(".institution").html("Inst. :" + d.institution);
+		myTooltip.select(".city").html("Location: " + d.award_city )
+		myTooltip.select(".born").html("Born: " + d.born_city)
+		myTooltip.style("display", "block");
 
 		// When mousing over, make solid and larger
 		d3.select(this)
@@ -526,7 +524,8 @@
 			.style("opacity", .95)
 			.attr("r", 3*circleSize/currentZoom)
 			.attr("stroke-width", 4*currentZoom)
-			.style("fill", "red");
+			//.style("fill", "red");
+
 		// Move moused over circle to be rendered above all other circles.
 		// 
 		// d3.select(this).moveToFront();
@@ -538,10 +537,10 @@
 		d3.select(this)
 			.transition()
 			.duration(200)
-			.style("opacity", .2)
+			.style("opacity", .4)
 			.attr("r", circleSize/currentZoom)
-			.style("fill", "transparent")
-		tooltip.style("display", "none")
+
+		myTooltip.style("display", "none")
 		}
 
 	// Make an animation when a circle is clicked.
