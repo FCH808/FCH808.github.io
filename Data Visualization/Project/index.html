@@ -13,7 +13,7 @@
 
 	.linepath {
 		stroke: black;
-		opacity: 0;
+		stroke-opacity: 0;
 	}
 
 	.draggable {
@@ -38,7 +38,7 @@
 
 	.circle {
 		fill: ForestGreen;
-		opacity: 1;	
+		fill-opacity: 1;	
 		stroke-width: 0.2px;
 		stroke: black;
 	}
@@ -68,7 +68,7 @@
 <!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script> -->
 <script type="text/javascript" src="js/d3.v3.min.js"></script>
 <script type="text/javascript" src="js/topojson.v1.min.js"></script>
-<!-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script> -->
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
@@ -78,7 +78,7 @@
 <h2>Year: </h2> 
 <button type="button" class="btn btn-warning" id="animation_btn">Pause</button>
 <button type="button" class="btn btn-info" id="paths_btn" disabled="disabled">Hide Paths</button>
-<button type="button" class="btn btn-info" id="people_btn">Hide People</button>
+<button type="button" class="btn btn-info" id="people_btn" disabled="disabled">Hide People</button>
 <div id="mapViz"></div>
 
 	<script>
@@ -329,7 +329,7 @@
 					.transition()
 					.delay(500)
 					.duration(3000)
-					.style("opacity", lineOpacity)
+					.style("stroke-opacity", lineOpacity)
 					//.attr("x2", function(d) { return d.acquired_x })
 					//.attr("y2", function(d) { return d.acquired_y; });
 					.attr("d", makeArc2);
@@ -394,7 +394,7 @@
 						.attr("transform", function(d) {
 							return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
 						.attr("r", circleSize/currentZoom)
-						.style("opacity", .4)
+						.style("fill-opacity", .4)
 						.style("fill", function(d) { return color(d.nobel_field);})
 				
 
@@ -457,6 +457,7 @@
 					year_idx = 0
 					// Show that button can now be used to reset the animation
 					d3.select('button').text('Reset').attr('class', 'btn btn-danger')
+					// Add short delays for show buttons to allow animation to finish draws.
 					d3.select('#paths_btn').transition().delay(2000).attr("disabled", null)
 				};
 		}, 500); // Transition time in millisec between switching years.
@@ -470,6 +471,7 @@
 			if (self.text() === "Pause"){
 				timer.pause()
 				self.text("Play").attr('class', 'btn btn-success');
+				// Add short delays for show buttons to allow animation to finish draws.
 				d3.select('#paths_btn').transition().delay(2000).attr("disabled", null)
 
 			}else{
@@ -486,10 +488,10 @@
 
 			if(self.text() === "Show Paths"){
 				self.text('Hide Paths')
-				d3.selectAll('.arc').transition().delay(500).duration(500).style("opacity", 0.15)
+				d3.selectAll('.arc').transition().delay(500).duration(500).style("stroke-opacity", 0.15)
 			}else{
 				self.text("Show Paths")
-				d3.selectAll('.arc').transition().delay(500).duration(500).style('opacity', 0.0)
+				d3.selectAll('.arc').transition().delay(500).duration(500).style('stroke-opacity', 0.0)
 			}
 
 
@@ -544,7 +546,7 @@
 		d3.select(this)
 		//	.transition()
 		//	.duration(400)
-			.style("opacity", .95)
+			.style("fill-opacity", .95)
 			.attr("r", 3*circleSize/currentZoom)
 			.attr("stroke-width", 4*currentZoom)
 
@@ -561,7 +563,7 @@
 		d3.select(this)
 		//	.transition()
 		//	.duration(200)
-			.style("opacity", .4)
+			.style("fill-opacity", .4)
 			.attr("r", circleSize/currentZoom)
 
 		myTooltip.style("display", "none")
