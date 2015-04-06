@@ -12,8 +12,8 @@
 	}*/
 
 	.linepath {
-		stroke: DarkRed;
-		opacity: 1;
+		stroke: black;
+		opacity: 0;
 	}
 
 	.draggable {
@@ -77,8 +77,8 @@
 
 <h2>Year: </h2> 
 <button type="button" class="btn btn-warning" id="animation_btn">Pause</button>
-<button type="button" class="btn btn-info" id="paths_btn">Paths</button>
-<button type="button" class="btn btn-info" id="people_btn">People</button>
+<button type="button" class="btn btn-info" id="paths_btn" disabled="disabled">Hide Paths</button>
+<button type="button" class="btn btn-info" id="people_btn">Hide People</button>
 <div id="mapViz"></div>
 
 	<script>
@@ -311,10 +311,13 @@
 									.data(filtered)
 									.enter()
 				
+				function lineOpacity() {
+					if (d3.select('#paths_btn').text() ==='Show Paths'){return 0
+					}else{return 0.15}
+				}
 
-				
 				var arcs = people.append("svg:path")
-					.attr("class", "arc linepath")
+					.attr("class", "arc linepath nobel_winner")
 					// Make lines for each data point with the start and end at the 
 					// same birth country lon/lat
 					//.attr("x1", function(d) { return d.birth_x; })
@@ -326,7 +329,7 @@
 					.transition()
 					.delay(500)
 					.duration(3000)
-					.style("opacity", .2)
+					.style("opacity", lineOpacity)
 					//.attr("x2", function(d) { return d.acquired_x })
 					//.attr("y2", function(d) { return d.acquired_y; });
 					.attr("d", makeArc2);
@@ -367,12 +370,13 @@
 						.style("opacity", .3)
 						.style("fill", "gold")
 				*/
-				
+
+
 				var circles = people.append("circle")
 					.on("mouseover", mouseover)
 					.on("mouseout", mouseout)
 					.on("mousedown", animateFirst)
-						.attr("class", "circle")
+						.attr("class", "circle nobel_winner")
 							.attr("r", 0)
 							.attr("transform", function(d) {
 								return "translate(" + d.birth_x + "," + d.birth_y + ")"; })
@@ -439,6 +443,8 @@
 					// ... remove all circle and arc classes first to restart animation.
 					d3.selectAll(".circle").remove();
 					d3.selectAll(".arc").remove();
+					// Reset all buttons to defaults.
+					d3.select('#paths_btn').attr("disabled", "disabled");
 				}
 
 				update(+years[year_idx]);
@@ -451,24 +457,41 @@
 					year_idx = 0
 					// Show that button can now be used to reset the animation
 					d3.select('button').text('Reset').attr('class', 'btn btn-danger')
+					d3.select('#paths_btn').transition().delay(2000).attr("disabled", null)
 				};
-		}, 50); // Transition time in millisec between switching years.
+		}, 500); // Transition time in millisec between switching years.
 
 
 		// Interactions / Clickables:
+
+		//Change CSS styling on button if pause/play/reset available.
 		d3.select('#animation_btn').on('click',function(d,i){
 			var self = d3.select(this);
-			if (self.text() == "Pause"){
+			if (self.text() === "Pause"){
 				timer.pause()
 				self.text("Play").attr('class', 'btn btn-success');
+				d3.select('#paths_btn').transition().delay(2000).attr("disabled", null)
+
 			}else{
-				self.text("Pause").attr('class', 'btn btn-warning');
 				timer.resume()
+				d3.select('#paths_btn').attr("disabled", "disabled")
+				self.text("Pause").attr('class', 'btn btn-warning');
+				
 			}
 		});
 
+		// Give the option to hide paths. Only allow button when paused to avoid half/drawn paths.
 		d3.select('#paths_btn').on('click', function(d,i) {
 			var self = d3.select(this);
+
+			if(self.text() === "Show Paths"){
+				self.text('Hide Paths')
+				d3.selectAll('.arc').transition().delay(500).duration(500).style("opacity", 0.15)
+			}else{
+				self.text("Show Paths")
+				d3.selectAll('.arc').transition().delay(500).duration(500).style('opacity', 0.0)
+			}
+
 
 		})
 
@@ -519,13 +542,14 @@
 
 		// When mousing over, make solid and larger
 		d3.select(this)
-			.transition()
-			.duration(400)
+		//	.transition()
+		//	.duration(400)
 			.style("opacity", .95)
 			.attr("r", 3*circleSize/currentZoom)
 			.attr("stroke-width", 4*currentZoom)
-			//.style("fill", "red");
 
+			//.style("fill", "red");
+		//d3.select('.nobel_winner').attr('color', "red")
 		// Move moused over circle to be rendered above all other circles.
 		// 
 		// d3.select(this).moveToFront();
@@ -535,8 +559,8 @@
 		// Make the circle attributes return to defaults and
 		// tooltip disappear when moused off of.
 		d3.select(this)
-			.transition()
-			.duration(200)
+		//	.transition()
+		//	.duration(200)
 			.style("opacity", .4)
 			.attr("r", circleSize/currentZoom)
 
