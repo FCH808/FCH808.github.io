@@ -38,6 +38,8 @@
 
 	.circle {
 		fill-opacity: 0.4;
+		stroke: black;
+		stroke-opacity: .8;
 	}
 
 	.world {
@@ -89,7 +91,7 @@
 	var width = 960,
 		height = 500,		//http://bl.ocks.org/patricksurry/6621971
 	    rotate = -10,
-	    fields_set = d3.set([ 'physics']);
+	    fields_set = d3.set(['physics', 'chemistry', 'physiology']);
 
 
 	var projection = d3.geo.mercator()
@@ -312,47 +314,36 @@
 					return d.name
 				}
 
-				console.log("WHAT")
-
-				console.log(year)
-
 
 				arcs.exit().remove();
 				circlesTemp.exit().remove();
 
-				
-					arcs.enter()
-						.append("path")
-						.attr("class", "arc linepath nobel_winner")
-						.attr("id", fieldID)
-						// Make lines for each data point with the start and end at the 
-						// same birth country lon/lat
-						//.attr("x1", function(d) { return d.birth_x; })
-						//.attr("y1", function(d) { return d.birth_y; })
-						//.attr("x2", function(d) { return d.birth_x; })
-						//.attr("y2", function(d) { return d.birth_y; })
-						.attr("d", makeArc1)
-						// transition one end point from to the country acquired lon/lat
-						.transition()
-						.delay(500)
-						.duration(3000)
-						.style("stroke-opacity", lineOpacity)
-						//.attr("x2", function(d) { return d.acquired_x })
-						//.attr("y2", function(d) { return d.acquired_y; });
-						.attr("d", makeArc2)
+				arcs.enter()
+					.append("path")
+					.attr("class", "arc linepath nobel_winner")
+					.attr("id", fieldID)
+					.attr("d", makeArc1)
+					// transition line from birth city to city/country when awarded.
+					.transition()
+					.delay(500)
+					.duration(3000)
+					.style("stroke-opacity", lineOpacity)
+					.attr("d", makeArc2)
 
 
 				
 				var c0 = circlesTemp.enter()
 						.append("circle")
-
+						.on("mouseover", mouseover)
+						.on("mouseout", mouseout)
+						.on("mousedown", animateFirst)
 							//.attr("id", fieldID) // Assign ID to each field for show/hide buttons
-							
+							.attr("class", "circle nobel_winner")							
 							.attr("r", 0)
-							.attr("fill", "ForestGreen")
+							.attr("fill", "grey")
 							.attr("transform", function(d) {
 								return "translate(" + d.birth_x + "," + d.birth_y + ")"; })
-							.style("fill-opacity", circleFillOpacity)
+							.style("fill-opacity", 0.4)
 							//.style("stroke-opacity", circleStrokeOpacity)
 							.transition()
 							.duration(250)
@@ -369,10 +360,11 @@
 								return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
 							.attr("r", circleSize/currentZoom)
 							.style("fill", function(d) { return color(d.nobel_field);})
-							.remove()
+							//.remove()
 
-				var c1 = c0.transition();
-
+				//var c1 = c0.transition(); //Save data after transitions.
+/*
+				Create copies?
 				var circlesFinal = peopleGroup.selectAll("circleFinal")
 									.data(filtered, key)
 
@@ -391,8 +383,8 @@
 						.style("fill", function(d) { return color(d.nobel_field);})
 
 						.attr("r", circleSize/currentZoom)
-						.style("fill-opacity", circleFillOpacity)
-
+						.style("fill-opacity", 0.4)
+*/
 
 			};
 
@@ -488,14 +480,13 @@
 
 				if(self.text() === "Chemistry Off"){
 					self.text("Chemistry On").attr('class', 'btn btn-success btn-xs');
-					d3.selectAll("#chemistry").transition().delay(500).duration(500)
-						.style("fill-opacity", circleFillOpacity)
+					fields_set.add('chemistry')
+					update(year)
 						//.style("stroke-opacity", circleStrokeOpacity)
 				}else{
 					self.text("Chemistry Off").attr('class', 'btn btn-danger btn-xs');
-					d3.selectAll('#chemistry').transition().delay(500).duration(500)
-						.style("fill-opacity", 0.0)
-						//.style("stroke-opacity", 0.0)
+					fields_set.remove('chemistry')
+					update(year)
 				}
 			});
 
@@ -505,37 +496,29 @@
 
 				if(self.text() === "Phyics Off"){
 					self.text("Phyics On").attr('class', 'btn btn-success btn-xs');
-					//d3.selectAll("#physics").transition().delay(500).duration(500)
-					//	.style("fill-opacity", circleFillOpacity)
 					fields_set.add('physics')
-
 					update(year)
 						//.style("stroke-opacity", circleStrokeOpacity)
 				}else{
 					self.text("Phyics Off").attr('class', 'btn btn-danger btn-xs');
-					//d3.selectAll('#physics').transition().delay(500).duration(500)
-					//	.style("fill-opacity", 0.0)
-						//.style("stroke-opacity", 0.0)
 					fields_set.remove('physics')
-
 					update(year)
 				}
 			});
 
-			// Physiology show/hide TODO: eliminate redundancy.
+			// Physics show/hide TODO: eliminate redundancy.
 			d3.select("#physiology_btn").on("click", function(d, i) {
 				var self = d3.select(this);
 
 				if(self.text() === "Physiology Off"){
 					self.text("Physiology On").attr('class', 'btn btn-success btn-xs');
-					d3.selectAll("#physiology").transition().delay(500).duration(500)
-						.style("fill-opacity", circleFillOpacity)
+					fields_set.add('physiology')
+					update(year)
 						//.style("stroke-opacity", circleStrokeOpacity)
 				}else{
 					self.text("Physiology Off").attr('class', 'btn btn-danger btn-xs');
-					d3.selectAll('#physiology').transition().delay(500).duration(500)
-						.style("fill-opacity", 0.0)
-						//.style("stroke-opacity", 0.0)
+					fields_set.remove('physiology')
+					update(year)
 				}
 			});
 
@@ -547,30 +530,13 @@
 
 	//Functions:
 
-	// Change opacity depending on button status. TODO: eliminate redundancy
+	// Make sure lines are created with 0 opacity if lines button is toggled off.
 	function lineOpacity() {
 		if (d3.select('#paths_btn').text() ==='Paths Off'){return 0
 		}else{return 0.15}
 	}
 
-	function circleFillOpacity() {
-		if (d3.select('#phyics_btn').text().slice(-3) ==='Off'){return 0
-			}else{return .4} 
-		if (d3.select('#chemistry_btn').text().slice(-3) ==='Off'){return 0
-			}else{return .4} 
-		if (d3.select('#physiology_btn').text().slice(-3) ==='Off'){return 0
-			}else{return .4} 
-	}
 
-	function circleStrokeOpacity() {
-		if (d3.select('#phyics_btn').text() ==='Phyics Off'){return 0
-			}else{return .1}
-		if (d3.select('#chemistry_btn').text() ==='Chemistry Off'){return 0
-			}else{return .1}
-		if (d3.select('#physiology_btn').text() ==='Physiology Off'){return 0
-			}else{return .1}
-	}	
-	
 	//Function to move selection to top of renedering queue.
 	// http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
 	d3.selection.prototype.moveToFront = function() { 
@@ -597,7 +563,7 @@
 			   .style("left", (d3.event.pageX + 10) + "px");
 		myTooltip.select(".name").html(d.name);
 		myTooltip.select(".field").html("Field: " + d.nobel_field + ", " + d.year_won);
-		myTooltip.select(".institution").html("Inst. :" + d.institution);
+		myTooltip.select(".institution").html("Inst.: " + d.institution);
 		myTooltip.select(".city").html("Location: " + d.award_city )
 		myTooltip.select(".born").html("Born: " + d.born_city)
 		myTooltip.style("display", "block");
@@ -606,9 +572,9 @@
 		d3.select(this)
 		//	.transition()
 		//	.duration(400)
-			.style("fill-opacity", .95)
+			.style("fill-opacity", 0.6)
 			.attr("r", 3*circleSize/currentZoom)
-			.attr("stroke-width", 4*currentZoom)
+			//.attr("stroke-width", 4*currentZoom)
 
 			//.style("fill", "red");
 		//d3.select('.nobel_winner').attr('color', "red")
@@ -623,7 +589,7 @@
 		d3.select(this)
 		//	.transition()
 		//	.duration(200)
-			.style("fill-opacity", circleFillOpacity)
+			.style("fill-opacity", 0.4)
 			.attr("r", circleSize/currentZoom)
 
 		myTooltip.style("display", "none")
