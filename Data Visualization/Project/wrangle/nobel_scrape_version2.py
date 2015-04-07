@@ -33,6 +33,8 @@ nobel.died_city[nobel.died_city.str.contains('span')] = "NA"
 # Strip whitespace before comparing name to name_check.
 nobel.name = nobel.name.str.strip()
 nobel.name_check = nobel.name_check.str.strip()
+# Also strip nobel field names
+
 
 # All names match the name_check from each bio page.
 nobel[nobel['name'] != nobel['name_check']][['name', 'name_check']]
@@ -156,7 +158,7 @@ coords = pd.read_csv('../data/nobel_coords.csv')
 nobel_locations = pd.merge(nobel, coords, left_index=True, how='inner',
                         left_on=['born_city'], right_on=['location'])
 
-nobel_locations.reset_index(drop=True)      
+nobel_locations = nobel_locations.reset_index(drop=True)      
                    
 del nobel_locations['location'] # Delete location key
 
@@ -170,11 +172,19 @@ nobel_locations = pd.merge(nobel_locations, coords, left_index=True, how='inner'
                         right_on=['location'])
 
 del nobel_locations['location'] # Delete location key
-nobel_locations.reset_index(drop=True) 
+nobel_locations = nobel_locations.reset_index(drop=True) 
 nobel_locations.rename(columns={'lon':'award_lon', 'lat':'award_lat',
                                 'country':'award_country', 
                                 'country_short_name': 'award_ctry_short_name'},
-                                inplace=True)  
+                                inplace=True)
+                                
+# Strip whitespace from nobel field names                                
+nobel_locations.nobel_field = nobel_locations.nobel_field.str.strip() 
+nobel_locations = nobel_locations.reset_index(drop=True)    
+
+nobel_locations.nobel_field[nobel_locations.nobel_field == \
+ 'The Nobel Prize in  Literature'] = 'The Nobel Prize in Literature'
+nobel_locations['nobel_field_short'] = nobel_locations.nobel_field.map(map_field)
 ##############################################################################
 # nobel_locations.to_csv('../data/nobel_locations.csv', index=False)
 ##############################################################################

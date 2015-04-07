@@ -37,10 +37,7 @@
 	} 
 
 	.circle {
-		fill: ForestGreen;
-		fill-opacity: 1;	
-		stroke-width: 0.2px;
-		stroke: black;
+		fill-opacity: 0.4;
 	}
 
 	.world {
@@ -59,6 +56,7 @@
 	  stroke-linejoin: round;
 	}
 
+
 </style> 
 <body>
 
@@ -76,9 +74,12 @@
 
 
 <h2>Year: </h2> 
-<button type="button" class="btn btn-warning" id="animation_btn">Pause</button>
-<button type="button" class="btn btn-info" id="paths_btn" disabled="disabled">Hide Paths</button>
-<button type="button" class="btn btn-info" id="people_btn" disabled="disabled">Hide People</button>
+<button type="button" class="btn btn-warning btn-xs" id="play_btn">Pause</button>
+<button type="button" class="btn btn-success btn-xs" id="paths_btn">Paths On</button>
+<button type="button" class="btn btn-success btn-xs" id="phyics_btn">Phyics On</button>
+<button type="button" class="btn btn-success btn-xs" id="chemistry_btn">Chemistry On</button>
+<button type="button" class="btn btn-success btn-xs" id="physiology_btn">Physiology On</button>
+
 <div id="mapViz"></div>
 
 	<script>
@@ -87,7 +88,9 @@
 	//Needed for? ^
 	var width = 960,
 		height = 500,		//http://bl.ocks.org/patricksurry/6621971
-	    rotate = -10;       
+	    rotate = -10,
+	    fields_set = d3.set([ 'physics']);
+
 
 	var projection = d3.geo.mercator()
 		.rotate([rotate,0])
@@ -98,7 +101,7 @@
 		.scale(180)
 
 	var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
-		circleSize = 4; // Size of circles
+		circleSize = 5; // Size of circles
 
 	var color = d3.scale.category10();
 
@@ -139,8 +142,11 @@
 
 	var graticule = d3.geo.graticule();  //Graticule is a geographic grid.
 
-	var worldGroup = mainSVG.append("g");
+	var zoomCanvas = mainSVG.append("g")
 
+	var worldGroup = zoomCanvas.append("g").attr("class", "allWorld");
+
+	var peopleGroup = zoomCanvas.append("g").attr("class", "allPeople");
 	//worldGroup.append("path")
 	//	.datum({type: "Sphere"})
 	//	.attr("class", "graticule")
@@ -240,6 +246,9 @@
 			// winners for each year.
 
 */
+
+
+
 			function jitter(min, max) {
 			    return Math.random() * (max - min) + min;
 			}
@@ -261,7 +270,6 @@
 
 			years = years.values() // Get the values in the set.
 
-			//debugger;
 
 			function update(year) {
 
@@ -269,14 +277,6 @@
 	              .text("Year: " + year);
 
 
-
-
-				//debugger;
-
-				
-
-				//nobelLines.exit().remove();
-				//debugger;
 
 				function makeArc1(d) {
 					var dx = d.birth_x,
@@ -292,117 +292,109 @@
 					return "M" + d.birth_x + "," + d.birth_y + "A" + dr + "," + dr + " 0 0,1 " + d.acquired_x + "," + d.acquired_y;
 				}
 
-
-				function translateAlong(path) {
-					 var l = path.getTotalLength();
-					 return function(d, i, a) {
-					 	return function(t) {
-					 		var p = path.getPointAtLength(t * l);
-					 			return "translate(" + p.x + "," + p.y + ")";
-					 	};
-					 };
-				}			
-
-
-
-				var filtered = nobel.filter( function (d) { return +d.year_won === +year; })
-
-				var people = worldGroup.selectAll("people")
-									.data(filtered)
-									.enter()
-				
-				function lineOpacity() {
-					if (d3.select('#paths_btn').text() ==='Show Paths'){return 0
-					}else{return 0.15}
+				// Key function needed for filtered data, otherwise new data is bound by index
+				// Index only is problematic when filtering by multiple fields (year & field)
+				function key(d) {
+				  return d.name;
 				}
 
-				var arcs = people.append("svg:path")
-					.attr("class", "arc linepath nobel_winner")
-					// Make lines for each data point with the start and end at the 
-					// same birth country lon/lat
-					//.attr("x1", function(d) { return d.birth_x; })
-					//.attr("y1", function(d) { return d.birth_y; })
-					//.attr("x2", function(d) { return d.birth_x; })
-					//.attr("y2", function(d) { return d.birth_y; })
-					.attr("d", makeArc1)
-					// transition one end point from to the country acquired lon/lat
-					.transition()
-					.delay(500)
-					.duration(3000)
-					.style("stroke-opacity", lineOpacity)
-					//.attr("x2", function(d) { return d.acquired_x })
-					//.attr("y2", function(d) { return d.acquired_y; });
-					.attr("d", makeArc2);
+				var filtered = nobel.filter( function (d) 
+					{ return d.year_won <= year && fields_set.has(d.nobel_field_short); })
 
-					//nobelCircles.exit().remove()
+				var arcs = peopleGroup.selectAll("path")
+									.data(filtered, key)
 
-				// Create see through empty circles for each person at each birth country 
-				// for each year. Add circles after lines to keep them on top for tooltip.
-				//var nobelCircles = worldGroup.selectAll("circle")
-				//					.data(filtered)
+				var circlesTemp = peopleGroup.selectAll("circle")
+									.data(filtered, key)
+																		
+				
+				function fieldID(d) {
+					return d.name
+				}
 
-				/*
-				people.append("circle")
-					.on("mouseover", mouseover)
-					.on("mouseout", mouseout)
-					.on("mousedown", animateFirst)
-						.attr("class", "circle")
-						.attr("cx", function(d) { return d.birth_x; })
-						.attr("cy", function(d) { return d.birth_y; })
-						.attr("r", 0)
+				console.log("WHAT")
+
+				console.log(year)
+
+
+				arcs.exit().remove();
+				circlesTemp.exit().remove();
+
+				
+					arcs.enter()
+						.append("path")
+						.attr("class", "arc linepath nobel_winner")
+						.attr("id", fieldID)
+						// Make lines for each data point with the start and end at the 
+						// same birth country lon/lat
+						//.attr("x1", function(d) { return d.birth_x; })
+						//.attr("y1", function(d) { return d.birth_y; })
+						//.attr("x2", function(d) { return d.birth_x; })
+						//.attr("y2", function(d) { return d.birth_y; })
+						.attr("d", makeArc1)
+						// transition one end point from to the country acquired lon/lat
 						.transition()
-						.duration(250)
-						.attr("r", 10)
-						.ease("bounce")
-						.transition()
-						.duration(250)
-						.ease("bounce")
-						.attr("r", 3)
-				// Transition the circle to the countries acquired, while filling in the
-				// circles opacity to 0.1 to be seen.
-				//worldGroup.selectAll("circle")
-						.transition()
+						.delay(500)
 						.duration(3000)
-						.ease("cubic-in-out") //default
-						.attr("cx", function(d) { return d.acquired_x; })
-						.attr("cy", function(d) { return d.acquired_y; })
-						.attr("r", 2)
-						.style("opacity", .3)
-						.style("fill", "gold")
-				*/
+						.style("stroke-opacity", lineOpacity)
+						//.attr("x2", function(d) { return d.acquired_x })
+						//.attr("y2", function(d) { return d.acquired_y; });
+						.attr("d", makeArc2)
 
 
-				var circles = people.append("circle")
-					.on("mouseover", mouseover)
-					.on("mouseout", mouseout)
-					.on("mousedown", animateFirst)
-						.attr("class", "circle nobel_winner")
+				
+				var c0 = circlesTemp.enter()
+						.append("circle")
+
+							//.attr("id", fieldID) // Assign ID to each field for show/hide buttons
+							
 							.attr("r", 0)
+							.attr("fill", "ForestGreen")
 							.attr("transform", function(d) {
 								return "translate(" + d.birth_x + "," + d.birth_y + ")"; })
-						.transition()
-						.duration(250)
-						.attr("r", circleSize/currentZoom)
-						.ease("bounce")
-						.transition()
-						.duration(250)
-						.ease("bounce")
-						.attr("r", (circleSize/2) /currentZoom)
-						.transition()
-						.duration(3000)
-						.ease("cubic-in-out") //default;
+							.style("fill-opacity", circleFillOpacity)
+							//.style("stroke-opacity", circleStrokeOpacity)
+							.transition()
+							.duration(250)
+							.attr("r", circleSize/currentZoom)
+							.ease("bounce")
+							.transition()
+							.duration(250)
+							.ease("bounce")
+							.attr("r", (circleSize/2) /currentZoom)
+							.transition()
+							.duration(3000)
+							.ease("cubic-in-out") //default;
+							.attr("transform", function(d) {
+								return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
+							.attr("r", circleSize/currentZoom)
+							.style("fill", function(d) { return color(d.nobel_field);})
+							.remove()
+
+				var c1 = c0.transition();
+
+				var circlesFinal = peopleGroup.selectAll("circleFinal")
+									.data(filtered, key)
+
+				circlesFinal.exit().remove();
+
+				circlesFinal.enter().append("circle")
+						.style("fill", function(d) { return color(d.nobel_field);})
 						.attr("transform", function(d) {
 							return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
-						.attr("r", circleSize/currentZoom)
-						.style("fill-opacity", .4)
+						.on("mouseover", mouseover)
+						.on("mouseout", mouseout)
+						.on("mousedown", animateFirst)
+						.attr("class", "circle nobel_winner")
+						.transition().delay(3000)
+						.style("fill-opacity", 0.0)
 						.style("fill", function(d) { return color(d.nobel_field);})
-				
+
+						.attr("r", circleSize/currentZoom)
+						.style("fill-opacity", circleFillOpacity)
 
 
-				//circle.transition()
-				//	.attrTween("transform", translateAlong(path.node()))
-					
-				};
+			};
 
 
 			var year_idx = 0;
@@ -441,13 +433,11 @@
 			// If timer is being resumed after all years have already been cycled through...
 				if(year_idx === 0) {
 					// ... remove all circle and arc classes first to restart animation.
-					d3.selectAll(".circle").remove();
-					d3.selectAll(".arc").remove();
-					// Reset all buttons to defaults.
-					d3.select('#paths_btn').attr("disabled", "disabled");
+					d3.selectAll(".nobel_winner").remove();
 				}
-
-				update(+years[year_idx]);
+				window.year = +years[year_idx]
+				
+				update(year);
 
 				year_idx++
 
@@ -456,60 +446,130 @@
 					// If all years have been cycled through, reset the year index back to 0
 					year_idx = 0
 					// Show that button can now be used to reset the animation
-					d3.select('button').text('Reset').attr('class', 'btn btn-danger')
-					// Add short delays for show buttons to allow animation to finish draws.
-					d3.select('#paths_btn').transition().delay(2000).attr("disabled", null)
+					d3.select('#play_btn').text('Reset').attr('class', 'btn btn-danger btn-xs')
 				};
-		}, 500); // Transition time in millisec between switching years.
+			}, 100); // Transition time in millisec between switching years.
 
 
-		// Interactions / Clickables:
+			// Interactions / Clickables:
 
-		//Change CSS styling on button if pause/play/reset available.
-		d3.select('#animation_btn').on('click',function(d,i){
-			var self = d3.select(this);
-			if (self.text() === "Pause"){
-				timer.pause()
-				self.text("Play").attr('class', 'btn btn-success');
-				// Add short delays for show buttons to allow animation to finish draws.
-				d3.select('#paths_btn').transition().delay(2000).attr("disabled", null)
+			//Change CSS styling on button if pause/play/reset available.
+			d3.select('#play_btn').on('click',function(d,i){
+				var self = d3.select(this);
+				if (self.text() === "Pause"){
+					timer.pause()
+					self.text("Play").attr('class', 'btn btn-success btn-xs');
+				}else{
+					timer.resume()
+					self.text("Pause").attr('class', 'btn btn-warning btn-xs');
+					
+				}
+			});
 
-			}else{
-				timer.resume()
-				d3.select('#paths_btn').attr("disabled", "disabled")
-				self.text("Pause").attr('class', 'btn btn-warning');
-				
-			}
-		});
+			// Give the option to hide paths. Only allow button when paused to avoid half/drawn paths.
+			d3.select('#paths_btn').on('click', function(d,i) {
+				var self = d3.select(this);
 
-		// Give the option to hide paths. Only allow button when paused to avoid half/drawn paths.
-		d3.select('#paths_btn').on('click', function(d,i) {
-			var self = d3.select(this);
+				if(self.text() === "Paths Off"){
+					self.text('Paths On').attr('class', 'btn btn-success btn-xs');
+					d3.selectAll('.arc').transition().delay(500).duration(500)
+						.style("stroke-opacity", lineOpacity)
+				}else{
+					self.text("Paths Off").attr('class', 'btn btn-danger btn-xs');
+					d3.selectAll('.arc')
+						.transition().delay(500).duration(500)
+						.style('stroke-opacity', 0.0)
+				}
+			});
 
-			if(self.text() === "Show Paths"){
-				self.text('Hide Paths')
-				d3.selectAll('.arc').transition().delay(500).duration(500).style("stroke-opacity", 0.15)
-			}else{
-				self.text("Show Paths")
-				d3.selectAll('.arc').transition().delay(500).duration(500).style('stroke-opacity', 0.0)
-			}
+			// Chemistry show/hide TODO: eliminate redundancy.
+			d3.select("#chemistry_btn").on("click", function(d, i) {
+				var self = d3.select(this);
 
+				if(self.text() === "Chemistry Off"){
+					self.text("Chemistry On").attr('class', 'btn btn-success btn-xs');
+					d3.selectAll("#chemistry").transition().delay(500).duration(500)
+						.style("fill-opacity", circleFillOpacity)
+						//.style("stroke-opacity", circleStrokeOpacity)
+				}else{
+					self.text("Chemistry Off").attr('class', 'btn btn-danger btn-xs');
+					d3.selectAll('#chemistry').transition().delay(500).duration(500)
+						.style("fill-opacity", 0.0)
+						//.style("stroke-opacity", 0.0)
+				}
+			});
 
-		})
+			// Physics show/hide TODO: eliminate redundancy.
+			d3.select("#phyics_btn").on("click", function(d, i) {
+				var self = d3.select(this);
+
+				if(self.text() === "Phyics Off"){
+					self.text("Phyics On").attr('class', 'btn btn-success btn-xs');
+					//d3.selectAll("#physics").transition().delay(500).duration(500)
+					//	.style("fill-opacity", circleFillOpacity)
+					fields_set.add('physics')
+
+					update(year)
+						//.style("stroke-opacity", circleStrokeOpacity)
+				}else{
+					self.text("Phyics Off").attr('class', 'btn btn-danger btn-xs');
+					//d3.selectAll('#physics').transition().delay(500).duration(500)
+					//	.style("fill-opacity", 0.0)
+						//.style("stroke-opacity", 0.0)
+					fields_set.remove('physics')
+
+					update(year)
+				}
+			});
+
+			// Physiology show/hide TODO: eliminate redundancy.
+			d3.select("#physiology_btn").on("click", function(d, i) {
+				var self = d3.select(this);
+
+				if(self.text() === "Physiology Off"){
+					self.text("Physiology On").attr('class', 'btn btn-success btn-xs');
+					d3.selectAll("#physiology").transition().delay(500).duration(500)
+						.style("fill-opacity", circleFillOpacity)
+						//.style("stroke-opacity", circleStrokeOpacity)
+				}else{
+					self.text("Physiology Off").attr('class', 'btn btn-danger btn-xs');
+					d3.selectAll('#physiology').transition().delay(500).duration(500)
+						.style("fill-opacity", 0.0)
+						//.style("stroke-opacity", 0.0)
+				}
+			});
+
 
 
 		});
 
 	});	
 
-
-
-	
-
-
-
-
 	//Functions:
+
+	// Change opacity depending on button status. TODO: eliminate redundancy
+	function lineOpacity() {
+		if (d3.select('#paths_btn').text() ==='Paths Off'){return 0
+		}else{return 0.15}
+	}
+
+	function circleFillOpacity() {
+		if (d3.select('#phyics_btn').text().slice(-3) ==='Off'){return 0
+			}else{return .4} 
+		if (d3.select('#chemistry_btn').text().slice(-3) ==='Off'){return 0
+			}else{return .4} 
+		if (d3.select('#physiology_btn').text().slice(-3) ==='Off'){return 0
+			}else{return .4} 
+	}
+
+	function circleStrokeOpacity() {
+		if (d3.select('#phyics_btn').text() ==='Phyics Off'){return 0
+			}else{return .1}
+		if (d3.select('#chemistry_btn').text() ==='Chemistry Off'){return 0
+			}else{return .1}
+		if (d3.select('#physiology_btn').text() ==='Physiology Off'){return 0
+			}else{return .1}
+	}	
 	
 	//Function to move selection to top of renedering queue.
 	// http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
@@ -563,7 +623,7 @@
 		d3.select(this)
 		//	.transition()
 		//	.duration(200)
-			.style("fill-opacity", .4)
+			.style("fill-opacity", circleFillOpacity)
 			.attr("r", circleSize/currentZoom)
 
 		myTooltip.style("display", "none")
@@ -601,7 +661,7 @@
 		// Scaled zooming
 		// https://groups.google.com/forum/#!topic/d3-js/z9kqLRj7Puo
 
-		worldGroup.attr("transform", "translate(" + 
+		zoomCanvas.attr("transform", "translate(" + 
 				d3.event.translate.join(",") + ")scale(" + d3.event.scale + ")" )
 			.style("stroke-width", 1/d3.event.scale)  // Scale lines as you zoom.
 			.selectAll("circle").attr("r", circleSize/d3.event.scale); 
@@ -638,9 +698,6 @@
 	function dragended(d) {
 		d3.select(this).classed("dragging", false)
 	}
-
-//var xy = mercator([longitude, latitude])
-
 	</script>
 
 </body>

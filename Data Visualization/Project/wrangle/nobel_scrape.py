@@ -15,8 +15,8 @@ import sys
 
 
 from bs4 import BeautifulSoup
-from wrangle.latlon import *
-from wrangle.wrangle import *
+from latlon import *
+from wrangle import *
 
 # import os
 # os.chdir(os.path.join(os.path.expanduser('~FCH80_000'), "Temp2\FCH808.github.io\Data Visualization\Project"))

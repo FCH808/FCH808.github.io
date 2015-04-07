@@ -64,6 +64,9 @@ def scrape_birthdays_page(url=None, csv_name=None):
 
         year_won = nobel_info[0].split(",")[0]
         nobel_field = nobel_info[0].split(",")[1]
+        # Get rid of extra spaces between some words.
+        ## TODO; uncomment later to redo all scrapes.
+        ## nobel_field = " ".join([x.strip() for x in nobel_field.split()])
         name = nobel_info[1]
         year_born = nobel_info[2].split(":")[1]
 
@@ -131,61 +134,7 @@ def scrape_bio_page(url=None):
         
     return name, born_city, death_city, affiliation
 
-    
-def find_country_acq(bs4_html):
-    """ Parse BeautifulSoup html request object into list of lists of the 
-        important information.
-    
-    Args:
-        bs4_html: BeautifulSoup html request object
-    Returns:
-        List of lists containing [name, institution, old_country_name_acquired,
-                                  current_country_name_acquired, city, state, 
-                                  year, field] for each entry.
-    """
-    all_names = [["name", "institution",
-                  "old_country_name_acquired","current_country_name_acquired",
-                  "city","state","year","field"]]
-    place_acq = ""
-    for i in bs4_html:
-        #pprint.pprint(i) 
-        #print "*"*80
-        #print i
-        ## Acquisition location is buried in h3 headers
-        if i.find_all('h3'):
-            #print "i.TEXT: ", i.text
-            place_acq = i.h3.text
-        if i.find_all('a'):
-            #print ""
-            #print "i.a.TEXT: ", i.a.text
-            #print "i.h6.TEXT: ", i.h6.text
-            #print "PLACE_ACQ: ", place_acq
-            #print "field_year: ", field_year
-            ## Other information is in the a div's
-            field_year = i.a.text
-            name = i.h6.text
-            
-         
-                
-            year, field = grab_field_and_number(field_year)
-            institution, country, city, state, extra_loc = grab_inst_country_citystate(place_acq)
-        
 
-            old_country_name, new_country_name = separate_old_country_names(country)
-            
-            
-            all_names.append([name.encode('utf-8').strip(),
-                              institution.encode('utf-8').strip(),
-                              old_country_name.encode('utf-8').strip(),
-                              new_country_name.encode('utf-8').strip(),
-                              city.encode('utf-8').strip(), 
-                              state.encode('utf-8').strip(),
-                              year.encode('utf-8').strip(),
-                              field.encode('utf-8').strip()])
-            
-            #print ""
-            #print "*"*80
-    return df_from_lists(all_names, header_included=True)
     
 def find_country_birth(bs4_html):
     all_names = [["name","birth_country_old_name",
@@ -381,67 +330,20 @@ def get_current_loc(location_string):
         return location_string    
     return ", ".join(word for word in location)
    
-   
-   
-def grab_field_and_number(year_field):
-    ''' Parse Nobel Prize year-feild strings into substrings with year and field 
-        separated.
-        
-    Args:
-        year_field: String containing Nobel Prize year and field.
-    Returns:
-        One string containing the year. One string containing the field of the 
-            Nobel Prize awarded.
-    
-    >>> grab_field_and_number("The Nobel Prize in Physics 2000")
-    ('2000', 'Physics')
-    
-    >>> grab_field_and_number("The Prize in Economic Sciences 2010")
-    ('2010', 'Economic Sciences')
-    
-    >> >grab_field_and_number("The Nobel Prize in Physiology or Medicine 2000")
-    ('2000', 'Physiology or Medicine')
-    
-    >>> grab_field_and_number("The Nobel in Peace Prize 2010")
-    ('2010', 'Peace')
-    '''
-    
-    if "Economic" in year_field:
-        temp_string = year_field.split()
-        year = temp_string.pop()
-        field = temp_string[-2] + " " + temp_string[-1]
-    elif "Physiology or Medicine" in year_field:
-        temp_string = year_field.split()
-        year = temp_string.pop()
-        field = temp_string[-3] + " " + temp_string[-2] + " " + temp_string[-1]
-    elif "Peace" in year_field:
-        temp_string = year_field.split()
-        year = temp_string.pop()
-        field = temp_string[-2]
-    else:
-        temp_string = year_field.split()
-        year = temp_string.pop()
-        field = temp_string[-1]
-    return year, field
+def map_field(x):
+    if x == 'The Nobel Prize in Literature':
+        return "literature"
+    elif x == 'The Nobel Prize in Chemistry':
+        return "chemistry"
+    elif x == 'The Nobel Prize in Physics':
+        return "physics"
+    elif x == 'The Nobel Prize in Physiology or Medicine':
+        return "physiology"
+    elif x == 'The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel':
+        return "economics"
+    elif x == 'The Nobel Peace Prize':
+        return "peace"
 
-def create_lat_lon(df=None, country_type="acquired", country_col="", city_col="", state_col=""):
-    """Create latitude and longitude dataframe from Pandas Dataframe with
-        location info.
-    """
-    
-    assert country_col != "", "Please enter column that contain country names."
-    
-    # TODO: refactor default args better
-    if city_col != "" and state_col != "":
-        locations = list(set(df[country_col] + "_SEP_" + df[city_col] + \
-        "_SEP_" + df[state_col]))
-    # TODO: Handle any combination. Currently only needs country, or all 3.
-    else:
-        # Add SEP for splitting into 3 strings later.
-        locations = list(set(df[country_col] + "_SEP_" + "_SEP_"))
-
-    lat_lon_list = get_long_lat(locations, country_type=country_type)
-    return df_from_lists(lat_lon_list)
 
 def df_from_lists(lists, header_included=True):
     """Makes pandas dataframe from list of lists. 
