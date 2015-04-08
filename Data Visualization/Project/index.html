@@ -77,10 +77,14 @@
 
 <h2>Year: </h2> 
 <button type="button" class="btn btn-warning btn-xs" id="play_btn">Pause</button>
-<button type="button" class="btn btn-success btn-xs" id="paths_btn">Paths On</button>
+<button type="button" class="btn btn-success btn-xs" id="paths_btn" disabled="disabled">Paths On</button>
+<button type="button" class="btn btn-success btn-xs" id="circles_btn" disabled="disabled">Circles On</button>
 <button type="button" class="btn btn-success btn-xs" id="phyics_btn">Phyics On</button>
 <button type="button" class="btn btn-success btn-xs" id="chemistry_btn">Chemistry On</button>
 <button type="button" class="btn btn-success btn-xs" id="physiology_btn">Physiology On</button>
+<button type="button" class="btn btn-success btn-xs" id="economics_btn">Economics On</button>
+<button type="button" class="btn btn-success btn-xs" id="peace_btn">Peace On</button>
+<button type="button" class="btn btn-success btn-xs" id="literature_btn">Literature On</button>
 
 <div id="mapViz"></div>
 
@@ -91,7 +95,7 @@
 	var width = 960,
 		height = 500,		//http://bl.ocks.org/patricksurry/6621971
 	    rotate = -10,
-	    fields_set = d3.set(['physics', 'chemistry', 'physiology']);
+	    fields_set = d3.set(['physics', 'chemistry', 'physiology','economics', 'peace', 'literature']);
 
 
 	var projection = d3.geo.mercator()
@@ -318,7 +322,7 @@
 				arcs.exit().remove();
 				circlesTemp.exit().remove();
 
-				arcs.enter()
+				var v0 = arcs.enter()
 					.append("path")
 					.attr("class", "arc linepath nobel_winner")
 					.attr("id", fieldID)
@@ -326,7 +330,7 @@
 					// transition line from birth city to city/country when awarded.
 					.transition()
 					.delay(500)
-					.duration(3000)
+					.duration(1500)
 					.style("stroke-opacity", lineOpacity)
 					.attr("d", makeArc2)
 
@@ -344,6 +348,7 @@
 							.attr("transform", function(d) {
 								return "translate(" + d.birth_x + "," + d.birth_y + ")"; })
 							.style("fill-opacity", 0.4)
+							.style("visibility", circleVis) // Create hidden/vis circles depending on toggle
 							//.style("stroke-opacity", circleStrokeOpacity)
 							.transition()
 							.duration(250)
@@ -354,12 +359,13 @@
 							.ease("bounce")
 							.attr("r", (circleSize/2) /currentZoom)
 							.transition()
-							.duration(3000)
+							.duration(1500)
 							.ease("cubic-in-out") //default;
 							.attr("transform", function(d) {
 								return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
 							.attr("r", circleSize/currentZoom)
-							.style("fill", function(d) { return color(d.nobel_field);})
+							.style("fill", function(d) { return color(d.nobel_field);});
+
 							//.remove()
 
 				//var c1 = c0.transition(); //Save data after transitions.
@@ -438,7 +444,10 @@
 					// If all years have been cycled through, reset the year index back to 0
 					year_idx = 0
 					// Show that button can now be used to reset the animation
-					d3.select('#play_btn').text('Reset').attr('class', 'btn btn-danger btn-xs')
+					d3.select('#play_btn').text('Reset').attr('class', 'btn btn-danger btn-xs');
+					// Add short delays for show buttons to allow animation to finish draws.
+					d3.select('#paths_btn').transition().delay(1500).attr("disabled", null);
+					d3.select('#circles_btn').transition().delay(1500).attr("disabled", null);
 				};
 			}, 100); // Transition time in millisec between switching years.
 
@@ -451,9 +460,14 @@
 				if (self.text() === "Pause"){
 					timer.pause()
 					self.text("Play").attr('class', 'btn btn-success btn-xs');
+					// Add short delays for show buttons to allow animation to finish draws.
+					d3.select('#paths_btn').transition().delay(1500).attr("disabled", null);
+					d3.select('#circles_btn').transition().delay(1500).attr("disabled", null);
 				}else{
 					timer.resume()
 					self.text("Pause").attr('class', 'btn btn-warning btn-xs');
+					d3.select('#paths_btn').attr("disabled", "disabled");
+					d3.select('#circles_btn').attr("disabled", "disabled");
 					
 				}
 			});
@@ -461,23 +475,33 @@
 			// Give the option to hide paths. Only allow button when paused to avoid half/drawn paths.
 			d3.select('#paths_btn').on('click', function(d,i) {
 				var self = d3.select(this);
-
 				if(self.text() === "Paths Off"){
 					self.text('Paths On').attr('class', 'btn btn-success btn-xs');
-					d3.selectAll('.arc').transition().delay(500).duration(500)
-						.style("stroke-opacity", lineOpacity)
+					d3.selectAll('.arc').transition().delay(1500).duration(500)
+						.style("visibility", "visible")
 				}else{
 					self.text("Paths Off").attr('class', 'btn btn-danger btn-xs');
 					d3.selectAll('.arc')
-						.transition().delay(500).duration(500)
-						.style('stroke-opacity', 0.0)
-				}
+						.transition().delay(250).duration(500)
+						.style("visibility", "hidden")}
+			});
+			// Give the option to hide paths. Only allow button when paused to avoid half/drawn paths.
+			d3.select('#circles_btn').on('click', function(d,i) {
+				var self = d3.select(this);
+				if(self.text() === "Circles Off"){
+					self.text('Circles On').attr('class', 'btn btn-success btn-xs');
+					d3.selectAll('.circle').transition().delay(1500).duration(500)
+						.style("visibility", "visible")
+				}else{
+					self.text("Circles Off").attr('class', 'btn btn-danger btn-xs');
+					d3.selectAll('.circle')
+						.transition().delay(250).duration(500)
+						.style("visibility", "hidden")}
 			});
 
 			// Chemistry show/hide TODO: eliminate redundancy.
 			d3.select("#chemistry_btn").on("click", function(d, i) {
 				var self = d3.select(this);
-
 				if(self.text() === "Chemistry Off"){
 					self.text("Chemistry On").attr('class', 'btn btn-success btn-xs');
 					fields_set.add('chemistry')
@@ -486,14 +510,12 @@
 				}else{
 					self.text("Chemistry Off").attr('class', 'btn btn-danger btn-xs');
 					fields_set.remove('chemistry')
-					update(year)
-				}
+					update(year)}
 			});
 
 			// Physics show/hide TODO: eliminate redundancy.
 			d3.select("#phyics_btn").on("click", function(d, i) {
 				var self = d3.select(this);
-
 				if(self.text() === "Phyics Off"){
 					self.text("Phyics On").attr('class', 'btn btn-success btn-xs');
 					fields_set.add('physics')
@@ -502,14 +524,12 @@
 				}else{
 					self.text("Phyics Off").attr('class', 'btn btn-danger btn-xs');
 					fields_set.remove('physics')
-					update(year)
-				}
+					update(year)}
 			});
 
 			// Physics show/hide TODO: eliminate redundancy.
 			d3.select("#physiology_btn").on("click", function(d, i) {
 				var self = d3.select(this);
-
 				if(self.text() === "Physiology Off"){
 					self.text("Physiology On").attr('class', 'btn btn-success btn-xs');
 					fields_set.add('physiology')
@@ -518,9 +538,48 @@
 				}else{
 					self.text("Physiology Off").attr('class', 'btn btn-danger btn-xs');
 					fields_set.remove('physiology')
-					update(year)
-				}
+					update(year)}
 			});
+			// Economics show/hide TODO: eliminate redundancy.
+			d3.select("#economics_btn").on("click", function(d, i) {
+				var self = d3.select(this);
+				if(self.text() === "Economics Off"){
+					self.text("Economics On").attr('class', 'btn btn-success btn-xs');
+					fields_set.add('economics')
+					update(year)
+						//.style("stroke-opacity", circleStrokeOpacity)
+				}else{
+					self.text("Economics Off").attr('class', 'btn btn-danger btn-xs');
+					fields_set.remove('economics')
+					update(year)}
+			});
+			// Physics show/hide TODO: eliminate redundancy.
+			d3.select("#peace_btn").on("click", function(d, i) {
+				var self = d3.select(this);
+				if(self.text() === "Peace Off"){
+					self.text("Peace On").attr('class', 'btn btn-success btn-xs');
+					fields_set.add('peace')
+					update(year)
+						//.style("stroke-opacity", circleStrokeOpacity)
+				}else{
+					self.text("Peace Off").attr('class', 'btn btn-danger btn-xs');
+					fields_set.remove('peace')
+					update(year)}
+			});
+						// Physics show/hide TODO: eliminate redundancy.
+			d3.select("#literature_btn").on("click", function(d, i) {
+				var self = d3.select(this);
+				if(self.text() === "Literature Off"){
+					self.text("Literature On").attr('class', 'btn btn-success btn-xs');
+					fields_set.add('literature')
+					update(year)
+						//.style("stroke-opacity", circleStrokeOpacity)
+				}else{
+					self.text("Literature Off").attr('class', 'btn btn-danger btn-xs');
+					fields_set.remove('literature')
+					update(year)}
+			});
+
 
 
 
@@ -534,8 +593,12 @@
 	function lineOpacity() {
 		if (d3.select('#paths_btn').text() ==='Paths Off'){return 0
 		}else{return 0.15}
-	}
+	};
 
+	function circleVis() {
+		if (d3.select('#circles_btn').text() ==='Circles Off'){return "hidden"
+		}else{return "visible"}
+	};
 
 	//Function to move selection to top of renedering queue.
 	// http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
