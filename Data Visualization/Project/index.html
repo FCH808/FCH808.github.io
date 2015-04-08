@@ -66,31 +66,41 @@
 
 
 <!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script> -->
-<script type="text/javascript" src="js/d3.v3.min.js"></script>
-<script type="text/javascript" src="js/topojson.v1.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<p>
+  <label for="animation_speed" 
+         style="display: inline-block; width: 240px; text-align: right">
+         Travel Speed = <span id="animation_speed-value">1500</span> milliseconds
+  </label>
+  <input type="range" min="1" max="3000" id="animation_speed">
+</p>
 
-
-<h2>Year: </h2>
+<h3>Year: </h3>
 <div class="btn-group-vertical"> 
-<button type="button" class="btn btn-warning btn-xs" id="play_btn">Pause <span class="glyphicon glyphicon-pause"></span></button>
-<button type="button" class="btn btn-success btn-xs" id="paths_btn" disabled="disabled">Paths On</button>
-<button type="button" class="btn btn-success btn-xs" id="circles_btn" disabled="disabled">Circles On</button>
+	<button type="button" class="btn btn-warning btn-xs" id="play_btn">Pause <span class="glyphicon glyphicon-pause"></span></button>
+	<button type="button" class="btn btn-success btn-xs" id="paths_btn" disabled="disabled">Paths On</button>
+	<button type="button" class="btn btn-success btn-xs" id="circles_btn" disabled="disabled">Circles On</button>
 </div>
 <div class="btn-group-vertical btn-group-xs">
-<button type="button" class="btn btn-success" id="phyics_btn">Phyics On</button>
-<button type="button" class="btn btn-success" id="chemistry_btn">Chemistry On</button>
-<button type="button" class="btn btn-success" id="physiology_btn">Physiology On</button>
+	<button type="button" class="btn btn-success" id="phyics_btn">Phyics On</button>
+	<button type="button" class="btn btn-success" id="chemistry_btn">Chemistry On</button>
+	<button type="button" class="btn btn-success" id="physiology_btn">Physiology On</button>
 </div>
 <div class="btn-group-vertical btn-group-xs">
-<button type="button" class="btn btn-success" id="economics_btn">Economics On</button>
-<button type="button" class="btn btn-success" id="peace_btn">Peace On</button>
-<button type="button" class="btn btn-success" id="literature_btn">Literature On</button>
+	<button type="button" class="btn btn-success" id="economics_btn">Economics On</button>
+	<button type="button" class="btn btn-success" id="peace_btn">Peace On</button>
+	<button type="button" class="btn btn-success" id="literature_btn">Literature On</button>
 </div>
+
+
+
+<div id="histViz"></div>
 <div id="mapViz"></div>
 
 	<script>
@@ -168,6 +178,8 @@
 		.attr("class", "graticule")
 		.attr("d", path)
 
+	//d3.slider().axis(true).min(2000).max(2100).step(5)
+	
 
 	//var g = mainSVG.append("g");
 
@@ -284,7 +296,7 @@
 
 			function update(year) {
 
-	            d3.select("h2")
+	            d3.select("h3")
 	              .text("Year: " + year);
 
 
@@ -305,6 +317,7 @@
 
 				// Key function needed for filtered data, otherwise new data is bound by index
 				// Index only is problematic when filtering by multiple fields (year & field)
+				// http://bost.ocks.org/mike/constancy/
 				function key(d) {
 				  return d.name;
 				}
@@ -404,7 +417,7 @@
 
 			// Class object for a timer to add to years_idx.
 			// http://stackoverflow.com/questions/7279567/how-do-i-pause-a-window-setinterval-in-javascript/7282347#7282347
-			function goYears(callback, delay) {
+			function goYears(goYearsCallback, delay) {
 				var timerID, start, remaining = delay;
 
 				// Pause the timer
@@ -419,20 +432,20 @@
 				//	remaining = new Date();
 				//}
 
-				var resume = function() {
+				var resume = function(newSpeed) {
 					start = new Date();
 					timerID = window.setTimeout(function() {
 						remaining = delay;
-						resume();
-						callback();
-					}, remaining) 
+						resume(newSpeed);
+						goYearsCallback();
+					}, newSpeed) 
 				};
 
 				this.resume = resume;
-				this.resume();
+				this.resume(newSpeed);
 				};
 
-			var timer = new goYears(function() {
+			function goYearsCallback() {
 			// If timer is being resumed after all years have already been cycled through...
 				if(year_idx === 0) {
 					// ... remove all circle and arc classes first to restart animation.
@@ -451,7 +464,7 @@
 					// Show that button can now be used to reset the animation
 					self = d3.select("#play_btn")
 					self.text("Reset ")
-						.attr('class', 'btn btn-danger btn-sm')
+						.attr('class', 'btn btn-danger btn-xs')
 					// Change this button's glyphs and text in the span
 					self.append("span")
 						.attr("class", "glyphicon glyphicon-fast-backward")
@@ -460,15 +473,18 @@
 					d3.select('#paths_btn').transition().delay(1500).attr("disabled", null);
 					d3.select('#circles_btn').transition().delay(1500).attr("disabled", null);
 				};
-			}, 50); // Transition time in millisec between switching years.
+			}
 
+			var timer = new goYears(goYearsCallback, newSpeed); // Transition time in millisec between switching years.
+			
+			
 
 			// Interactions / Clickables:
 
 			//Change CSS styling on button if pause/play/reset available.
 			d3.select('#play_btn').on('click',function(d,i){
 				var self = d3.select(this);
-				
+
 				if (self.text() === "Pause "){		
 					timer.pause()
 					// Change the class to success to change color
@@ -482,7 +498,7 @@
 					d3.select('#circles_btn').transition().delay(1500).attr("disabled", null);
 
 				}else{
-					timer.resume()
+					timer.resume(newSpeed)
 					// Change the class to success to change color
 					self.text("Pause ").attr('class', 'btn btn-warning btn-xs')
 					// Change this button's glyphs and text in the span
@@ -610,7 +626,31 @@
 
 	});	
 
+	// Global interactions.
+
+	//Initial animation speed from timer in html.
+	newSpeed = d3.select('#animation_speed').property("valueAsNumber")
+
+	d3.select("#animation_speed").on("input", function() {
+	  updateSpeed(+this.value);
+	 // or d3.select("#animation_speed").node().valueAsNumber; 
+	  window.newSpeed = d3.select('#animation_speed').property("valueAsNumber")
+	});
+	
+	//Initial animation speed.
+	//updateSpeed(newSpeed);
+	
+	// update the elements
+	function updateSpeed(newSpeed) {
+	  // adjust the text on the range slider
+	  d3.select("#animation_speed-value").text(newSpeed);
+	  d3.select("#animation_speed").property("value", newSpeed);
+	 }
+
+	
+
 	//Functions:
+
 
 	// Make sure lines are created with 0 opacity if lines button is toggled off.
 	function lineOpacity() {
