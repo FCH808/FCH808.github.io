@@ -10,11 +10,15 @@
 		stroke-width: 0.25px;
 		fill: grey;
 	}*/
-	.chart rect {
+	.chart-bar {
 	  fill: steelblue;
 	}
 
-	.chart text {
+	.chart-update {
+	  fill: red;
+	}
+
+	.chart-text {
 
 	  fill: white;
 	  font: 9px sans-serif;
@@ -136,9 +140,7 @@
 
 
 
-
 <div id="mapViz"></div>
-
 
 
 
@@ -200,25 +202,14 @@
 	var worldGroup = zoomCanvas.append("g").attr("class", "allWorld");
 
 	var peopleGroup = zoomCanvas.append("g").attr("class", "allPeople");
-	//worldGroup.append("path")
-	//	.datum({type: "Sphere"})
-	//	.attr("class", "graticule")
-	//	.attr("d", path)
 
 	worldGroup.append("path")
 		.datum(graticule)
 		.attr("class", "graticule")
 		.attr("d", path)
 
-	//d3.slider().axis(true).min(2000).max(2100).step(5)
-	
-
-	//var g = mainSVG.append("g");
-
-	//var worldGroup = mainSVG.append("g");
-	//var bornGroup = mainSVG.append("g");
-	//var acquiredGroup = mainSVG.append("g");
-
+// Tooltip
+////////////////////////////////////////////////////////////////////////////
 // http://zeroviscosity.com/d3-js-step-by-step/step-5-adding-tooltips   ////
         var myTooltip = d3.select('#mapViz')                              // 
           .append('div')                                                  // 
@@ -256,9 +247,9 @@
 	    .rangeRoundBands([0, histWidth], .1);
 
 	var y = d3.scale.linear()
-		//.domain([0, 400]) // y.domain([0, d3.max(data, function(d) { return d.value; })]);
 	    .range([histHeight, 0]);
  	// var barWidth = width / data.length;
+
 	var chart = d3.select(".chart")	
 		.attr("width", histWidth)
 		.attr("height", histHeight)
@@ -278,14 +269,6 @@
 
 
 		d3.csv("data/nobel_locations.csv", function(error, nobel) {
-
-
-
-
-
-
-
-
 
 			function jitter(min, max) {
 			    return Math.random() * (max - min) + min;
@@ -413,7 +396,6 @@
 				};
 
 				function compareValues(a,b){ 
-					//debugger;
 				    return b.values['totalNobels'] - a.values['totalNobels']; }
 
 				var nested = d3.nest()
@@ -429,38 +411,54 @@
 				var nested = d3.nest()
 								.sortValues(compareValues)
 								.entries(nested)
-				//slice out the top entires only.
-				var nested = nested.slice(0, 5)
+				//slice out the top N entries only.
+				var nested = nested.slice(0, 6)
 
 				x.domain(nested.map(function(d) { return d.key; }));
 				y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels']; })]);
 
 				function nestedKey(d) { 
-				  return d.key; 
+				  return d.values['countryShortName'] + " " + d.values['totalNobels']; 
 				}
 
-				debugger;
-				chart.selectAll('g').remove();
-				debugger;
+				//debugger;
+				//chart.selectAll('g').remove();
+				//debugger;
 
 				var bar = chart.selectAll("g")
-					  .data(nested)
-
-
-
-				bar.enter().append("g")
-					  .attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
-
-				bar.append("rect")
+					  .data(nested, nestedKey)
+				// Update existing bars, move them to their new places, adjust height, etc.
+				updateBar = bar.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
+				// Update existing bars' rect dimensions/position, text, data-driven fields.
+				updateBar.select("rect")
+					.attr("class", "chart-update")
 					.attr("y", function(d) {return y(d.values['totalNobels']); })
 					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
 					.attr("width", x.rangeBand());
 
-				bar.append("text")
+				updateBar.select("text")
 					.attr("x", x.rangeBand() / 2)
 					.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
 					.attr("dy", ".75em")
 					.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
+				// Enter in new bars, and adjust their data-driven properties
+				newBar = bar.enter().append("g")
+					  		.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
+
+				newBar.append("rect")
+					.attr("class", "chart-bar")					
+					.attr("y", function(d) {return y(d.values['totalNobels']); })
+					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
+					.attr("width", x.rangeBand());
+
+				newBar.append("text")
+					.attr("class", "chart-text")
+					.attr("x", x.rangeBand() / 2)
+					.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
+					.attr("dy", ".75em")
+					.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
+				// Remvoe outdated bars that should no longer be shown.
+				bar.exit().remove();
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Histogram End				
