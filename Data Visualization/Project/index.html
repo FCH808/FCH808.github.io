@@ -15,8 +15,9 @@
 	}
 
 	.chart text {
+
 	  fill: white;
-	  font: 10px sans-serif;
+	  font: 9px sans-serif;
 	  text-anchor: middle;
 	}
 
@@ -116,27 +117,37 @@
 	</div>
 	<div class="col-sm-4 col-md-6">
 	  <div class="col-xs-12 col-sm-6 col-md-4">
+
+<div id="histViz">
+	<svg class="chart"></svg>
+</div>
+
+	  </div> 
+	</div>
+</div>
+</div>
+
 		<p>
 		  <label for="animation_speed" style="text-align: center; font-size: 9px">
 		         <span id="animation_speed-value">1.5</span> Seconds Between Years
 		  </label>
 		  <input type="range" min="0.0" max="3" step="0.1" id="animation_speed">
 		</p>
-	  </div> 
-	</div>
-</div>
-</div>
 
 
 
-<div id="histViz"></div>
 
 <div id="mapViz"></div>
 
+
+
+
+
 	<script>
 		/*Java java */
-	//var graticule = d3.geo.graticule();
-	//Needed for? ^
+////////////////////////////////////////////////////////////////////////////
+// World Map Pre-Loads
+////////////////////////////////////////////////////////////////////////////
 	var width = 960,
 		height = 500,		//http://bl.ocks.org/patricksurry/6621971
 	    rotate = -10,
@@ -146,8 +157,6 @@
 	var projection = d3.geo.mercator()
 		.rotate([rotate,0])
 		.translate([width/2, height/2])
-		//.clipAngle(90 + 1e-6) // http://bl.ocks.org/mbostock/5731578 gets rid of the white space strip
-		//.precision(.3)
 		.center([15, 20])
 		.scale(180)
 
@@ -159,13 +168,6 @@
 	var path = d3.geo.path()
 		.projection(projection);
 
-	var λ = d3.scale.linear()
-	    .domain([0, width])
-	    .range([-180, 180]);
-
-	var φ = d3.scale.linear()
-	    .domain([0, height])
-	    .range([90, -90]);
 
 	var drag = d3.behavior.drag()
 		//.origin(function(d) {return d; })
@@ -217,45 +219,52 @@
 	//var bornGroup = mainSVG.append("g");
 	//var acquiredGroup = mainSVG.append("g");
 
-// http://zeroviscosity.com/d3-js-step-by-step/step-5-adding-tooltips   //////
-        var myTooltip = d3.select('#mapViz')                              // NEW
-          .append('div')                                                // NEW
-          .attr('class', 'myTooltip');                                    // NEW
+// http://zeroviscosity.com/d3-js-step-by-step/step-5-adding-tooltips   ////
+        var myTooltip = d3.select('#mapViz')                              // 
+          .append('div')                                                  // 
+          .attr('class', 'myTooltip');                                    // 
 
-        myTooltip.append('div')                                           // NEW
-          .attr('class', 'name');                                       // NEW
+        myTooltip.append('div')                                           // 
+          .attr('class', 'name');                                         // 
              
-        myTooltip.append('div')                                           // NEW
-          .attr('class', 'count');                                      // NEW
+        myTooltip.append('div')                                           // 
+          .attr('class', 'count');                                        // 
 
-        myTooltip.append('div')                                           // NEW
-          .attr('class', 'percent');                                    // NEW
+        myTooltip.append('div')                                           // 
+          .attr('class', 'percent');                                      // 
 
-        myTooltip.append('div')                                           // NEW
-          .attr('class', 'field');                                      // NEW
+        myTooltip.append('div')                                           // 
+          .attr('class', 'field');                                        // 
 
-        myTooltip.append('div')                                           // NEW
-          .attr('class', 'institution');                                // NEW
+        myTooltip.append('div')                                           // 
+          .attr('class', 'institution');                                  // 
 
-        myTooltip.append('div')                                           // NEW
-          .attr('class', 'born');                                       // NEW
+        myTooltip.append('div')                                           // 
+          .attr('class', 'born');                                         // 
 
-        myTooltip.append('div')                                           // NEW
-          .attr('class', 'city');                                       // NEW
-//////////////////////////////////////////////////////////////////////////////
+        myTooltip.append('div')                                           // 
+          .attr('class', 'city');                                         // 
+////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////
+// Histogram Pre-Loads Begin
+////////////////////////////////////////////////////////////////////////////
+	histWidth = height/2
+	histHeight = width/8
+
 	var x = d3.scale.ordinal()
-	    .rangeRoundBands([0, 200], .1);
+	    .rangeRoundBands([0, histWidth], .1);
 
 	var y = d3.scale.linear()
-		.domain([0, 400])
-	    .range([height, 100]);
-
-	var chart = d3.select("body")
-		.append("svg")
-			.attr("class", "chart")
-			.attr("width", 200)
-			.attr("height", 100)
-
+		//.domain([0, 400]) // y.domain([0, d3.max(data, function(d) { return d.value; })]);
+	    .range([histHeight, 0]);
+ 	// var barWidth = width / data.length;
+	var chart = d3.select(".chart")	
+		.attr("width", histWidth)
+		.attr("height", histHeight)
+////////////////////////////////////////////////////////////////////////////
+// Histogram Pre-Loads End
+////////////////////////////////////////////////////////////////////////////
 
 	d3.json("data/world-110m.json", function(error, world) {
 
@@ -271,46 +280,7 @@
 		d3.csv("data/nobel_locations.csv", function(error, nobel) {
 
 
-			function agg_cntry(leaves) {
-				// leaves here is an array of filtered data from d3.nest().key()
-				// in this case, it's each subset of cities, for each year
-				// We can get the number of entries with length on the subset
-				// which contains one data object for each row
-				var cntry_prizes = leaves.length;
 
-				return {'countryPrizes': cntry_prizes};
-			};
-
-			function compareValues(a,b){ 
-			    return b.values.countryPrizes - a.values.countryPrizes; }
-
-			var nested = d3.nest()
-							.key( function(d) {return d.award_country; })
-							.rollup(agg_cntry)
-							//.sortKeys(d3.descending)
-							.sortValues(compareValues)	
-							.entries(nobel)
-
-			debugger;
-
-			var nested = d3.nest()
-							.sortValues(compareValues)
-							.entries(nested)
-
-			debugger;
-
-			var hist = d3.select('.chart')
-				.selectAll('div')
-				.attr('id', 'hist')
-				.data(nested)
-
-			hist.enter().append("div");
-
-			hist.text(function(d){return d.values.countryPrizes})
-			// Now nested is an aggregated dataset of counts of number of nobel prize
-			// winners for each year.
-			//born_ctry_short_name
-			hist.exit().remove();
 
 
 
@@ -362,7 +332,7 @@
 				// Key function needed for filtered data, otherwise new data is bound by index
 				// Index only is problematic when filtering by multiple fields (year & field)
 				// http://bost.ocks.org/mike/constancy/
-				// Add year to unique key since 4 people won multiple nobel prizes and newer
+				// Add year to unique entry key since 4 people won multiple nobel prizes and newer
 				// awards overwrote old. All prizes should be shown now.
 				function key(d) { 
 				  return d.name + " " + d.year_won; 
@@ -379,18 +349,13 @@
 																			
 
 
-				function fieldID(d) {
-					return d.name
-				}
-
-
 				arcs.exit().remove();
 				circlesTemp.exit().remove();
 
 				var v0 = arcs.enter()
 					.append("path")
 					.attr("class", "arc linepath nobel_winner")
-					.attr("id", fieldID)
+					.attr("id", key)
 					.attr("d", makeArc1)
 					// transition line from birth city to city/country when awarded.
 					.transition()
@@ -431,32 +396,75 @@
 							.attr("r", circleSize/currentZoom)
 							.style("fill", function(d) { return color(d.nobel_field);});
 
-							//.remove()
+///////////////////////////////////////////////////////////////////////////////////////////
+// Histogram Begin
+///////////////////////////////////////////////////////////////////////////////////////////
+				function agg_cntry(leaves) {
+					// leaves here is an array of filtered data from d3.nest().key()
+					// in this case, it's each subset of cities, for each year
+					// We can get the number of entries with length on the subset
+					// which contains one data object for each row
+					var totalNobels = leaves.length;
 
-				//var c1 = c0.transition(); //Save data after transitions.
-/*
-				Create copies?
-				var circlesFinal = peopleGroup.selectAll("circleFinal")
-									.data(filtered, key)
+					return {'totalNobels': totalNobels,
+							// Each short name is the same for each country group.
+							// Grab the first short name for small charts.
+							'countryShortName': leaves[0].award_ctry_short_name }; 
+				};
 
-				circlesFinal.exit().remove();
+				function compareValues(a,b){ 
+					//debugger;
+				    return b.values['totalNobels'] - a.values['totalNobels']; }
 
-				circlesFinal.enter().append("circle")
-						.style("fill", function(d) { return color(d.nobel_field);})
-						.attr("transform", function(d) {
-							return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
-						.on("mouseover", mouseover)
-						.on("mouseout", mouseout)
-						.on("mousedown", animateFirst)
-						.attr("class", "circle nobel_winner")
-						.transition().delay(3000)
-						.style("fill-opacity", 0.0)
-						.style("fill", function(d) { return color(d.nobel_field);})
+				var nested = d3.nest()
+								.key( function(d) {
+									return d.award_country; })
+								.rollup(agg_cntry)
+								//.sortKeys(d3.descending)
+								.sortValues(compareValues)	
+								.entries(filtered)
 
-						.attr("r", circleSize/currentZoom)
-						.style("fill-opacity", 0.4)
-*/
+				
+				// Sort the entries and save to nested. Did not work in the first d.nest() call?
+				var nested = d3.nest()
+								.sortValues(compareValues)
+								.entries(nested)
+				//slice out the top entires only.
+				var nested = nested.slice(0, 5)
 
+				x.domain(nested.map(function(d) { return d.key; }));
+				y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels']; })]);
+
+				function nestedKey(d) { 
+				  return d.key; 
+				}
+
+				debugger;
+				chart.selectAll('g').remove();
+				debugger;
+
+				var bar = chart.selectAll("g")
+					  .data(nested)
+
+
+
+				bar.enter().append("g")
+					  .attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
+
+				bar.append("rect")
+					.attr("y", function(d) {return y(d.values['totalNobels']); })
+					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
+					.attr("width", x.rangeBand());
+
+				bar.append("text")
+					.attr("x", x.rangeBand() / 2)
+					.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
+					.attr("dy", ".75em")
+					.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Histogram End				
+///////////////////////////////////////////////////////////////////////////////////////////
 			};
 
 
