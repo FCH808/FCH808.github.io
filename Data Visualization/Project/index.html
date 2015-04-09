@@ -441,7 +441,7 @@
       							.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 				// Update existing bars' rect dimensions/position, text, data-driven fields.
 				updateBar.select("rect")
-					.attr("class", "chart-bar") //green
+					.attr("class", "chart-update") //green
 					.attr("y", function(d) {return y(d.values['totalNobels']); })
 					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
 					.attr("width", x.rangeBand());
@@ -457,8 +457,8 @@
 				newBar.attr("transform", function(d) { return "translate(" + x(d.key) +
 							 "," + x(d.key) +")"; })
 					.transition()
-						.duration(750)
-						.ease("ease-out")
+						.duration(250)
+						.ease("elastic")
 						.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 
 				newBar.append("rect")
