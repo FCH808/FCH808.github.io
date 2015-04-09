@@ -15,7 +15,15 @@
 	}
 
 	.chart-update {
-	  fill: red;
+	  fill: green;
+	}
+
+	.chart-bar:hover {
+	  fill: brown;
+	}
+
+	.chart-exit {
+		fill:red;
 	}
 
 	.chart-text {
@@ -28,10 +36,6 @@
 	.linepath {
 		stroke: black;
 		stroke-opacity: 0;
-	}
-
-	.draggable {
-		cursor: move;
 	}
 
 	.myTooltip {                                                       /* NEW */
@@ -72,6 +76,11 @@
 	  stroke-linejoin: round;
 	}
 
+	.overlay {
+	  fill: none;
+	  pointer-events: all;
+	}
+
 
 </style> 
 <body>
@@ -86,7 +95,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+<link href="./css/flag-icon.css" rel="stylesheet">
+<link href="./assets/docs.css" rel="stylesheet">
 
 <div class="container-fluid">
 <div class="row">
@@ -106,7 +116,7 @@
 		</div>
 		<div class="col-xs-3 col-md-3">
 		  <div class="btn-group-vertical btn-group-xs">
-			<button type="button" class="btn btn-success" id="phyics_btn">Phyics On</button>
+			<button type="button" class="btn btn-success" id="phyics_btn">Phyics On<span class="flag-icon flag-icon-gr"></span></button>
 			<button type="button" class="btn btn-success" id="chemistry_btn">Chemistry On</button>
 			<button type="button" class="btn btn-success" id="physiology_btn">Physiology On</button>
 		  </div>
@@ -131,12 +141,12 @@
 </div>
 </div>
 
-		<p>
+		<form id="animation_slider">
 		  <label for="animation_speed" style="text-align: center; font-size: 9px">
 		         <span id="animation_speed-value">1.5</span> Seconds Between Years
 		  </label>
 		  <input type="range" min="0.0" max="3" step="0.1" id="animation_speed">
-		</p>
+		</form>
 
 
 
@@ -170,13 +180,6 @@
 	var path = d3.geo.path()
 		.projection(projection);
 
-
-	var drag = d3.behavior.drag()
-		//.origin(function(d) {return d; })
-		.on("dragstart", dragstarted)
-		.on("drag", dragged)
-		.on("dragend", dragended);
-
 	var zoom = d3.behavior.zoom()
 		.scaleExtent([.9, 30]) // Controls the amount of allowable magnification.
 		.on("zoom", zoomed);
@@ -185,19 +188,18 @@
 		.append("svg")
 		.attr("width", width)
 		.attr("height", height)
-		.call(zoom)
-		//.on('mousedown.zoom',null);
-//		.append("g")
-		.style("background-color", "#A5DEFF") //Color the water in the main svg
-		
-	//	.attr("class", "draggable")
-	//.append("g")
+		.style("background-color", "#A5DEFF")
+		.call(zoom) //Color the water in the main svg
 
-		//.call(drag);
+	// Create an overlay for hanging controls on in-map
+	mainSVG.append("rect")
+	    .attr("class", "overlay")
+	    .attr("width", width)
+	    .attr("height", height)
 
 	var graticule = d3.geo.graticule();  //Graticule is a geographic grid.
 
-	var zoomCanvas = mainSVG.append("g")
+	var zoomCanvas = mainSVG.append("g").attr("class", "mainSVG")
 
 	var worldGroup = zoomCanvas.append("g").attr("class", "allWorld");
 
@@ -208,8 +210,14 @@
 		.attr("class", "graticule")
 		.attr("d", path)
 
-// Tooltip
+	// Simplest possible buttons
+	var slider = d3.select(".overlay").append("p")
+		.append("input")
+		.attr({"type":"range", "min":0.0, "max":3, "step":0.1})
+
 ////////////////////////////////////////////////////////////////////////////
+// Tooltip //
+/////////////
 // http://zeroviscosity.com/d3-js-step-by-step/step-5-adding-tooltips   ////
         var myTooltip = d3.select('#mapViz')                              // 
           .append('div')                                                  // 
@@ -402,7 +410,7 @@
 								.key( function(d) {
 									return d.award_country; })
 								.rollup(agg_cntry)
-								//.sortKeys(d3.descending)
+								.sortKeys(d3.ascending)
 								.sortValues(compareValues)	
 								.entries(filtered)
 
@@ -428,10 +436,12 @@
 				var bar = chart.selectAll("g")
 					  .data(nested, nestedKey)
 				// Update existing bars, move them to their new places, adjust height, etc.
-				updateBar = bar.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
+				updateBar = bar.transition()
+      							.duration(750)
+      							.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 				// Update existing bars' rect dimensions/position, text, data-driven fields.
 				updateBar.select("rect")
-					.attr("class", "chart-update")
+					.attr("class", "chart-bar") //green
 					.attr("y", function(d) {return y(d.values['totalNobels']); })
 					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
 					.attr("width", x.rangeBand());
@@ -443,22 +453,37 @@
 					.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
 				// Enter in new bars, and adjust their data-driven properties
 				newBar = bar.enter().append("g")
-					  		.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
+
+				newBar.attr("transform", function(d) { return "translate(" + x(d.key) +
+							 "," + x(d.key) +")"; })
+					.transition()
+						.duration(750)
+						.ease("ease-out")
+						.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 
 				newBar.append("rect")
-					.attr("class", "chart-bar")					
+					.attr("class", "chart-bar")			//blue
 					.attr("y", function(d) {return y(d.values['totalNobels']); })
 					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
-					.attr("width", x.rangeBand());
+					.attr("width", x.rangeBand())
+					
+					//.attr("class", "flag flag-icon-background flag-icon-gr");
 
 				newBar.append("text")
+
 					.attr("class", "chart-text")
 					.attr("x", x.rangeBand() / 2)
 					.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
 					.attr("dy", ".75em")
 					.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
-				// Remvoe outdated bars that should no longer be shown.
-				bar.exit().remove();
+				// Remove outdated bars that should no longer be shown.
+				bar.exit()
+					.attr("class", "chart-exit")
+				  .transition()
+				  	.duration(750)
+				  	.attr("x", 0)
+				  	.style("fill-opacity", 1e-6)
+					.remove();
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Histogram End				
@@ -817,33 +842,6 @@
 		//	.attr("d", path.projection(projection));
 	}
 
-	var m0,
-	    o0;
-
-	function dragstarted(d) {
-		//d3.event.sourceEvent.stopPropagation();
-
-		var proj = projection.rotate();
-		m0 = [d3.event.sourceEvent.pageX, d3.event.sourceEvent.pageY];
-      	o0 = [-proj[0],-proj[1]];
-		d3.select(this).classed("dragging", true);
-	}
-
-	function dragged() {
-		//var p = d3.mouse(this);
-		//projection.rotate( [ λ( p[0] ), φ( p[1]) ] );
-      if (m0) {
-        var m1 = [d3.event.sourceEvent.pageX, d3.event.sourceEvent.pageY],
-            o1 = [o0[0] + (m0[0] - m1[0]) / 4, o0[1] + (m1[1] - m0[1]) / 4];
-        projection.rotate([-o1[0], -o1[1]]);
-    	}
-		path = d3.geo.path().projection(projection);
-		d3.selectAll("path").attr("d", path);		
-	}
-
-	function dragended(d) {
-		d3.select(this).classed("dragging", false)
-	}
 	</script>
 
 </body>
