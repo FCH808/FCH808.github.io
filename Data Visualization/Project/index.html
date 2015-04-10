@@ -10,21 +10,17 @@
 		stroke-width: 0.25px;
 		fill: grey;
 	}*/
-	.chart-bar {
-	  fill: steelblue;
-	}
 
-	.chart-update {
-	  fill: green;
-	}
+body {
+  background: #fcfcfa;
+}
+
 
 	.chart-bar:hover {
 	  fill: brown;
 	}
 
-	.chart-exit {
-		fill:red;
-	}
+
 
 	.chart-text {
 
@@ -33,9 +29,11 @@
 	  text-anchor: middle;
 	}
 
-	.linepath {
+	.arc {
 		stroke: black;
 		stroke-opacity: 0;
+		fill: none;
+	  	stroke-linejoin: round;
 	}
 
 	.myTooltip {                                                       /* NEW */
@@ -60,20 +58,27 @@
 		stroke-opacity: .8;
 	}
 
-	.world {
-		fill: gray;
-		stroke-width: 0.25px;
-		stroke: gray;
-	}
-
-	.sphere, .graticule {
-	  stroke: gray; 
-	  stroke-width: 0.1px;
-	}
-
-	path {
+	.graticule {
 	  fill: none;
-	  stroke-linejoin: round;
+	  stroke: #777;
+	  stroke-width: .5px;
+	  stroke-opacity: .10;
+	}
+
+	.boundary {
+	  fill: none;
+	  stroke: #fff;
+	  stroke-width: .1px;
+	}
+
+	.sphereFill {
+	  fill: #A5DEFF;
+	}
+
+	.sphereStroke {
+	  fill: none;
+	  stroke: #000;
+	  stroke-width: 3px;
 	}
 
 	.overlay {
@@ -81,48 +86,100 @@
 	  pointer-events: all;
 	}
 
+	.yearSlider {
+	  position: absolute;
+	  right: 30px;
+	  top: 130px;
+	}
+
+	.togglesMap {
+	  position: absolute;
+	  left: 30px;
+	  top: 200px;
+	}
+
+	.togglesWinners {
+	  position: absolute;
+	  left: 0px;
+	  top: 130px;
+	}
+
+	.togglesSciences {
+	  position: absolute;
+	  left: 0px;
+	  top: 130px;
+	}
+
+	.togglesHumanities {
+	  position: absolute;
+	  left: 0px;
+	  top: 130px;
+	}
+
+	.yearCount {
+	  position: absolute;
+	  left: 10px;
+	  top: 550px;		
+	}
+/* No longer used
+	.world {
+		fill: gray;
+		stroke-width: 0.25px;
+		stroke: gray;
+	}
+	.chart-bar {
+	  fill: steelblue;
+	}
+
+	.chart-exit {
+		fill:red;
+	}
+
+	.chart-update {
+	  fill: green;
+	}
+*/
 
 </style> 
 <body>
 
-
-
 <!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script> -->
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 <link href="./css/flag-icon.css" rel="stylesheet">
 <link href="./assets/docs.css" rel="stylesheet">
 
 <div class="container-fluid">
 <div class="row">
   <div class="col-xs-4 col-sm-4 col-md-4">
-	  <h3>Year </h3>
+	  <h3 class="yearCount">Year </h3>
   </div>
-
 </div>
 <div class="row">
 	<div class="col-xs-12 col-sm-6 col-md-6">
 		<div class="col-xs-3 col-md-3">
-		  <div class="btn-group-vertical"> 
+		  <div class="btn-group-vertical togglesWinners"> 
 			<button type="button" class="btn btn-warning btn-xs" id="play_btn">Pause <span class="glyphicon glyphicon-pause"></span></button>
 			<button type="button" class="btn btn-success btn-xs" id="paths_btn" disabled="disabled">Paths On</button>
 			<button type="button" class="btn btn-success btn-xs" id="circles_btn" disabled="disabled">Circles On</button>
 		  </div>
 		</div>
 		<div class="col-xs-3 col-md-3">
-		  <div class="btn-group-vertical btn-group-xs">
-			<button type="button" class="btn btn-success" id="phyics_btn">Phyics On<span class="flag-icon flag-icon-gr"></span></button>
+		  <div class="btn-group-vertical btn-group-xs togglesSciences">
+			<button type="button" class="btn btn-success" id="phyics_btn">Phyics On</button>
 			<button type="button" class="btn btn-success" id="chemistry_btn">Chemistry On</button>
 			<button type="button" class="btn btn-success" id="physiology_btn">Physiology On</button>
 		  </div>
 		</div>
 		<div class="col-xs-3 col-md-3">
-		  <div class="btn-group-vertical btn-group-xs">
+		  <div class="btn-group-vertical btn-group-xs togglesHumanities">
 			<button type="button" class="btn btn-success" id="economics_btn">Economics On</button>
 			<button type="button" class="btn btn-success" id="peace_btn">Peace On</button>
 			<button type="button" class="btn btn-success" id="literature_btn">Literature On</button>
@@ -130,33 +187,35 @@
 		</div>  
 	</div>
 	<div class="col-sm-4 col-md-6">
-	  <div class="col-xs-12 col-sm-6 col-md-4">
-
-<div id="histViz">
-	<svg class="chart"></svg>
-</div>
-
+	  <div class="col-xs-12 col-sm-6 col-md-6">
+		<div id="histViz">
+			<svg class="chart"></svg>
+		</div>
 	  </div> 
 	</div>
 </div>
 </div>
 
-		<form id="animation_slider">
-		  <label for="animation_speed" style="text-align: center; font-size: 9px">
-		         <span id="animation_speed-value">1.5</span> Seconds Between Years
-		  </label>
-		  <input type="range" min="0.0" max="3" step="0.1" id="animation_speed">
-		</form>
 
 
 
-<div id="mapViz"></div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12">
+
+	</div>
+</div>
 
 
-
+		<div id="mapViz">
+			<p id="animation_slider" class="yearSlider">
+			  <label for="animation_speed" style="text-align: center; font-size: 9px">
+			         <span id="animation_speed-value">1.5</span> Seconds Between Years
+			  </label>
+			  <input type="range" min="0.0" max="3" step="0.1" id="animation_speed">
+			</p>
+		</div>
 
 	<script>
-		/*Java java */
 ////////////////////////////////////////////////////////////////////////////
 // World Map Pre-Loads
 ////////////////////////////////////////////////////////////////////////////
@@ -166,11 +225,10 @@
 	    fields_set = d3.set(['physics', 'chemistry', 'physiology','economics', 'peace', 'literature']);
 
 
-	var projection = d3.geo.mercator()
-		.rotate([rotate,0])
-		.translate([width/2, height/2])
-		.center([15, 20])
-		.scale(180)
+var projection = d3.geo.kavrayskiy7()
+    .scale(170)
+    .translate([width / 2, height / 2])
+    .precision(.1);
 
 	var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
 		circleSize = 5; // Size of circles
@@ -188,7 +246,7 @@
 		.append("svg")
 		.attr("width", width)
 		.attr("height", height)
-		.style("background-color", "#A5DEFF")
+		.style("background-color", "#fff")
 		.call(zoom) //Color the water in the main svg
 
 	// Create an overlay for hanging controls on in-map
@@ -204,6 +262,19 @@
 	var worldGroup = zoomCanvas.append("g").attr("class", "allWorld");
 
 	var peopleGroup = zoomCanvas.append("g").attr("class", "allPeople");
+
+worldGroup.append("defs").append("path")
+    .datum({type: "Sphere"})
+    .attr("id", "sphere")
+    .attr("d", path);
+
+worldGroup.append("use")
+    .attr("class", "sphereStroke")
+    .attr("xlink:href", "#sphere");
+
+worldGroup.append("use")
+    .attr("class", "sphereFill")
+    .attr("xlink:href", "#sphere");
 
 	worldGroup.append("path")
 		.datum(graticule)
@@ -248,7 +319,7 @@
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads Begin
 ////////////////////////////////////////////////////////////////////////////
-	histWidth = height/2
+	histWidth = height/1.5
 	histHeight = width/8
 
 	var x = d3.scale.ordinal()
@@ -267,13 +338,13 @@
 
 	d3.json("data/world-110m.json", function(error, world) {
 
-		worldGroup.append("path")
-			.datum(topojson.feature(world, world.objects.countries))
-			.attr("class", "boundary")
-			.attr("d", path)
-			.style("fill", "#CDC")
-			.style("stroke-width", 0.3)
-			.style("stroke", "gray")
+		//worldGroup.append("path")
+		//	.datum(topojson.feature(world, world.objects.countries))
+		//	.attr("class", "boundary")
+		//	.attr("d", path)
+		//	.style("fill", "#CDC")
+		//	.style("stroke-width", 0.3)
+		//	.style("stroke", "gray")
 
 
 		d3.csv("data/nobel_locations.csv", function(error, nobel) {
@@ -287,18 +358,35 @@
 			nobel.forEach( function(d){
 				// Convert year to interger
   				d.year_won = +d.year_won
-  				// Translate lon/lat into x/y once for using later.
+  				// Translate(project) lon/lat into x/y once for using later.
   				// Jitter the coordinates slightly to avoid some overplotting.
-  				d.birth_x = projection([d.born_lon, d.born_lat])[0] * jitter(.9999, 1)
-  				d.birth_y = projection([d.born_lon, d.born_lat])[1] * jitter(.9999, 1)
-  				d.acquired_x = projection([d.award_lon, d.award_lat])[0] * jitter(.99, 1)
-  				d.acquired_y = projection([d.award_lon, d.award_lat])[1] * jitter(.99, 1)
+  				d.birth_x = projection([d.born_lon, d.born_lat])[0] * jitter(.9999, 1.0001)
+  				d.birth_y = projection([d.born_lon, d.born_lat])[1] * jitter(.9999, 1.0001)
+  				d.acquired_x = projection([d.award_lon, d.award_lat])[0] * jitter(.995, 1.005)
+  				d.acquired_y = projection([d.award_lon, d.award_lat])[1] * jitter(.995, 1.005)
   				// Grab years for our years set while we're here.
   				years.add(+d.year_won)
 			})
 
 			years = years.values() // Get the values in the set.
 
+			var countries = topojson.feature(world, world.objects.countries).features
+			  worldGroup.selectAll(".country")
+			      .data(countries)
+			    .enter().insert("path", ".graticule")
+			      .attr("class", "country")
+			      .attr("d", path)
+			      .style("fill", "#CDC")
+			      .style("stroke-width", 0.3)
+			      .style("stroke", "gray")
+
+			worldGroup.insert("path", ".graticule")
+      			.datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      			.attr("class", "boundary")
+      			.attr("d", path);
+///////////////////////////////////////////////////////////////////////////////////////////
+// Update/Filter Data for each year Begin
+///////////////////////////////////////////////////////////////////////////////////////////
 
 			function update(year) {
 
@@ -332,6 +420,11 @@
 				var filtered = nobel.filter( function (d) 
 					{ return d.year_won <= year && fields_set.has(d.nobel_field_short); })
 
+///////////////////////////////////////////////////////////////////////////////////////////
+// Map people and paths Begin
+///////////////////////////////////////////////////////////////////////////////////////////
+
+				// Keep arcs/circles separate so either one can be toggled off independent of the other.
 				var arcs = peopleGroup.selectAll("path")
 									.data(filtered, key)
 
@@ -339,17 +432,16 @@
 									.data(filtered, key)
 																			
 
-
+				// Exit is needed for filtering when toggling nobel fields to display.
 				arcs.exit().remove();
 				circlesTemp.exit().remove();
 
 				var v0 = arcs.enter()
 					.append("path")
-					.attr("class", "arc linepath nobel_winner")
-					.attr("id", key)
+					.attr("class", "arc nobel_winner")
+					//.attr("id", key)
 					.attr("d", makeArc1)
-					// transition line from birth city to city/country when awarded.
-					.transition()
+					.transition() // transition line from birth city to city/country when awarded.
 					.delay(500)
 					.duration(1500)
 					.style("stroke-opacity", lineOpacity)
@@ -386,7 +478,8 @@
 								return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
 							.attr("r", circleSize/currentZoom)
 							.style("fill", function(d) { return color(d.nobel_field);});
-
+///////////////////////////////////////////////////////////////////////////////////////////
+// Map people and paths End
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Histogram Begin
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -420,7 +513,7 @@
 								.sortValues(compareValues)
 								.entries(nested)
 				//slice out the top N entries only.
-				var nested = nested.slice(0, 6)
+				var nested = nested.slice(0, 5)
 
 				x.domain(nested.map(function(d) { return d.key; }));
 				y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels']; })]);
@@ -429,22 +522,24 @@
 				  return d.values['countryShortName'] + " " + d.values['totalNobels']; 
 				}
 
-				//debugger;
-				//chart.selectAll('g').remove();
-				//debugger;
+				
+
 
 				var bar = chart.selectAll("g")
 					  .data(nested, nestedKey)
 				// Update existing bars, move them to their new places, adjust height, etc.
 				updateBar = bar.transition()
-      							.duration(750)
+      							.duration(newSpeed/2)
       							.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 				// Update existing bars' rect dimensions/position, text, data-driven fields.
 				updateBar.select("rect")
-					.attr("class", "chart-update") //green
 					.attr("y", function(d) {return y(d.values['totalNobels']); })
 					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
-					.attr("width", x.rangeBand());
+					.attr("width", x.rangeBand())
+					.style("fill", function(d) { return color(d.key);})
+					//.style("stroke", "black")
+					//.attr("rx", 10)
+					//.attr("ry", 10)
 
 				updateBar.select("text")
 					.attr("x", x.rangeBand() / 2)
@@ -457,17 +552,22 @@
 				newBar.attr("transform", function(d) { return "translate(" + x(d.key) +
 							 "," + x(d.key) +")"; })
 					.transition()
-						.duration(250)
-						.ease("elastic")
-						.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
+					.duration(newSpeed/6)
+					.ease("elastic")
+					.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; })
+
+
+				newBar.append("svg:title").text(function(d) { return d.key; });
 
 				newBar.append("rect")
-					.attr("class", "chart-bar")			//blue
 					.attr("y", function(d) {return y(d.values['totalNobels']); })
 					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
-					.attr("width", x.rangeBand())
-					
-					//.attr("class", "flag flag-icon-background flag-icon-gr");
+					.attr("width", x.rangeBand())						
+					.style("fill", function(d) { return color(d.key);})
+					.style("stroke", "black")
+					.attr("rx", 2)
+					.attr("ry", 2)
+
 
 				newBar.append("text")
 
@@ -480,16 +580,22 @@
 				bar.exit()
 					.attr("class", "chart-exit")
 				  .transition()
-				  	.duration(750)
+				  	.duration(newSpeed/2)
 				  	.attr("x", 0)
 				  	.style("fill-opacity", 1e-6)
+				  	.style("stroke-opacity", 1e-6)
 					.remove();
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Histogram End				
 ///////////////////////////////////////////////////////////////////////////////////////////
-			};
 
+			}; // End the update function for one year.
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Histogram End				
+///////////////////////////////////////////////////////////////////////////////////////////
 
 			var year_idx = 0;
 
@@ -713,7 +819,7 @@
 	  updateSpeed(+this.value);
 	 // or d3.select("#animation_speed").node().valueAsNumber; 
 	  window.newSpeed = 1000 * d3.select('#animation_speed').property("valueAsNumber")
-	  console.log(newSpeed)
+
 	});
 	
 	//Initial animation speed.
