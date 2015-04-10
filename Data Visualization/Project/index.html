@@ -71,6 +71,12 @@ body {
 	  stroke-width: .1px;
 	}
 
+	.country {
+      fill :#CDC;
+      stroke-width:0.3;
+      stroke: gray;		
+	}
+
 	.sphereFill {
 	  fill: #A5DEFF;
 	}
@@ -263,28 +269,31 @@ var projection = d3.geo.kavrayskiy7()
 
 	var peopleGroup = zoomCanvas.append("g").attr("class", "allPeople");
 
-worldGroup.append("defs").append("path")
-    .datum({type: "Sphere"})
-    .attr("id", "sphere")
-    .attr("d", path);
 
-worldGroup.append("use")
-    .attr("class", "sphereStroke")
-    .attr("xlink:href", "#sphere");
+	// Append Sphere 
+	worldGroup.append("defs").append("path")
+	    .datum({type: "Sphere"})
+	    .attr("id", "sphere")
+	    .attr("d", path);
 
-worldGroup.append("use")
-    .attr("class", "sphereFill")
-    .attr("xlink:href", "#sphere");
+	worldGroup.append("use")
+	    .attr("class", "sphereStroke")
+	    .attr("xlink:href", "#sphere");
 
+	worldGroup.append("use")
+	    .attr("class", "sphereFill")
+	    .attr("xlink:href", "#sphere");
+
+	// Append graticules (demarcation lines)
 	worldGroup.append("path")
 		.datum(graticule)
 		.attr("class", "graticule")
 		.attr("d", path)
 
 	// Simplest possible buttons
-	var slider = d3.select(".overlay").append("p")
-		.append("input")
-		.attr({"type":"range", "min":0.0, "max":3, "step":0.1})
+	//var slider = d3.select(".overlay").append("p")
+	//	.append("input")
+	//	.attr({"type":"range", "min":0.0, "max":3, "step":0.1})
 
 ////////////////////////////////////////////////////////////////////////////
 // Tooltip //
@@ -370,15 +379,16 @@ worldGroup.append("use")
 
 			years = years.values() // Get the values in the set.
 
-			var countries = topojson.feature(world, world.objects.countries).features
-			  worldGroup.selectAll(".country")
-			      .data(countries)
-			    .enter().insert("path", ".graticule")
-			      .attr("class", "country")
-			      .attr("d", path)
-			      .style("fill", "#CDC")
-			      .style("stroke-width", 0.3)
-			      .style("stroke", "gray")
+			// Countries projected onto the globe.
+			var countries_data = topojson.feature(world, world.objects.countries).features
+			  
+			countries = worldGroup.selectAll(".country")
+			    .data(countries_data)
+			  .enter().insert("path", ".graticule")
+			    .attr("class", "country")
+			    .attr("d", path)
+
+
 
 			worldGroup.insert("path", ".graticule")
       			.datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
@@ -493,7 +503,7 @@ worldGroup.append("use")
 					return {'totalNobels': totalNobels,
 							// Each short name is the same for each country group.
 							// Grab the first short name for small charts.
-							'countryShortName': leaves[0].award_ctry_short_name }; 
+							'countryShortName': leaves[0].award_ISO_alpha2 }; 
 				};
 
 				function compareValues(a,b){ 
@@ -523,6 +533,13 @@ worldGroup.append("use")
 				}
 
 				
+				countries.filter(function(d) { return d.id === 840; })
+    				.append("title")
+      			.text("United States")
+				.style("fill", "steelblue")
+				.transition()
+				.duration(1000)
+      			.style("fill", "#000")
 
 
 				var bar = chart.selectAll("g")

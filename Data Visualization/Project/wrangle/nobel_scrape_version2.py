@@ -188,3 +188,27 @@ nobel_locations['nobel_field_short'] = nobel_locations.nobel_field.map(map_field
 ##############################################################################
 # nobel_locations.to_csv('../data/nobel_locations.csv', index=False)
 ##############################################################################
+
+nobel_locations = pd.read_csv('../data/nobel_locations.csv')
+
+country_ISO = pd.read_csv('../data/wikipedia-iso-country-codes.csv')
+country_ISO_2 = country_ISO[['Alpha-2 code', 'Numeric code']]
+
+country_ISO_2.columns = ['ISO_alpha2', 'ISO_num']
+country_ISO_2 = country_ISO_2[pd.notnull(country_ISO_2['ISO_alpha2'])]
+
+nobel_locations = pd.merge(nobel_locations, country_ISO_2, left_index=True, 
+                           how='inner',
+                           left_on=['award_ctry_short_name'],
+                           right_on=['ISO_alpha2'])
+                           
+nobel_locations = nobel_locations.reset_index(drop=True)
+
+del nobel_locations['ISO_alpha2'] # Delete join key   
+
+nobel_locations.rename(columns={'award_ctry_short_name':'award_ISO_alpha2', 
+                                'ISO_num': 'award_ISO_num'}, inplace=True)
+                        
+##############################################################################
+# nobel_locations.to_csv('../data/nobel_locations.csv', index=False)
+##############################################################################
