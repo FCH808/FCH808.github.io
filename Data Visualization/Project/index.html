@@ -259,19 +259,17 @@ No longer used
 		  </div> 
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6 hist-title">
-			<div class="dropdown pull-right">
+			<div class="dropdown pull-right btn-group">
 			  <button class="btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-			    Dropdown
+			   <span class="selection">Count Type</span>
 			    <span class="caret"></span>
 			  </button>
-			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+			  <ul class="dropdown-menu chart-text" role="menu" aria-labelledby="dropdownMenu1">
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Birth Country</a></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Country Awarded</a></li>
 			  </ul>
 			</div>
-			<p> Nobel Laureates and Country of Birth - Top 5</p>
+			<p style="margin-left: 50px">Nobel Laureates and Countries of Birth  - Top 5    </p>
 
 			
 			<text class="yearCount">Year 1900</text>
@@ -299,6 +297,12 @@ No longer used
 ////////////////////////////////////////////////////////////////////////////
 // World Map Pre-Loads
 ////////////////////////////////////////////////////////////////////////////
+	// Change the dropdown menu text to last input selected.
+	$(".dropdown-menu li a").click(function(){
+	  $(this).parents(".btn-group").find('.selection').text($(this).text());
+	  $(this).parents(".btn-group").find('.selection').val($(this).text());
+	});
+
 	var margin = {top: 20, right: 20, bottom: 30, left: 40},
 		m_width = $("#mapViz").width(),
     	width = 960 - margin.left - margin.right,
