@@ -124,13 +124,45 @@ nobel.award_city[nobel.award_city == 'Democratic Republic of Vietnam'] = 'North 
 ##############################################################################
 # 
 # 
-# nobel.to_csv('../data/nobel_info_updated.csv, index=FALSE')
+# nobel.to_csv('../data/nobel_info_updated.csv', index=False)
 ##############################################################################
 
+############################################################################
+# Resulting dataframe has all 859 Nobel winners with birthdays from the 
+# birthdays page at nobelprize.org, but there are more winners who have been
+# left out due to a possible entry error. 
+# A. Michael Spence - Born: 0 1943, Montclair, NJ, USA
+# Saul Perlmutter - Born: 1959, Champaign-Urbana, IL, USA
+# These were not populated presumable due to not having day/months listed.
+# These records will be added manually.
+# TODO: There may be about 864 unique winners according to 
+#    http://www.nobelprize.org/nobel_prizes/facts/#note 
+#   but we have 857 unique people (861 records with 4 multiple nobel winners)
+#   which leaves about 7 more not listed as having birthdays.
+# Top 5 countries look to all be accounted for though.
+# Gerhart Hauptmann was born in Obersalzbrunn which is now Poland and not
+#   Germany as report on nobelprize.org so Germany's count is off by 1 compared
+#   to nobelprize.org.
+nobel = pd.read_csv('../data/nobel_info_updated.csv')
+missing = pd.DataFrame([['A. Michael Spence','/nobel_prizes/economic-sciences/laureates/2001/spence_thumb.jpg',
+                         '/nobel_prizes/economic-sciences/laureates/2001/spence-facts.html', 
+                         2001, 'The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel', 
+                         '1943-11-7', 'NaN', 'Montclair, NJ, USA', 'NaN',
+                         'Stanford University, Stanford, CA, USA', 'Stanford University', 
+                         'Stanford, CA, USA' ], 
+                         ['Saul Perlmutter', '/nobel_prizes/physics/laureates/2011/perlmutter_thumb.jpg',
+                          '/nobel_prizes/physics/laureates/2011/perlmutter-facts.html',
+                          2011, 'The Nobel Prize in Physics', 
+                          '1959-9-22', 'NaN', 'Champaign-Urbana, IL, USA', 'NaN',
+                          'University of California, Berkeley, CA, USA', 'University of California',
+                          'Berkeley, CA, USA']
+                         ], columns = nobel.columns)
+                         
+nobel = nobel.append(missing)
 
-
-
-
+#nobel.to_csv('../data/nobel_info_updated.csv', index=False)
+##################################################################################
+nobel = pd.read_csv('../data/nobel_info_updated.csv')
 
 all_cities = set(nobel.born_city).union( set(nobel.award_city) )
 # all_cities.remove('None')
@@ -153,7 +185,7 @@ just_countries = [x for x in all_cities if len(x.split(',')) <= 1]
 # coords.to_csv('../data/nobel_coords.csv', index=False)
 ##############################################################################
 coords = pd.read_csv('../data/nobel_coords.csv')
-
+#nobel = pd.read_csv('../data/nobel_info_updated.csv')
 
 nobel_locations = pd.merge(nobel, coords, left_index=True, how='inner',
                         left_on=['born_city'], right_on=['location'])
@@ -193,7 +225,7 @@ nobel_locations['nobel_field_short'] = nobel_locations.nobel_field.map(map_field
 # nobel_locations.to_csv('../data/nobel_locations.csv', index=False)
 ##############################################################################
 
-nobel_locations = pd.read_csv('../data/nobel_locations.csv')
+## nobel_locations = pd.read_csv('../data/nobel_locations.csv')
 
 country_ISO = pd.read_csv('../data/wikipedia-iso-country-codes.csv')
 country_ISO_2 = country_ISO[['Alpha-2 code', 'Numeric code']]
@@ -219,3 +251,5 @@ nobel_locations.rename(columns={'award_ctry_short_name':'award_ISO_alpha2',
 ##############################################################################
 
 nobel_locations = pd.read_csv('../data/nobel_locations.csv')
+
+
