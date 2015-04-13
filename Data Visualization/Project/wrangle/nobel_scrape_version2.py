@@ -8,7 +8,7 @@ Created on Fri Apr 03 16:30:05 2015
 import pandas as pd
 import sys
 from wrangle import scrape_birthdays_page, get_current_loc
-from wrangle import grab_inst_country_citystate
+from wrangle import grab_inst_country_citystate, map_field
 from latlon import *
 
 reload(sys)
@@ -178,13 +178,17 @@ nobel_locations.rename(columns={'lon':'award_lon', 'lat':'award_lat',
                                 'country_short_name': 'award_ctry_short_name'},
                                 inplace=True)
                                 
-# Strip whitespace from nobel field names                                
+# Strip whitespace from nobel field names if needed                           
 nobel_locations.nobel_field = nobel_locations.nobel_field.str.strip() 
 nobel_locations = nobel_locations.reset_index(drop=True)    
 
 nobel_locations.nobel_field[nobel_locations.nobel_field == \
  'The Nobel Prize in  Literature'] = 'The Nobel Prize in Literature'
+
+
+
 nobel_locations['nobel_field_short'] = nobel_locations.nobel_field.map(map_field)
+ 
 ##############################################################################
 # nobel_locations.to_csv('../data/nobel_locations.csv', index=False)
 ##############################################################################
@@ -197,13 +201,14 @@ country_ISO_2 = country_ISO[['Alpha-2 code', 'Numeric code']]
 country_ISO_2.columns = ['ISO_alpha2', 'ISO_num']
 country_ISO_2 = country_ISO_2[pd.notnull(country_ISO_2['ISO_alpha2'])]
 
+# 
 nobel_locations = pd.merge(nobel_locations, country_ISO_2, left_index=True, 
-                           how='inner',
+                          how='inner',
                            left_on=['award_ctry_short_name'],
                            right_on=['ISO_alpha2'])
                            
 nobel_locations = nobel_locations.reset_index(drop=True)
-
+ 
 del nobel_locations['ISO_alpha2'] # Delete join key   
 
 nobel_locations.rename(columns={'award_ctry_short_name':'award_ISO_alpha2', 
@@ -212,3 +217,5 @@ nobel_locations.rename(columns={'award_ctry_short_name':'award_ISO_alpha2',
 ##############################################################################
 # nobel_locations.to_csv('../data/nobel_locations.csv', index=False)
 ##############################################################################
+
+nobel_locations = pd.read_csv('../data/nobel_locations.csv')

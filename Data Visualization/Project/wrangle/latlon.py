@@ -52,16 +52,15 @@ def find_lon_lat(location):
     r = requests.get(url)
     country_json = r.json()
     try:
+        # Google does a good job of ranking the best result first. Use first
+        # result.
         lat = country_json['results'][0]['geometry']['location']['lat']
         lon = country_json['results'][0]['geometry']['location']['lng']
-
-        for result in country_json['results']:
-            for address_component in result['address_components']:
-                ##if address_component['types'] == ['locality', 'political']:
-                ##    city_name = address_component['long_name']
-                if address_component['types'] == ['country', 'political']:
-                    country_short_name = address_component['short_name']
-                    country_long_name = address_component['long_name']
+        # Check for the country-political for correct country abbreviation.
+        for first_result in country_json['results'][0]['address_components']:
+                if first_result['types'] == ['country', 'political']:
+                    country_short_name = first_result['short_name']
+                    country_long_name = first_result['long_name']
 
 
     except IndexError as e:
@@ -70,7 +69,7 @@ def find_lon_lat(location):
         print "LOCATION: ", location
         print "URL: ", url
         print "ERROR: ", e
-        city_name = e
+        city_name = location
         country_long_name = e
         country_short_name = e
         lon = e

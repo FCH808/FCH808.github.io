@@ -66,7 +66,7 @@ def scrape_birthdays_page(url=None, csv_name=None):
         nobel_field = nobel_info[0].split(",")[1]
         # Get rid of extra spaces between some words.
         ## TODO; uncomment later to redo all scrapes.
-        ## nobel_field = " ".join([x.strip() for x in nobel_field.split()])
+        nobel_field = " ".join([x.strip() for x in nobel_field.split()])
         name = nobel_info[1]
         year_born = nobel_info[2].split(":")[1]
 
@@ -136,29 +136,29 @@ def scrape_bio_page(url=None):
 
 
     
-def find_country_birth(bs4_html):
-    all_names = [["name","birth_country_old_name",
-                  "birth_country_current_name",
-                  "year","field"]]
-    place_acq = ""
-    for i in bs4_html:
-        # Only place acquired entries have an 'h3' sub-class
-        if i.find_all('h3'):
-            place_acq = i.h3.text
-        # Only field_year/name entries have an 'h6' sub-class.
-        if i.find_all('h6'):
-            field_year = i.a.text
-            name = i.h6.text
-            year, field = grab_field_and_number(field_year)
-            old_country_name, new_country_name = separate_old_country_names(place_acq)
-            
-            all_names.append([name.encode('utf-8').strip(), 
-                              old_country_name.encode('utf-8').strip(),
-                              new_country_name.encode('utf-8').strip(),
-                              year.encode('utf-8').strip(),
-                              field.encode('utf-8').strip()])
-            
-    return df_from_lists(all_names, header_included=True)
+#def find_country_birth(bs4_html):
+#    all_names = [["name","birth_country_old_name",
+#                  "birth_country_current_name",
+#                  "year","field"]]
+#    place_acq = ""
+#    for i in bs4_html:
+#        # Only place acquired entries have an 'h3' sub-class
+#        if i.find_all('h3'):
+#            place_acq = i.h3.text
+#        # Only field_year/name entries have an 'h6' sub-class.
+#        if i.find_all('h6'):
+#            field_year = i.a.text
+#            name = i.h6.text
+#            year, field = grab_field_and_number(field_year)
+#            old_country_name, new_country_name = separate_old_country_names(place_acq)
+#            
+#            all_names.append([name.encode('utf-8').strip(), 
+#                              old_country_name.encode('utf-8').strip(),
+#                              new_country_name.encode('utf-8').strip(),
+#                              year.encode('utf-8').strip(),
+#                              field.encode('utf-8').strip()])
+#            
+#    return df_from_lists(all_names, header_included=True)
 
 def find_age(bs4_html):
     all_names = [["name", "age"]]

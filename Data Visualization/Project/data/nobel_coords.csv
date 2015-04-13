@@ -49,7 +49,7 @@ South Korea,South Korea,KR,127.766922,35.907757
 Turkey,Turkey,TR,35.243322,38.963745
 "Bergen, Norway",Norway,NO,5.3220544,60.39126279999999
 "Louvain, Belgium",Belgium,BE,4.7,50.883333
-"Copenhagen, Denmark",United States,US,12.5683371,55.6760968
+"Copenhagen, Denmark",Denmark,DK,12.5683371,55.6760968
 "Rouen, France",France,FR,1.099971,49.44323199999999
 "Waltham, MA, USA",United States,US,-71.2356113,42.3764852
 "Toyohashi, Japan",Japan,JP,137.3914662,34.7691995
@@ -162,7 +162,7 @@ South Africa,South Africa,ZA,22.937506,-30.559482
 "Milwaukee, WI, USA",United States,US,-87.9064736,43.0389025
 "Wisbech, United Kingdom",United Kingdom,GB,0.158797,52.666317
 "Medford, MA, USA",United States,US,-71.1061639,42.4184296
-"Breisgau, Federal Republic of Germany",Germany,DE,7.740139999999999,47.9213
+"Breisgau, Federal Republic of Germany",Germany,DE,7.842104299999999,47.9990077
 "Calcutta, India",India,IN,88.36389500000001,22.572646
 "Linköping, Sweden",Sweden,SE,15.6213727,58.41080700000001
 "Halifax, United Kingdom",United Kingdom,GB,-1.85754,53.72702
@@ -176,7 +176,7 @@ South Africa,South Africa,ZA,22.937506,-30.559482
 "Chittagong, Bangladesh",Bangladesh,BD,91.8,22.366667
 "Germiston, South Africa",South Africa,ZA,28.167222,-26.217778
 "Roholte, Denmark",Denmark,DK,12.089752,55.194519
-Mexico,United States,US,-102.552784,23.634501
+Mexico,Mexico,MX,-102.552784,23.634501
 "Newburyport, MA, USA",United States,US,-70.87727509999999,42.8125913
 "Chaguanas, Trinidad and Tobago",Trinidad and Tobago,TT,-61.4114482,10.5168387
 "Dolac, Bosnia and Herzegovina",Bosnia and Herzegovina,BA,17.6714217,44.220406
@@ -403,7 +403,7 @@ East Timor,Timor-Leste,TL,125.727539,-8.874217
 "Heidelberg, Federal Republic of Germany",Germany,DE,8.6724335,49.3987524
 "Sumter, SC, USA",United States,US,-80.3414693,33.9204354
 "Leiden, the Netherlands",Netherlands,NL,4.4970097,52.1601144
-Palestine,United States,US,35.233154,31.952162
+Palestine,Palestine,PS,35.233154,31.952162
 "Ashburn, VA, USA",United States,US,-77.4874416,39.0437567
 "Garding, Germany",Germany,DE,8.782409999999999,54.33188999999999
 "Heredia, Costa Rica",Costa Rica,CR,-84.01674229999999,10.473523
@@ -419,7 +419,7 @@ Guatemala,Guatemala,GT,-90.23075899999999,15.783471
 "Karlbo, Sweden",Sweden,SE,16.2333329,60.116667
 "Haverhill, MA, USA",United States,US,-71.0772796,42.7762015
 "Lyon, France",France,FR,4.835659,45.764043
-"Breisgau, Germany",Germany,DE,7.740139999999999,47.9213
+"Breisgau, Germany",Germany,DE,7.842104299999999,47.9990077
 "Clamecy, France",France,FR,3.518769,47.459605
 "Rome, Italy",Italy,IT,12.4963655,41.9027835
 "Murray Hill, NJ, USA",United States,US,-74.4009849,40.6953793
@@ -655,7 +655,7 @@ Russia,Russia,RU,105.318756,61.52401
 "Raleigh, NC, USA",United States,US,-78.6381787,35.7795897
 Austria,Austria,AT,14.550072,47.516231
 "Bad Kissingen, Germany",Germany,DE,10.080392,50.2007337
-"Mexico City, Mexico",United States,US,-99.133208,19.4326077
+"Mexico City, Mexico",Mexico,MX,-99.133208,19.4326077
 "Princeton, NJ, USA",United States,US,-74.6672226,40.3572976
 "Helsa, Germany",Germany,DE,9.689417899999999,51.2603585
 Japan,Japan,JP,138.252924,36.204824
@@ -722,7 +722,7 @@ USA,United States,US,-95.712891,37.09024
 "Farsø, Denmark",Denmark,DK,9.338168,56.77055
 "Neston, United Kingdom",United Kingdom,GB,-3.069102,53.290584
 "Walkerton, IN, USA",United States,US,-86.4830681,41.4667113
-Yugoslavia,Mexico,MX,-58.7933998,-27.4937401
+Yugoslavia,Argentina,AR,-58.7933998,-27.4937401
 Liberia,Liberia,LR,-9.429499000000002,6.428055
 "Auburn, AL, USA",United States,US,-85.48078249999999,32.6098566
 "Karcag, Hungary",Hungary,HU,20.9196518,47.3148629
