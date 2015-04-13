@@ -1,7 +1,30 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<meta http-equiv="refresh" content="300000">
-<html>
+
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script> -->
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="http://d3js.org/topojson.v1.min.js"></script>
+		<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+		<link href="./css/flag-icon.css" rel="stylesheet">
+		<link href="./assets/docs.css" rel="stylesheet">	
+
+
+		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+		<title>D3 Visualization</title>
+	</head>
+
 <style>
 	/* Beautiful CSS styling here for now. */
 	/*
@@ -11,16 +34,25 @@
 		fill: grey;
 	}*/
 
-body {
-  background: #fcfcfa;
-}
+	body {
+	  background: #fcfcfa;
+	  font: 10px sans-serif;
+	}
 
+	.btn-xs {
+	  padding: 1px 5px;
+	  font-size: 8px;
+	  line-height: 1.5;
+	  border-radius: 3px;
+	}
 
 	.chart-bar:hover {
 	  fill: brown;
 	}
 
-
+	.hist-title {
+	    text-align: center;
+	}
 
 	.chart-text {
 
@@ -92,6 +124,47 @@ body {
 	  pointer-events: all;
 	}
 
+	.d3-tip {
+	  line-height: 1;
+	  font-weight: bold;
+	  padding: 12px;
+	  background: rgba(0, 0, 0, 0.8);
+	  color: #fff;
+	  border-radius: 2px;
+	  font: 8px sans-serif
+	}
+
+	/* Creates a small triangle extender for the tooltip */
+	.d3-tip:after {
+	  box-sizing: border-box;
+	  display: inline;
+	  font-size: 8px;
+	  width: 100%;
+	  line-height: 1;
+	  color: rgba(0, 0, 0, 0.8);
+	  content: "\25BC";
+	  position: absolute;
+	  text-align: center;
+	}
+
+	/* Style northward tooltips differently */
+	.d3-tip.n:after {
+	  margin: -1px 0 0 0;
+	  top: 100%;
+	  left: 0;
+	}
+
+	.yearCount {
+	  font-weight: bold;
+	  font-size: 16px;
+	  font-family: sans-serif; 
+	}
+
+	.animation_slider {
+		display: none;
+	}
+
+/* 
 	.yearSlider {
 	  position: absolute;
 	  right: 30px;
@@ -127,7 +200,7 @@ body {
 	  left: 10px;
 	  top: 550px;		
 	}
-/* No longer used
+No longer used
 	.world {
 		fill: gray;
 		stroke-width: 0.25px;
@@ -147,59 +220,66 @@ body {
 */
 
 </style> 
+
 <body>
 
-<!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script> -->
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<link href="./css/flag-icon.css" rel="stylesheet">
-<link href="./assets/docs.css" rel="stylesheet">
 
 <div class="container-fluid">
-<div class="row">
-  <div class="col-xs-4 col-sm-4 col-md-4">
-	  <h3 class="yearCount">Year </h3>
-  </div>
-</div>
-<div class="row">
-	<div class="col-xs-12 col-sm-6 col-md-6">
-		<div class="col-xs-3 col-md-3">
-		  <div class="btn-group-vertical togglesWinners"> 
-			<button type="button" class="btn btn-warning btn-xs" id="play_btn">Pause <span class="glyphicon glyphicon-pause"></span></button>
-			<button type="button" class="btn btn-success btn-xs" id="paths_btn" disabled="disabled">Paths On</button>
-			<button type="button" class="btn btn-success btn-xs" id="circles_btn" disabled="disabled">Circles On</button>
-		  </div>
+
+	<div class="row">
+		<div class="col-xs-6 col-sm-3 col-md-3">
+			<div class="col-xs-6 col-sm-6 col-md-4">
+			  <div class="btn-group-vertical togglesWinners"> 
+				<button type="button" class="btn btn-success btn-xs" id="phyics_btn">Phyics On</button>
+				<button type="button" class="btn btn-success btn-xs" id="chemistry_btn">Chemistry On</button>
+				<button type="button" class="btn btn-success btn-xs" id="physiology_btn">Physiology On</button>
+				<button type="button" class="btn btn-success btn-xs" id="economics_btn">Economics On</button>
+				<button type="button" class="btn btn-success btn-xs" id="peace_btn">Peace On</button>
+				<button type="button" class="btn btn-success btn-xs" id="literature_btn">Literature On</button>
+			  </div>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-4">
+			  <div class="btn-group-vertical togglesSciences">
+
+				<button type="button" class="btn btn-warning btn-xs" id="play_btn">Pause <span class="glyphicon glyphicon-pause"></span></button>
+				<button type="button" class="btn btn-success btn-xs" id="paths_btn" disabled="disabled">Paths On</button>
+				<button type="button" class="btn btn-success btn-xs" id="circles_btn" disabled="disabled">Circles On</button>
+			  </div>
+			</div> 
 		</div>
-		<div class="col-xs-3 col-md-3">
-		  <div class="btn-group-vertical btn-group-xs togglesSciences">
-			<button type="button" class="btn btn-success" id="phyics_btn">Phyics On</button>
-			<button type="button" class="btn btn-success" id="chemistry_btn">Chemistry On</button>
-			<button type="button" class="btn btn-success" id="physiology_btn">Physiology On</button>
-		  </div>
+		<div class="col-xs-6 col-sm-3 col-md-3">
+		  <div class="col-xs-12 col-sm-6 col-md-6">
+		  		<g id="animation_slider" class="yearSlider">
+				  <label for="animation_speed" style="text-align: center; font-size: 9px">
+				         <span id="animation_speed-value">1.5</span> Seconds Between Years
+				  </label>
+				  <input type="range" min="0.0" max="3" step="0.1" id="animation_speed" class="animation_slider" style="display: none;">
+				</g>
+		  </div> 
 		</div>
-		<div class="col-xs-3 col-md-3">
-		  <div class="btn-group-vertical btn-group-xs togglesHumanities">
-			<button type="button" class="btn btn-success" id="economics_btn">Economics On</button>
-			<button type="button" class="btn btn-success" id="peace_btn">Peace On</button>
-			<button type="button" class="btn btn-success" id="literature_btn">Literature On</button>
-		  </div>
-		</div>  
+		<div class="col-xs-12 col-sm-6 col-md-6 hist-title">
+			<div class="dropdown pull-right">
+			  <button class="btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			    Dropdown
+			    <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+			  </ul>
+			</div>
+			<p> Nobel Laureates and Country of Birth - Top 5</p>
+
+			
+			<text class="yearCount">Year 1900</text>
+			<div id="histViz">
+				<svg class="chart"></svg>
+			</div>			
+		</div>
 	</div>
-	<div class="col-sm-4 col-md-6">
-	  <div class="col-xs-12 col-sm-6 col-md-6">
-		<div id="histViz">
-			<svg class="chart"></svg>
-		</div>
-	  </div> 
-	</div>
-</div>
 </div>
 
 
@@ -207,34 +287,32 @@ body {
 
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12">
-
+		<div id="mapViz">
+		</div>
 	</div>
 </div>
 
 
-		<div id="mapViz">
-			<p id="animation_slider" class="yearSlider">
-			  <label for="animation_speed" style="text-align: center; font-size: 9px">
-			         <span id="animation_speed-value">1.5</span> Seconds Between Years
-			  </label>
-			  <input type="range" min="0.0" max="3" step="0.1" id="animation_speed">
-			</p>
-		</div>
+
 
 	<script>
 ////////////////////////////////////////////////////////////////////////////
 // World Map Pre-Loads
 ////////////////////////////////////////////////////////////////////////////
-	var width = 960,
-		height = 500,		//http://bl.ocks.org/patricksurry/6621971
-	    rotate = -10,
+	var margin = {top: 20, right: 20, bottom: 30, left: 40},
+		m_width = $("#mapViz").width(),
+    	width = 960 - margin.left - margin.right,
+    	height = 500 - margin.top - margin.bottom;
+		//http://bl.ocks.org/patricksurry/6621971
+	    //rotate = -10,
 	    fields_set = d3.set(['physics', 'chemistry', 'physiology','economics', 'peace', 'literature']);
 
 
-var projection = d3.geo.kavrayskiy7()
-    .scale(170)
-    .translate([width / 2, height / 2])
-    .precision(.1);
+	var projection = d3.geo.kavrayskiy7()
+	    .scale(170) //
+	    .translate([width / 2, height / 2])
+	    .precision(.1);
+
 
 	var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
 		circleSize = 5; // Size of circles
@@ -245,21 +323,45 @@ var projection = d3.geo.kavrayskiy7()
 		.projection(projection);
 
 	var zoom = d3.behavior.zoom()
-		.scaleExtent([.9, 30]) // Controls the amount of allowable magnification.
+		.scaleExtent([.8, 30]) // Controls the amount of allowable magnification.
 		.on("zoom", zoomed);
 
 	var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in <body>
 		.append("svg")
-		.attr("width", width)
-		.attr("height", height)
-		.style("background-color", "#fff")
+		.attr('id', 'mapSVG')
+		// Test
+		.attr("preserveAspectRatio", "xMidYMid")
+	    .attr("viewBox", "0 0 " + width + " " + height)
+	    .attr("width", m_width)
+	    .attr("height", m_width * height / width)		
+		// Test end
+		//.attr("width", width)
+		//.attr("height", height)
+		.style("background-color", "#fcfcfa")
 		.call(zoom) //Color the water in the main svg
 
+	var tip = d3.tip()
+	  .attr('class', 'd3-tip')
+	  .offset([-10, 0])
+	  .html(function(d) {
+	    return "<strong>Name:</strong> <span style='color:red'>" + d.name + "</span>";
+	  });
+
+	var tipHist = d3.tip()
+	  .attr('class', 'd3-tip')
+	  .offset([-10, 0])
+	  .html(function(d) {
+	    return "<strong>Country:</strong> <span style='color:red'>" + d.key + "</span>";
+	  });
+
+	mainSVG.call(tip);
+
+
 	// Create an overlay for hanging controls on in-map
-	mainSVG.append("rect")
-	    .attr("class", "overlay")
-	    .attr("width", width)
-	    .attr("height", height)
+	//mainSVG.append("rect")
+	//    .attr("class", "overlay")
+	//    .attr("width", width)
+	//    .attr("height", height)
 
 	var graticule = d3.geo.graticule();  //Graticule is a geographic grid.
 
@@ -325,11 +427,12 @@ var projection = d3.geo.kavrayskiy7()
           .attr('class', 'city');                                         // 
 ////////////////////////////////////////////////////////////////////////////
 
+
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads Begin
 ////////////////////////////////////////////////////////////////////////////
-	histWidth = height/1.5
-	histHeight = width/8
+	histWidth = width/3;
+	histHeight = height/6;
 
 	var x = d3.scale.ordinal()
 	    .rangeRoundBands([0, histWidth], .1);
@@ -338,9 +441,13 @@ var projection = d3.geo.kavrayskiy7()
 	    .range([histHeight, 0]);
  	// var barWidth = width / data.length;
 
+
+
 	var chart = d3.select(".chart")	
 		.attr("width", histWidth)
-		.attr("height", histHeight)
+		.attr("height", histHeight);
+
+	chart.call(tipHist);
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads End
 ////////////////////////////////////////////////////////////////////////////
@@ -400,7 +507,7 @@ var projection = d3.geo.kavrayskiy7()
 
 			function update(year) {
 
-	            d3.select("h3")
+	            d3.select(".yearCount")
 	              .text("Year: " + year);
 
 
@@ -461,8 +568,8 @@ var projection = d3.geo.kavrayskiy7()
 				
 				var c0 = circlesTemp.enter()
 						.append("circle")
-						.on("mouseover", mouseover)
-						.on("mouseout", mouseout)
+						.on("mouseover", tip.show)
+						.on("mouseout", tip.hide)
 						.on("mousedown", animateFirst)
 							//.attr("id", fieldID) // Assign ID to each field for show/hide buttons
 							.attr("class", "circle nobel_winner")							
@@ -503,7 +610,8 @@ var projection = d3.geo.kavrayskiy7()
 					return {'totalNobels': totalNobels,
 							// Each short name is the same for each country group.
 							// Grab the first short name for small charts.
-							'countryShortName': leaves[0].award_ISO_alpha2 }; 
+							'countryShortName': leaves[0].born_ctry_short_name};
+							//'country_ISO_num': leaves[0].award_ISO_num };
 				};
 
 				function compareValues(a,b){ 
@@ -511,7 +619,7 @@ var projection = d3.geo.kavrayskiy7()
 
 				var nested = d3.nest()
 								.key( function(d) {
-									return d.award_country; })
+									return d.born_country; })
 								.rollup(agg_cntry)
 								.sortKeys(d3.ascending)
 								.sortValues(compareValues)	
@@ -525,25 +633,24 @@ var projection = d3.geo.kavrayskiy7()
 				//slice out the top N entries only.
 				var nested = nested.slice(0, 5)
 
-				x.domain(nested.map(function(d) { return d.key; }));
-				y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels']; })]);
-
 				function nestedKey(d) { 
 				  return d.values['countryShortName'] + " " + d.values['totalNobels']; 
 				}
 
-				
+				x.domain(nested.map(function(d) { return d.key; }));
+				y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels']; })]);
+
+				/*
 				countries.filter(function(d) { return d.id === 840; })
-    				.append("title")
-      			.text("United States")
 				.style("fill", "steelblue")
 				.transition()
 				.duration(1000)
       			.style("fill", "#000")
-
+				*/
 
 				var bar = chart.selectAll("g")
 					  .data(nested, nestedKey)
+
 				// Update existing bars, move them to their new places, adjust height, etc.
 				updateBar = bar.transition()
       							.duration(newSpeed/2)
@@ -584,7 +691,8 @@ var projection = d3.geo.kavrayskiy7()
 					.style("stroke", "black")
 					.attr("rx", 2)
 					.attr("ry", 2)
-
+      				.on('mouseover', tipHist.show)
+      				.on('mouseout', tipHist.hide)
 
 				newBar.append("text")
 
@@ -608,10 +716,11 @@ var projection = d3.geo.kavrayskiy7()
 // Histogram End				
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+
 			}; // End the update function for one year.
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-// Histogram End				
+// Timer/Pause functions Start			
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 			var year_idx = 0;
@@ -676,9 +785,12 @@ var projection = d3.geo.kavrayskiy7()
 				};
 			}
 
-			var timer = new goYears(goYearsCallback, newSpeed); // Transition time in millisec between switching years.
+			// newSpeed = Transition time in millisec between switching years.
+			var timer = new goYears(goYearsCallback, newSpeed); 
 			
-			
+///////////////////////////////////////////////////////////////////////////////////////////
+// Timer/Pause functions End			
+//////////////////////////////////////////////////////////////////////////////////////////			
 
 			// Interactions / Clickables:
 
@@ -698,6 +810,9 @@ var projection = d3.geo.kavrayskiy7()
 					d3.select('#paths_btn').transition().delay(1500).attr("disabled", null);
 					d3.select('#circles_btn').transition().delay(1500).attr("disabled", null);
 
+					// Make slider available to change speed between years.
+					d3.select('.animation_slider').style('display', 'inline')
+
 				}else{
 					timer.resume(newSpeed)
 					// Change the class to success to change color
@@ -708,7 +823,8 @@ var projection = d3.geo.kavrayskiy7()
 					d3.select('#paths_btn').attr("disabled", "disabled");
 					d3.select('#circles_btn').attr("disabled", "disabled");
 
-					
+					// Hide slider that changes speed between years.
+					d3.select('.animation_slider').style('display', 'none')
 				}
 			});
 
@@ -885,6 +1001,8 @@ var projection = d3.geo.kavrayskiy7()
 
 	// Give mouseover tooltips, and clickable animations.
 	function mouseover(d) {
+		
+		//TODO: Broken after making map size change on window size change
 
 		// Display the tooltip at the x,y coord on the #mapViz html area
 		myTooltip.style("top", (d3.event.pageY + 10) + "px")
@@ -964,6 +1082,14 @@ var projection = d3.geo.kavrayskiy7()
 		//g.selectAll("path")
 		//	.attr("d", path.projection(projection));
 	}
+
+	//Resize mainSVG as window size changes.
+	$(window).resize(function() {
+	  var w = $("#mapViz").width();
+	  mainSVG.attr("width", w);
+	  mainSVG.attr("height", w * height / width);
+
+	});
 
 	</script>
 

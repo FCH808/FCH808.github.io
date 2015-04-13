@@ -144,6 +144,7 @@ nobel.award_city[nobel.award_city == 'Democratic Republic of Vietnam'] = 'North 
 #   Germany as report on nobelprize.org so Germany's count is off by 1 compared
 #   to nobelprize.org.
 nobel = pd.read_csv('../data/nobel_info_updated.csv')
+
 missing = pd.DataFrame([['A. Michael Spence','/nobel_prizes/economic-sciences/laureates/2001/spence_thumb.jpg',
                          '/nobel_prizes/economic-sciences/laureates/2001/spence-facts.html', 
                          2001, 'The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel', 
