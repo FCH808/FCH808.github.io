@@ -56,7 +56,7 @@
 
 	.chart-text {
 
-		fill: white;
+		fill: black;
 		font: 9px sans-serif;
 		text-anchor: middle;
 	}
@@ -68,21 +68,6 @@
 		stroke-linejoin: round;
 	}
 
-	.myTooltip {                                                       /* NEW */
-		background: #eee; 
-		border: 2px solid #a1a1a1;	
-		border-radius: 25px;                                              /* NEW */
-		box-shadow: 0 0 5px #999999;                                    /* NEW */
-		color: #333;                                                    /* NEW */
-		display: none;                                                  /* NEW */
-		font-size: 12px;                                                /* NEW */
-		left: 130px;                                                    /* NEW */
-		padding: 8px;                                                  /* NEW */
-		position: absolute;                                             /* NEW */
-		text-align: center;                                             /* NEW */
-		top: 95px;                                                      /* NEW */
-		z-index: 10;                                                    /* NEW */
-	} 
 
 	.circle {
 		fill-opacity: 0.4;
@@ -154,6 +139,16 @@
 		left: 0;
 	}
 
+	.d3-tip-hist {
+		line-height: 1;
+		font-weight: bold;
+		padding: 2px;
+		color: #6CCECB;
+		border-radius: 2px;
+		font: 9px sans-serif;
+		background-color: rgba(0, 0, 0, 0)
+	}
+
 	.yearCount {
 		font-weight: bold;
 		font-size: 16px;
@@ -162,6 +157,19 @@
 
 	.animation_slider {
 		display: none;
+	}
+
+	.rotate {
+	/* Safari */
+	-webkit-transform: rotate(-90deg);
+	/* Firefox */
+	-moz-transform: rotate(-90deg);
+	/* IE */
+	-ms-transform: rotate(-90deg);
+	/* Opera */
+	-o-transform: rotate(-90deg);
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	}
 
 /* 
@@ -265,11 +273,12 @@ No longer used
 						</optgroup>
 					</select>
 				</div>
-				<p style="margin-left: 50px">Top 5 - Total # of Nobel Laureates per Country by..</p>
+				<p style="margin-left: 50px">Top 5: Total # of Nobel Laureates per Country by..</p>
 
 
 				<text class="yearCount">Year 1900</text>
 				<div id="histViz">
+
 					<svg class="chart"></svg>
 				</div>			
 			</div>
@@ -345,9 +354,7 @@ No longer used
 		});
 
 		var tipHist = d3.tip()
-		.attr('class', 'd3-tip')
-		.style('background-color', "rgba(0, 0, 0, 0)")
-		.style("padding", "2px")
+		.attr('class', 'd3-tip-hist')
 		.offset([-10, 0])
 		.html(function(d) {
 			return "<span style='color:"+ color(d.key) +"'>" + d.key + "</span>";
@@ -399,8 +406,10 @@ No longer used
 histWidth = width/3;
 histHeight = height/6;
 
+// start from 25 to have room for a y-axis
+// second arg: 0.1, is space between bars.
 var x = d3.scale.ordinal()
-.rangeRoundBands([0, histWidth], .1);
+	.rangeRoundBands([25, histWidth], .05); 
 
 var y = d3.scale.linear()
 .range([histHeight, 0]);
@@ -413,6 +422,8 @@ var chart = d3.select(".chart")
  	.attr("height", histHeight);
 
 chart.call(tipHist);
+
+chart.text("# of Nobel Prizes")
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads End
 ////////////////////////////////////////////////////////////////////////////
@@ -528,6 +539,8 @@ d3.json("data/world-110m.json", function(error, world) {
 					.append("circle")
 					.on("mouseover", tip.show)
 					.on("mouseout", tip.hide)
+					.on("mouseenter", mouseover)
+					.on("mouseleave", mouseout)
 					.on("mousedown", animateFirst)
 						//.attr("id", fieldID) // Assign ID to each field for show/hide buttons
 					.attr("class", "circle nobel_winner")							
@@ -599,8 +612,6 @@ d3.json("data/world-110m.json", function(error, world) {
 						.sortValues(compareValues)	
 						.entries(filtered);
 
-
-
 					// Sort the entries and save to nested. Did not work in the first d.nest() call?
 					var nested = d3.nest()
 						.sortValues(compareValues)
@@ -608,16 +619,17 @@ d3.json("data/world-110m.json", function(error, world) {
 					//slice out the top N entries only.
 					var nested = nested.slice(0, 5);
 
-						x.domain(nested.map(function(d) { return d.key; }));
-						y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels']; })]);
+					x.domain(nested.map(function(d) { return d.key; }));
+					y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels'] *1.15; })]);
 
-		  			var bar = chart.selectAll("g")
-		  				.data(nested, nestedKey);
+
+		  		var bar = chart.selectAll("g")
+		  			.data(nested, nestedKey);
 
 				// Update existing bars, move them to their new places, adjust height, etc.
 					updateBar = bar.transition()
-					.duration(newSpeed/2)
-					.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
+						.duration(newSpeed/2)
+						.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 
 					// Update existing bars' rect dimensions/position, text, data-driven fields.
 					updateBar.select("rect")
@@ -629,9 +641,9 @@ d3.json("data/world-110m.json", function(error, world) {
 
 					updateBar.select("text")
 						.attr("x", x.rangeBand() / 2)
-						.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
+						.attr("y", function(d) {return y(d.values['totalNobels']) - 8; })
 						.attr("dy", ".75em")
-						.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
+						.text(function(d) {return d.values['countryShortName'] + " - " + d.values['totalNobels']; });
 					
 					// Enter in new bars, and adjust their data-driven properties
 					newBar = bar.enter().append("g").attr("class", "country_bar");
@@ -644,7 +656,7 @@ d3.json("data/world-110m.json", function(error, world) {
 						.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 
 
-					newBar.append("svg:title").text(function(d) { return d.key; });
+					newBar.append("svg:title").text(function(d) { return d.key + ": " + d.values['totalNobels']; });
 
 					newBar.append("rect")
 						.attr("y", function(d) {return y(d.values['totalNobels']); })
@@ -660,9 +672,9 @@ d3.json("data/world-110m.json", function(error, world) {
 					newBar.append("text")
 						.attr("class", "chart-text")
 						.attr("x", x.rangeBand() / 2)
-						.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
+						.attr("y", function(d) {return y(d.values['totalNobels'])  - 8; })
 						.attr("dy", ".75em")
-						.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
+						.text(function(d) {return d.values['countryShortName'] + " - " + d.values['totalNobels']; });
 						
 					// Remove outdated bars that should no longer be shown.
 					bar.exit()
@@ -675,12 +687,13 @@ d3.json("data/world-110m.json", function(error, world) {
 						.remove();
   			}
 
-  			update_bar();
+  			update_bar(); // Draw/update current year
+
 				// Change the dropdown selector text to last input selected.
 				$("select.country").change(function() {
 					window.country = $(".country option:selected").val()
 					d3.selectAll(".country_bar").remove()
-					update_bar();
+					update_bar(); // Redraw/update current year if new data is selected for histogram
 				});
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Histogram End				
@@ -764,11 +777,11 @@ d3.json("data/world-110m.json", function(error, world) {
 			timer.pause(); // start with timer paused.
 
 			
-///////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 // Timer/Pause functions End			
-//////////////////////////////////////////////////////////////////////////////////////////			
-
-			// Interactions / Clickables:
+////////////////////////////////////////////////////////////////////////////////		
+// Button clickables Start
+////////////////////////////////////////////////////////////////////////////////		
 
 			//Change CSS styling on button if pause/play/reset available.
 			d3.select('#play_btn').on("click",function(d,i){
@@ -936,8 +949,11 @@ d3.json("data/world-110m.json", function(error, world) {
 		});
 
 });	
-
-	// Global interactions.
+////////////////////////////////////////////////////////////////////////////////		
+// Button clickables End
+////////////////////////////////////////////////////////////////////////////////	
+// Global interactions
+////////////////////////////////////////////////////////////////////////////////		
 
 	//Initial animation speed from timer in html.
 	newSpeed = 1000 * d3.select('#animation_speed').property("valueAsNumber")
@@ -949,9 +965,6 @@ d3.json("data/world-110m.json", function(error, world) {
 
 	});
 	
-	//Initial animation speed.
-	//updateSpeed(newSpeed);
-	
 	// update the elements
 	function updateSpeed(newSpeed) {
 	  // adjust the text on the range slider
@@ -959,10 +972,9 @@ d3.json("data/world-110m.json", function(error, world) {
 	  d3.select("#animation_speed").property("value", newSpeed);
 	}
 
-	
-
-	//Functions:
-
+////////////////////////////////////////////////////////////////////////////////	
+// Functions
+////////////////////////////////////////////////////////////////////////////////	
 
 	// Make sure lines are created with 0 opacity if lines button is toggled off.
 	function lineOpacity() {
@@ -972,9 +984,10 @@ d3.json("data/world-110m.json", function(error, world) {
 
 	function circleVis() {
 		if (d3.select('#circles_btn').text() ==='Circles Off'){return "hidden"
-	}else{return "visible"}
-};
+		}else{return "visible"}
+	};
 
+/*
 	//Function to move selection to top of renedering queue.
 	// http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
 	d3.selection.prototype.moveToFront = function() { 
@@ -993,18 +1006,18 @@ d3.json("data/world-110m.json", function(error, world) {
 		}); 
 	};
 
+*/
+
 	// Give mouseover tooltips, and clickable animations.
 	function mouseover(d) {
-
+		tip.show
 		// When mousing over, make solid and larger
 		d3.select(this)
 		//	.transition()
 		//	.duration(400)
 			.style("fill-opacity", 0.6)
 			.attr("r", 3*circleSize/currentZoom)
-			//.attr("stroke-width", 4*currentZoom)
 
-			//.style("fill", "red");
 		//d3.select('.nobel_winner').attr('color', "red")
 		// Move moused over circle to be rendered above all other circles.
 		// 
@@ -1012,6 +1025,7 @@ d3.json("data/world-110m.json", function(error, world) {
 	}
 
 	function mouseout(d) {
+		tip.hide
 		// Make the circle attributes return to defaults and
 		// tooltip disappear when moused off of.
 		d3.select(this)
@@ -1019,8 +1033,6 @@ d3.json("data/world-110m.json", function(error, world) {
 		//	.duration(200)
 		.style("fill-opacity", 0.4)
 		.attr("r", circleSize/currentZoom)
-
-		myTooltip.style("display", "none")
 	}
 
 	// Make an animation when a circle is clicked.
