@@ -109,36 +109,6 @@
 		pointer-events: all;
 	}
 
-	.d3-tip {
-		line-height: 1;
-		font-weight: bold;
-		padding: 12px;
-		background: #473E3F;
-		color: #6CCECB;
-		border-radius: 2px;
-		font: 9px sans-serif
-	}
-
-	/* Creates a small triangle extender for the tooltip */
-	.d3-tip:after {
-		box-sizing: border-box;
-		display: inline;
-		font-size: 8px;
-		width: 100%;
-		line-height: 1;
-		color: #473E3F;
-		content: "\25BC";
-		position: absolute;
-		text-align: center;
-	}
-
-	/* Style northward tooltips differently */
-	.d3-tip.n:after {
-		margin: -1px 0 0 0;
-		top: 100%;
-		left: 0;
-	}
-
 	.d3-tip-hist {
 		line-height: 1;
 		font-weight: bold;
@@ -171,6 +141,20 @@
 	/* Internet Explorer */
 	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	}
+
+ 	.myTooltip {                                                       /* NEW */
+		background: #FEFEFD; 
+    border: 2px solid #a1a1a1;	
+		border-radius: 25px;                                              /* NEW */
+		box-shadow: 0 0 5px #999999;                                    /* NEW */
+		color: #565656;                                                    /* NEW */
+		font-size: 10px;                                                /* NEW */                                                /* NEW */
+		padding: 8px;                                                  /* NEW */
+		position: absolute;                                             /* NEW */
+		text-align: left;                                             /* NEW */                                         /* NEW */
+    z-index: 10;
+    visibility:hidden;
+   }
 
 /* 
 	.yearSlider {
@@ -344,15 +328,6 @@ No longer used
 		.style("background-color", "#fcfcfa")
 		.call(zoom) 
 
-		var tip = d3.tip()
-		.attr('class', 'd3-tip')
-		.offset([-10, 0])
-		.html(function(d) {
-			return "<strong>Name: </strong> <span style='color:#EF7126'>" + d.name + "</span> \
-			<br><strong>Born: </strong><span style='color:#EF7126'>" + d.born_city+ "</span> \
-			<br><strong>Location at award: </strong><span style='color:#EF7126'>" + d.award_city + "</span> ";
-		});
-
 		var tipHist = d3.tip()
 		.attr('class', 'd3-tip-hist')
 		.offset([-10, 0])
@@ -360,7 +335,6 @@ No longer used
 			return "<span style='color:"+ color(d.key) +"'>" + d.key + "</span>";
 		});
 
-		mainSVG.call(tip);
 
 
 	// Create an overlay for hanging controls on in-map
@@ -398,6 +372,29 @@ No longer used
 		.attr("class", "graticule")
 		.attr("d", path);
 
+////////////////////////////////////////////////////////////////////////////
+// Tooltip //
+/////////////
+// http://zeroviscosity.com/d3-js-step-by-step/step-5-adding-tooltips   ////
+        var myTooltip = d3.select('#mapViz')                              // 
+          .append('div')                                                  // 
+          .attr('class', 'myTooltip');                                    // 
+
+        myTooltip.append('div')                                           // 
+          .attr('class', 'name');                                         // 
+
+        myTooltip.append('div')                                           // 
+          .attr('class', 'field');                                        // 
+
+        myTooltip.append('div')                                           // 
+          .attr('class', 'institution');                                  // 
+
+        myTooltip.append('div')                                           // 
+          .attr('class', 'born');                                         // 
+
+        myTooltip.append('div')                                           // 
+          .attr('class', 'city');                                         // 
+////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -438,7 +435,7 @@ d3.json("data/world-110m.json", function(error, world) {
 
 			years = d3.set() // Set of years for iterating through.
 
-			nobel.forEach( function(d){
+			nobel.forEach( function(d, i){
 				// Convert year to interger
 				d.year_won = +d.year_won
   				// Translate(project) lon/lat into x/y once for using later.
@@ -447,6 +444,7 @@ d3.json("data/world-110m.json", function(error, world) {
   				d.birth_y = projection([d.born_lon, d.born_lat])[1] * jitter(.9999, 1.0001)
   				d.acquired_x = projection([d.award_lon, d.award_lat])[0] * jitter(.995, 1.005)
   				d.acquired_y = projection([d.award_lon, d.award_lat])[1] * jitter(.995, 1.005)
+  				d.unique_id = "id"+i
   				// Grab years for our years set while we're here.
   				years.add(+d.year_won)
   			});
@@ -457,17 +455,17 @@ d3.json("data/world-110m.json", function(error, world) {
 			var countries_data = topojson.feature(world, world.objects.countries).features
 
 			countries = worldGroup.selectAll(".country")
-			.data(countries_data)
-			.enter().insert("path", ".graticule")
-			.attr("class", "country")
-			.attr("d", path);
+				.data(countries_data)
+				.enter().insert("path", ".graticule")
+				.attr("class", "country")
+				.attr("d", path);
 
 
 
 			worldGroup.insert("path", ".graticule")
-			.datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
-			.attr("class", "boundary")
-			.attr("d", path);
+				.datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+				.attr("class", "boundary")
+				.attr("d", path);
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Update/Filter Data for each year Begin
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -499,6 +497,10 @@ d3.json("data/world-110m.json", function(error, world) {
 				// http://bost.ocks.org/mike/constancy/
 				// Add year to unique entry key since 4 people won multiple nobel prizes and newer
 				// awards overwrote old. All prizes should be shown now.
+				function idKey(d) {
+									return d.unique_id
+				}
+
 				function key(d) { 
 					return d.name + " " + d.year_won; 
 				}
@@ -512,10 +514,11 @@ d3.json("data/world-110m.json", function(error, world) {
 
 				// Keep arcs/circles separate so either one can be toggled off independent of the other.
 				var arcs = peopleGroup.selectAll("path")
-					.data(filtered, key)
+					.data(filtered, idKey)
 
 				var circlesTemp = peopleGroup.selectAll("circle")
-					.data(filtered, key)
+					.data(filtered, idKey)
+
 
 
 				// Exit is needed for filtering when toggling nobel fields to display.
@@ -524,8 +527,10 @@ d3.json("data/world-110m.json", function(error, world) {
 
 				var v0 = arcs.enter()
 					.append("path")
+					.on("mouseover", mouseoverLine)
+					.on("mouseout", mouseoutLine)
 					.attr("class", "arc nobel_winner")
-					//.attr("id", key)
+					.attr("id", idKey) // Assign ID to each field for show/hide buttons
 					.attr("d", makeArc1)
 					.transition() // transition line from birth city to city/country when awarded.
 					.delay(500)
@@ -537,12 +542,13 @@ d3.json("data/world-110m.json", function(error, world) {
 
 				var c0 = circlesTemp.enter()
 					.append("circle")
-					.on("mouseover", tip.show)
-					.on("mouseout", tip.hide)
-					.on("mouseenter", mouseover)
-					.on("mouseleave", mouseout)
+					.on("mouseover", mouseover)
+					.on("mouseout", mouseout)
+					//.on("mouseenter", tip.show)
+					//.on("mouseleave", tip.hide)
 					.on("mousedown", animateFirst)
-						//.attr("id", fieldID) // Assign ID to each field for show/hide buttons
+					//.on("mousemove", mousemove)
+					.attr("id", idKey) // Assign ID to each field for show/hide buttons
 					.attr("class", "circle nobel_winner")							
 					.attr("r", 0)
 					.attr("fill", "grey")
@@ -987,7 +993,7 @@ d3.json("data/world-110m.json", function(error, world) {
 		}else{return "visible"}
 	};
 
-/*
+
 	//Function to move selection to top of renedering queue.
 	// http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
 	d3.selection.prototype.moveToFront = function() { 
@@ -1006,33 +1012,90 @@ d3.json("data/world-110m.json", function(error, world) {
 		}); 
 	};
 
-*/
 
-	// Give mouseover tooltips, and clickable animations.
+////////////////////////////////////////////////////////////////////////////////	
+// Give mouseover tooltips, and clickable animations.
+////////////////////////////////////////////////////////////////////////////////	
+
 	function mouseover(d) {
-		tip.show
+		//tip.show(d)
+		//tip.show(data, target)
+		//http://stackoverflow.com/questions/21153074/d3-positioning-tooltip-on-svg-element-not-working
+		// Display the tooltip at the x,y coord on the #mapViz html area
+		myTooltip // d3.event.pageY is off by quite a lot. Not sure why.
+          .style("top", (d3.event.pageY - 100) + "px")
+          .style("left", (d3.event.pageX + 10) + "px")
+		myTooltip.select(".name").html("Name: " + "<span style='color:#000000'>" + 
+				d.name + "<span>");
+		myTooltip.select(".field").html("Field: " + "<span style='color:#000000'>" +
+				 d.nobel_field + ", " + d.year_won + "<span>");
+		myTooltip.select(".institution").html("Inst.: " + "<span style='color:#000000'>" + 
+					d.institution + "<span>");
+		myTooltip.select(".city").html("Location: " + "<span style='color:#000000'>" + 
+					d.award_city + "<span>")
+		myTooltip.select(".born").html("Born: " + "<span style='color:#000000'>" + 
+					d.born_city + "<span>")
+		//myTooltip.style("display", "block");
+		console.log(d3.event.pageY, d3.event.pageX)
+
 		// When mousing over, make solid and larger
 		d3.select(this)
 		//	.transition()
 		//	.duration(400)
-			.style("fill-opacity", 0.6)
-			.attr("r", 3*circleSize/currentZoom)
+			.style("fill-opacity", 0.85)
+			.attr("r", 2*circleSize/currentZoom)
 
+		return myTooltip.style("visibility", "visible");
 		//d3.select('.nobel_winner').attr('color', "red")
 		// Move moused over circle to be rendered above all other circles.
 		// 
 		// d3.select(this).moveToFront();
 	}
 
+	function mousemove(d) {
+		return myTooltip
+          .style("top", (d3.event.pageY - 100) + "px")
+          .style("left", (d3.event.pageX + 10) + "px");
+	}
+
 	function mouseout(d) {
-		tip.hide
+		//tip.hide(d)
+
+
 		// Make the circle attributes return to defaults and
 		// tooltip disappear when moused off of.
 		d3.select(this)
 		//	.transition()
 		//	.duration(200)
-		.style("fill-opacity", 0.4)
-		.attr("r", circleSize/currentZoom)
+			.style("fill-opacity", 0.4)
+			.attr("r", circleSize/currentZoom)
+
+		return myTooltip.style("visibility", "hidden")
+	}
+
+	function mouseoverLine(d) {
+		var uniqueKey = this.id
+		//	.transition()
+		//	.duration(400)
+		d3.select(this)
+			.style("stroke-opacity", 1)
+			.style("stroke", "darkRed")
+		// Move circle with same unique ID to front, and make larger with mouseover function
+		d3.select("circle#"+uniqueKey).each(mouseover).moveToFront();
+	}
+
+	function mouseoutLine(d) {
+		var uniqueKey = this.id
+		// Make the circle attributes return to defaults and
+		// tooltip disappear when moused off of.
+		d3.select(this)
+		//	.transition()
+		//	.duration(200)
+			.style("stroke-opacity", lineOpacity)
+			.style("stroke", "black")
+		// Move circle with same unique ID to back, and return to normal with mouseout function
+		thisCircle = d3.select("circle#"+uniqueKey).each(mouseout).moveToBack();
+
 	}
 
 	// Make an animation when a circle is clicked.
@@ -1057,21 +1120,22 @@ d3.json("data/world-110m.json", function(error, world) {
 		  };
 
 
-		  function zoomed() {
+	function zoomed() {
 
-		//d3.event.sourceEvent.preventDefault();
-		// d3.event.translate is equivalent since this d3.event is the zoom() parent zoom() function.
-		// d3.event syntax used for clarity. Not sure which would be more efficient.
-		//console.log(zoom.translate  ())
-		window.currentZoom = d3.event.scale;
-		// Scaled zooming
-		// https://groups.google.com/forum/#!topic/d3-js/z9kqLRj7Puo
+	//d3.event.sourceEvent.preventDefault();
+	// d3.event.translate is equivalent since this d3.event is the zoom() parent zoom() function.
+	// d3.event syntax used for clarity. Not sure which would be more efficient.
+	//console.log(zoom.translate  ())
+	window.currentZoom = d3.event.scale;
+	// Scaled zooming
+	// https://groups.google.com/forum/#!topic/d3-js/z9kqLRj7Puo
 
-		zoomCanvas.attr("transform", "translate(" + 
-			d3.event.translate.join(",") + ")scale(" + d3.event.scale + ")" )
-			.style("stroke-width", 1/d3.event.scale)  // Scale lines as you zoom.
-			.selectAll("circle").attr("r", circleSize/d3.event.scale); 
-		}
+	zoomCanvas
+		.attr("transform", "translate(" + d3.event.translate.join(",") + 
+			")scale(" + d3.event.scale + ")" )
+		.style("stroke-width", 1/d3.event.scale)  // Scale lines as you zoom.
+		.selectAll("circle").attr("r", circleSize/d3.event.scale); 
+	}
 
 	//Resize mainSVG as window size changes.
 	$(window).resize(function() {
