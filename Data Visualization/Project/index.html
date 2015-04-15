@@ -223,8 +223,6 @@ No longer used
 
 <body>
 
-
-
 	<div class="container-fluid">
 
 		<div class="row">
@@ -242,6 +240,7 @@ No longer used
 				<div class="col-xs-6 col-sm-6 col-md-4">
 					<div class="btn-group-vertical togglesSciences">
 						<button type="button" class="btn btn-info btn-xs" id="play_btn">Play <span class="glyphicon glyphicon-play"></span></button>
+						<button type="button" class="btn btn-danger btn-xs" id="reset_btn">Reset <span class="glyphicon glyphicon-fast-backward"></span></button>
 						<button type="button" class="btn btn-success btn-xs" id="paths_btn" disabled="disabled">Paths On</button>
 						<button type="button" class="btn btn-success btn-xs" id="circles_btn" disabled="disabled">Circles On</button>
 					</div>
@@ -295,22 +294,22 @@ No longer used
 // World Map Pre-Loads
 ////////////////////////////////////////////////////////////////////////////
 
+// Start with default born country grouping for histogram
+	window.country = 'born_country'
 
-window.country = 'born_country'
-
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-m_width = $("#mapViz").width(),
-width = 960 - margin.left - margin.right,
-height = 500 - margin.top - margin.bottom;
-		//http://bl.ocks.org/patricksurry/6621971
-	    //rotate = -10,
-	    fields_set = d3.set(['physics', 'chemistry', 'physiology','economics', 'peace', 'literature']);
+	var margin = {top: 20, right: 20, bottom: 30, left: 40},
+	m_width = $("#mapViz").width(),
+	width = 960 - margin.left - margin.right,
+	height = 500 - margin.top - margin.bottom;
+			//http://bl.ocks.org/patricksurry/6621971
+		    //rotate = -10,
+	fields_set = d3.set(['physics', 'chemistry', 'physiology','economics', 'peace', 'literature']);
 
 
-	    var projection = d3.geo.kavrayskiy7()
-	    .scale(170) //
-	    .translate([width / 2, height / 2])
-	    .precision(.1);
+	var projection = d3.geo.kavrayskiy7()
+		.scale(170) //
+		.translate([width / 2, height / 2])
+		.precision(.1);
 
 
 	var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
@@ -374,17 +373,17 @@ height = 500 - margin.top - margin.bottom;
 
 	// Append Sphere 
 	worldGroup.append("defs").append("path")
-	.datum({type: "Sphere"})
-	.attr("id", "sphere")
-	.attr("d", path);
+		.datum({type: "Sphere"})
+		.attr("id", "sphere")
+		.attr("d", path);
 
 	worldGroup.append("use")
-	.attr("class", "sphereStroke")
-	.attr("xlink:href", "#sphere");
+		.attr("class", "sphereStroke")
+		.attr("xlink:href", "#sphere");
 
 	worldGroup.append("use")
-	.attr("class", "sphereFill")
-	.attr("xlink:href", "#sphere");
+		.attr("class", "sphereFill")
+		.attr("xlink:href", "#sphere");
 
 	// Append graticules (demarcation lines)
 	worldGroup.append("path")
@@ -409,11 +408,11 @@ var y = d3.scale.linear()
 
 
 
- 	var chart = d3.select(".chart")	
- 	.attr("width", histWidth)
+var chart = d3.select(".chart")	
+	.attr("width", histWidth)
  	.attr("height", histHeight);
 
- 	chart.call(tipHist);
+chart.call(tipHist);
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads End
 ////////////////////////////////////////////////////////////////////////////
@@ -462,25 +461,27 @@ d3.json("data/world-110m.json", function(error, world) {
 // Update/Filter Data for each year Begin
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-function update(year) {
+			function update(year) {
 
-	d3.select(".yearCount")
-	.text("Year: " + year);
+				d3.select(".yearCount")
+				.text("Year: " + year);
 
 
-	function makeArc1(d) {
-		var dx = d.birth_x,
-		dy = d.birth_y,
-		dr = Math.sqrt(dx*dx + dy*dy);
-		return "M" + d.birth_x + "," + d.birth_y + "A" + dr + "," + dr + " 0 0,1 " + d.birth_x + "," + d.birth_y;
-	}
+				function makeArc1(d) {
+					var dx = d.birth_x,
+					dy = d.birth_y,
+					dr = Math.sqrt(dx*dx + dy*dy);
+					return "M" + d.birth_x + "," + d.birth_y + "A" + dr + "," + dr + 
+					" 0 0,1 " + d.birth_x + "," + d.birth_y;
+				}
 
-	function makeArc2(d) {
-		var dx = d.acquired_x - d.birth_x,
-		dy = d.acquired_y - d.birth_y,
-		dr = Math.sqrt(dx*dx + dy*dy);
-		return "M" + d.birth_x + "," + d.birth_y + "A" + dr + "," + dr + " 0 0,1 " + d.acquired_x + "," + d.acquired_y;
-	}
+				function makeArc2(d) {
+					var dx = d.acquired_x - d.birth_x,
+					dy = d.acquired_y - d.birth_y,
+					dr = Math.sqrt(dx*dx + dy*dy);
+					return "M" + d.birth_x + "," + d.birth_y + "A" + dr + "," + dr + 
+					" 0 0,1 " + d.acquired_x + "," + d.acquired_y;
+				}
 
 				// Key function needed for filtered data, otherwise new data is bound by index
 				// Index only is problematic when filtering by multiple fields (year & field)
@@ -523,35 +524,35 @@ function update(year) {
 
 
 
-					var c0 = circlesTemp.enter()
-						.append("circle")
-						.on("mouseover", tip.show)
-						.on("mouseout", tip.hide)
-						.on("mousedown", animateFirst)
-							//.attr("id", fieldID) // Assign ID to each field for show/hide buttons
-						.attr("class", "circle nobel_winner")							
-						.attr("r", 0)
-						.attr("fill", "grey")
-						.attr("transform", function(d) {
-							return "translate(" + d.birth_x + "," + d.birth_y + ")"; })
-						.style("fill-opacity", 0.4)
-						.style("visibility", circleVis) // Create hidden/vis circles depending on toggle
-						//.style("stroke-opacity", circleStrokeOpacity)
-						.transition()
-						.duration(250)
-						.attr("r", circleSize/currentZoom)
-						.ease("bounce")
-						.transition()
-						.duration(250)
-						.ease("bounce")
-						.attr("r", (circleSize/2) /currentZoom)
-						.transition()
-						.duration(1500)
-						.ease("cubic-in-out") //default;
-						.attr("transform", function(d) {
-							return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
-						.attr("r", circleSize/currentZoom)
-						.style("fill", function(d) { return color(d.nobel_field);});
+				var c0 = circlesTemp.enter()
+					.append("circle")
+					.on("mouseover", tip.show)
+					.on("mouseout", tip.hide)
+					.on("mousedown", animateFirst)
+						//.attr("id", fieldID) // Assign ID to each field for show/hide buttons
+					.attr("class", "circle nobel_winner")							
+					.attr("r", 0)
+					.attr("fill", "grey")
+					.attr("transform", function(d) {
+						return "translate(" + d.birth_x + "," + d.birth_y + ")"; })
+					.style("fill-opacity", 0.4)
+					.style("visibility", circleVis) // Create hidden/vis circles depending on toggle
+					//.style("stroke-opacity", circleStrokeOpacity)
+					.transition()
+					.duration(250)
+					.attr("r", circleSize/currentZoom)
+					.ease("bounce")
+					.transition()
+					.duration(250)
+					.ease("bounce")
+					.attr("r", (circleSize/2) /currentZoom)
+					.transition()
+					.duration(1500)
+					.ease("cubic-in-out") //default;
+					.attr("transform", function(d) {
+						return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
+					.attr("r", circleSize/currentZoom)
+					.style("fill", function(d) { return color(d.nobel_field);});
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Map people and paths End
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -559,13 +560,15 @@ function update(year) {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-function agg_cntry(leaves) {
+				function agg_cntry(leaves) {
 					// leaves here is an array of filtered data from d3.nest().key()
 					// in this case, it's each subset of cities, for each year
 					// We can get the number of entries with length on the subset
 					// which contains one data object for each row
 					var totalNobels = leaves.length;
 					
+					// Change the short name between born/award depending on what's 
+					// selected in the histogram dropdown.
 					if(window.country === 'born_country') {short_name = leaves[0].born_ctry_short_name
 					} else {short_name = leaves[0].award_ISO_alpha2}
 
@@ -574,121 +577,122 @@ function agg_cntry(leaves) {
 							// Grab the first short name for small charts.
 							'countryShortName': short_name
 							//'country_ISO_num': leaves[0].award_ISO_num };
-						};
-					};
+									};
+				};
 
 
-					function compareValues(a,b){ 
-						return b.values['totalNobels'] - a.values['totalNobels']; }
-
-						var nested = d3.nest()
-						.key( function(d) {
-							return d[window.country]; })
-						.rollup(agg_cntry)
-						.sortKeys(d3.ascending)
-						.sortValues(compareValues)	
-						.entries(filtered)
-
-
-				// Sort the entries and save to nested. Did not work in the first d.nest() call?
-				var nested = d3.nest()
-				.sortValues(compareValues)
-				.entries(nested)
-				//slice out the top N entries only.
-				var nested = nested.slice(0, 5)
+				function compareValues(a,b){ 
+					return b.values['totalNobels'] - a.values['totalNobels']; 
+				}
 
 				function nestedKey(d) { 
 					return d.values['countryShortName'] + " " + d.values['totalNobels']; 
 				}
 
-				x.domain(nested.map(function(d) { return d.key; }));
-				y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels']; })]);
+  			function update_bar() {
 
-				/*
-				countries.filter(function(d) { return d.id === 840; })
-				.style("fill", "steelblue")
-				.transition()
-				.duration(1000)
-      			.style("fill", "#000")
-      			*/
+					var nested = d3.nest()
+						.key( function(d) {
+							return d[window.country]; }) // group by histogram dropdown selection
+						.rollup(agg_cntry)
+						.sortKeys(d3.ascending)
+						.sortValues(compareValues)	
+						.entries(filtered);
 
-      			var bar = chart.selectAll("g")
-      			.data(nested, nestedKey);
+
+
+					// Sort the entries and save to nested. Did not work in the first d.nest() call?
+					var nested = d3.nest()
+						.sortValues(compareValues)
+						.entries(nested);
+					//slice out the top N entries only.
+					var nested = nested.slice(0, 5);
+
+						x.domain(nested.map(function(d) { return d.key; }));
+						y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels']; })]);
+
+		  			var bar = chart.selectAll("g")
+		  				.data(nested, nestedKey);
 
 				// Update existing bars, move them to their new places, adjust height, etc.
-				updateBar = bar.transition()
-				.duration(newSpeed/2)
-				.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
-				// Update existing bars' rect dimensions/position, text, data-driven fields.
-				updateBar.select("rect")
-					.attr("y", function(d) {return y(d.values['totalNobels']); })
-					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
-					.attr("width", x.rangeBand())
-					.style("fill", function(d) { return color(d.key);});
-
-
-				updateBar.select("text")
-					.attr("x", x.rangeBand() / 2)
-					.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
-					.attr("dy", ".75em")
-					.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
-				// Enter in new bars, and adjust their data-driven properties
-				newBar = bar.enter().append("g");
-
-				newBar.attr("transform", function(d) { return "translate(" + x(d.key) +
-					"," + x(d.key) +")"; })
-					.transition()
-					.duration(newSpeed/6)
-					.ease("elastic")
+					updateBar = bar.transition()
+					.duration(newSpeed/2)
 					.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 
+					// Update existing bars' rect dimensions/position, text, data-driven fields.
+					updateBar.select("rect")
+						.attr("y", function(d) {return y(d.values['totalNobels']); })
+						.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
+						.attr("width", x.rangeBand())
+						.style("fill", function(d) { return color(d.key);});
 
-				newBar.append("svg:title").text(function(d) { return d.key; });
 
-				newBar.append("rect")
-					.attr("y", function(d) {return y(d.values['totalNobels']); })
-					.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
-					.attr("width", x.rangeBand())						
-					.style("fill", function(d) { return color(d.key);})
-					.style("stroke", "black")
-					.attr("rx", 2)
-					.attr("ry", 2)
-					.on('mouseover', tipHist.show)
-					.on('mouseout', tipHist.hide);
+					updateBar.select("text")
+						.attr("x", x.rangeBand() / 2)
+						.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
+						.attr("dy", ".75em")
+						.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
+					
+					// Enter in new bars, and adjust their data-driven properties
+					newBar = bar.enter().append("g").attr("class", "country_bar");
 
-				newBar.append("text")
-					.attr("class", "chart-text")
-				.attr("x", x.rangeBand() / 2)
-				.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
-				.attr("dy", ".75em")
-				.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
-				// Remove outdated bars that should no longer be shown.
-				bar.exit()
-				.attr("class", "chart-exit")
-				.transition()
-				.duration(newSpeed/2)
-				.attr("x", 0)
-				.style("fill-opacity", 1e-6)
-				.style("stroke-opacity", 1e-6)
-				.remove();
+					newBar.attr("transform", function(d) { return "translate(" + x(d.key) +
+						"," + x(d.key) +")"; })
+						.transition()
+						.duration(newSpeed/6)
+						.ease("elastic")
+						.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 
-			// Change the dropdown selector text to last input selected.
-			$("select.country").change(function() {
-				window.country = $(".country option:selected").val()
-				//update(year)
-			});
+
+					newBar.append("svg:title").text(function(d) { return d.key; });
+
+					newBar.append("rect")
+						.attr("y", function(d) {return y(d.values['totalNobels']); })
+						.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
+						.attr("width", x.rangeBand())						
+						.style("fill", function(d) { return color(d.key);})
+						.style("stroke", "black")
+						.attr("rx", 2)
+						.attr("ry", 2)
+						.on('mouseover', tipHist.show)
+						.on('mouseout', tipHist.hide);
+
+					newBar.append("text")
+						.attr("class", "chart-text")
+						.attr("x", x.rangeBand() / 2)
+						.attr("y", function(d) {return y(d.values['totalNobels']) + 2; })
+						.attr("dy", ".75em")
+						.text(function(d) {return d.values['countryShortName'] + " " + d.values['totalNobels']; });
+						
+					// Remove outdated bars that should no longer be shown.
+					bar.exit()
+						.attr("class", "chart-exit")
+						.transition()
+						.duration(newSpeed/2)
+						.attr("x", 0)
+						.style("fill-opacity", 1e-6)
+						.style("stroke-opacity", 1e-6)
+						.remove();
+  			}
+
+  			update_bar();
+				// Change the dropdown selector text to last input selected.
+				$("select.country").change(function() {
+					window.country = $(".country option:selected").val()
+					d3.selectAll(".country_bar").remove()
+					update_bar();
+				});
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Histogram End				
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-
-			}; // End the update function for one year.
+			}; // End the update(year) function for one year.
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Timer/Pause functions Start			
 ///////////////////////////////////////////////////////////////////////////////////////////
-
-var year_idx = 0;
+			
+			var year_idx = 0;
 
 			// Class object for a timer to add to years_idx.
 			// http://stackoverflow.com/questions/7279567/how-do-i-pause-a-window-setinterval-in-javascript/7282347#7282347
@@ -701,12 +705,6 @@ var year_idx = 0;
 					remaining -= new Date() - start;
 				};
 
-				//Reset the timer
-				//this.reset = function() {
-				//	window.clearTimeout(timerID);
-				//	remaining = new Date();
-				//}
-
 				var resume = function(newSpeed) {
 					start = new Date();
 					timerID = window.setTimeout(function() {
@@ -718,7 +716,18 @@ var year_idx = 0;
 
 				this.resume = resume;
 				this.resume(newSpeed);
-			};
+			}; // End function goYears
+
+			function resetYears() {
+				timer.pause();
+				// If all years have been cycled through, reset the year index back to 0
+				year_idx = 0;
+
+				// Add short delays for show buttons to allow animation to finish draws.
+				d3.select('#paths_btn').transition().delay(1500).attr("disabled", null);
+				d3.select('#circles_btn').transition().delay(1500).attr("disabled", null);
+				d3.select('.animation_slider').style('display', 'inline');
+			} // End function resetYears()
 
 			function goYearsCallback() {
 			// If timer is being resumed after all years have already been cycled through...
@@ -734,23 +743,21 @@ var year_idx = 0;
 				year_idx++
 
 				if(year_idx >= years.length) {
-					timer.pause();
-					// If all years have been cycled through, reset the year index back to 0
-					year_idx = 0
+
 					// Show that button can now be used to reset the animation
-					self = d3.select("#play_btn")
+					self = d3.select("#play_btn");
 					self.text("Reset ")
-					.attr('class', 'btn btn-danger btn-xs')
+						.attr('class', 'btn btn-danger btn-xs');
 					// Change this button's glyphs and text in the span
 					self.append("span")
-					.attr("class", "glyphicon glyphicon-fast-backward")
+						.attr("class", "glyphicon glyphicon-fast-backward");
 
-					// Add short delays for show buttons to allow animation to finish draws.
-					d3.select('#paths_btn').transition().delay(1500).attr("disabled", null);
-					d3.select('#circles_btn').transition().delay(1500).attr("disabled", null);
-					d3.select('.animation_slider').style('display', 'inline');
+					resetYears()
+
 				};
-			}
+			} // End function goYearsCallback
+
+
 
 			// newSpeed = Transition time in millisec between switching years.
 			var timer = new goYears(goYearsCallback, newSpeed);
@@ -763,40 +770,58 @@ var year_idx = 0;
 
 			// Interactions / Clickables:
 
-
-
 			//Change CSS styling on button if pause/play/reset available.
-			d3.select('#play_btn').on('click',function(d,i){
+			d3.select('#play_btn').on("click",function(d,i){
 				var self = d3.select(this);
-
 				if (self.text() === "Pause "){		
-					timer.pause()
+					timer.pause();
 					// Change the class to success to change color
 
-					self.text("Play ").attr('class', 'btn btn-info btn-xs')
+					self.text("Play ").attr('class', 'btn btn-info btn-xs');
 					// Change this button's glyphs and text in the span
-					self.append("span").attr("class", "glyphicon glyphicon-play")
+					self.append("span").attr("class", "glyphicon glyphicon-play");
 
 					// Add short delays for show buttons to allow animation to finish draws.
 					d3.select('#paths_btn').transition().delay(1500).attr("disabled", null);
 					d3.select('#circles_btn').transition().delay(1500).attr("disabled", null);
 
 					// Make slider available to change speed between years.
-					d3.select('.animation_slider').style('display', 'inline')
+					d3.select('.animation_slider').style('display', 'inline');
+
+					// Make reset button available.
+					d3.select('#reset_btn').style('display', 'inline');
 
 				}else{
-					timer.resume(newSpeed)
+					timer.resume(newSpeed);
 					// Change the class to success to change color
-					self.text("Pause ").attr('class', 'btn btn-warning btn-xs')
+					self.text("Pause ").attr('class', 'btn btn-warning btn-xs');
 					// Change this button's glyphs and text in the span
-					self.append("span").attr("class", "glyphicon glyphicon-pause")
+					self.append("span").attr("class", "glyphicon glyphicon-pause");
 
 					d3.select('#paths_btn').attr("disabled", "disabled");
 					d3.select('#circles_btn').attr("disabled", "disabled");
 
 					// Hide slider that changes speed between years.
-					d3.select('.animation_slider').style('display', 'none')
+					d3.select('.animation_slider').style('display', 'none');
+
+					// Make reset button available to.
+					d3.select('#reset_btn').style('display', 'none');
 				}
+			}); // End #play_btn clickable
+		
+			d3.select("#reset_btn").on("click", function(d,i){
+				var self = d3.select(this);
+
+				resetYears();
+
+				// Change Year title to reflect reset.
+				d3.select(".yearCount")
+					.text("Year: " + "1900");
+
+				//Remove all d3 elements when chart is reset.
+				d3.selectAll(".nobel_winner").remove()
+				d3.selectAll(".country_bar").remove()
+
 			});
 
 			// Give the option to hide paths. Only allow button when paused to avoid half/drawn paths.
@@ -888,27 +913,27 @@ var year_idx = 0;
 					fields_set.add('peace')
 					update(year)
 						//.style("stroke-opacity", circleStrokeOpacity)
-					}else{
+				}else{
 						self.text("Peace Off").attr('class', 'btn btn-danger btn-xs');
 						fields_set.remove('peace')
 						update(year)}
-					});
-						// Physics show/hide TODO: eliminate redundancy.
-						d3.select("#literature_btn").on("click", function(d, i) {
-							var self = d3.select(this);
-							if(self.text() === "Literature Off"){
-								self.text("Literature On").attr('class', 'btn btn-success btn-xs');
-								fields_set.add('literature')
-								update(year)
-						//.style("stroke-opacity", circleStrokeOpacity)
-					}else{
-						self.text("Literature Off").attr('class', 'btn btn-danger btn-xs');
-						fields_set.remove('literature')
-						update(year)}
-					});
+			});
+			// Physics show/hide TODO: eliminate redundancy.
+			d3.select("#literature_btn").on("click", function(d, i) {
+				var self = d3.select(this);
+				if(self.text() === "Literature Off"){
+					self.text("Literature On").attr('class', 'btn btn-success btn-xs');
+					fields_set.add('literature')
+					update(year)
+
+				}else{
+					self.text("Literature Off").attr('class', 'btn btn-danger btn-xs');
+					fields_set.remove('literature')
+					update(year)}
+			});
 
 
-					});
+		});
 
 });	
 
