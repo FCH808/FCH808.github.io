@@ -413,6 +413,10 @@ var colorCircle = d3.scale.ordinal()
 
 var ls_w = 20, ls_h = 20;
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 var legend = mainSVG.selectAll("g.legend")
   .data(legend_labels)
   .enter().append("g")
@@ -430,7 +434,7 @@ var legend = mainSVG.selectAll("g.legend")
    	.attr("font-size", 8)
   	.attr("x", 50)
   	.attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
-  	.text(function(d, i){ return legend_labels[i]; }); 
+  	.text(function(d, i){ return capitalizeFirstLetter(legend_labels[i]); }); 
 
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads Begin
