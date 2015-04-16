@@ -39,6 +39,10 @@
 		font: 10px sans-serif;
 	}
 
+	h3 {
+		font-family: impact;
+	}
+
 	.btn-xs {
 		padding: 1px 5px;
 		font-size: 8px;
@@ -147,7 +151,7 @@
     border: 2px solid #a1a1a1;	
 		border-radius: 25px;                                              /* NEW */
 		box-shadow: 0 0 5px #999999;                                    /* NEW */
-		color: #565656;                                                    /* NEW */
+		color: darkRed;                                                    /* NEW */
 		font-size: 10px;                                                /* NEW */                                                /* NEW */
 		padding: 8px;                                                  /* NEW */
 		position: absolute;                                             /* NEW */
@@ -224,7 +228,12 @@ No longer used
 <body>
 
 	<div class="container-fluid">
-
+		<div class="row">
+			<div class="col-12">
+				<h3 align="center">World War II as a Turning Point in the Rise of the U.S. 
+				<br>as a World Leader in Nobel Prizes</h3>
+			</div>
+		</div> 
 		<div class="row">
 			<div class="col-xs-6 col-sm-3 col-md-3">
 				<div class="col-xs-6 col-sm-6 col-md-4">
@@ -260,8 +269,8 @@ No longer used
 				<div class="btn-group bootstrap-select pull-right" >
 					<select class="country selectpicker" data-style="btn-info">
 						<optgroup label="Choose one:">
-							<option value="born_country">Country Born In</option>
 							<option value="award_country">Country When Awarded</option>
+							<option value="born_country">Country Born In</option>
 						</optgroup>
 					</select>
 				</div>
@@ -296,32 +305,32 @@ No longer used
 ////////////////////////////////////////////////////////////////////////////
 
 // Start with default born country grouping for histogram
-	window.country = 'born_country'
+window.country = 'born_country'
 
-	var margin = {top: 20, right: 20, bottom: 30, left: 40},
-	m_width = $("#mapViz").width(),
-	width = 960 - margin.left - margin.right,
-	height = 500 - margin.top - margin.bottom;
-			//http://bl.ocks.org/patricksurry/6621971
-		    //rotate = -10,
-	fields_set = d3.set(['physics', 'chemistry', 'physiology','economics', 'peace', 'literature']);
-
-
-	var projection = d3.geo.kavrayskiy7()
-		.scale(170) //
-		.translate([width / 2, height / 2])
-		.precision(.1);
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+m_width = $("#mapViz").width(),
+width = 960 - margin.left - margin.right,
+height = 500 - margin.top - margin.bottom;
+		//http://bl.ocks.org/patricksurry/6621971
+	    //rotate = -10,
+fields_set = d3.set(['physics', 'chemistry', 'physiology','economics', 'peace', 'literature']);
 
 
-	var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
-		circleSize = 5; // Size of circles
+var projection = d3.geo.kavrayskiy7()
+	.scale(170) //
+	.translate([width / 2, height / 2])
+	.precision(.1);
 
-	var colorBar = d3.scale.category10();
 
-	var path = d3.geo.path()
+var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
+	circleSize = 5; // Size of circles
+
+var colorBar = d3.scale.category10();
+
+var path = d3.geo.path()
 	.projection(projection);
 
-	var zoom = d3.behavior.zoom()
+var zoom = d3.behavior.zoom()
 	.scaleExtent([.8, 30]) // Controls the amount of allowable magnification.
 	.on("zoom", zoomed);
 
@@ -333,51 +342,42 @@ var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in
 	.attr("width", m_width)
 	.attr("height", m_width * height / width)		
 	.style("background-color", "#fcfcfa")
-	.call(zoom) 
+	.call(zoom);
 
-	var tipHist = d3.tip()
+var tipHist = d3.tip()
 	.attr('class', 'd3-tip-hist')
 	.offset([-10, 0])
 	.html(function(d) {
 		return "<span style='color:"+ colorBar(d.key) +"'>" + d.key + "</span>";
-	});
+		});
 
+var graticule = d3.geo.graticule();  //Graticule is a geographic grid.
 
+var zoomCanvas = mainSVG.append("g").attr("class", "mainSVG");
 
-	// Create an overlay for hanging controls on in-map
-	//mainSVG.append("rect")
-	//    .attr("class", "overlay")
-	//    .attr("width", width)
-	//    .attr("height", height)
+var worldGroup = zoomCanvas.append("g").attr("class", "allWorld");
 
-	var graticule = d3.geo.graticule();  //Graticule is a geographic grid.
+var peopleGroup = zoomCanvas.append("g").attr("class", "allPeople");
 
-	var zoomCanvas = mainSVG.append("g").attr("class", "mainSVG")
+// Append Sphere 
+worldGroup.append("defs").append("path")
+	.datum({type: "Sphere"})
+	.attr("id", "sphere")
+	.attr("d", path);
 
-	var worldGroup = zoomCanvas.append("g").attr("class", "allWorld");
+worldGroup.append("use")
+	.attr("class", "sphereStroke")
+	.attr("xlink:href", "#sphere");
 
-	var peopleGroup = zoomCanvas.append("g").attr("class", "allPeople");
+worldGroup.append("use")
+	.attr("class", "sphereFill")
+	.attr("xlink:href", "#sphere");
 
-
-	// Append Sphere 
-	worldGroup.append("defs").append("path")
-		.datum({type: "Sphere"})
-		.attr("id", "sphere")
-		.attr("d", path);
-
-	worldGroup.append("use")
-		.attr("class", "sphereStroke")
-		.attr("xlink:href", "#sphere");
-
-	worldGroup.append("use")
-		.attr("class", "sphereFill")
-		.attr("xlink:href", "#sphere");
-
-	// Append graticules (demarcation lines)
-	worldGroup.append("path")
-		.datum(graticule)
-		.attr("class", "graticule")
-		.attr("d", path);
+// Append graticules (demarcation lines)
+worldGroup.append("path")
+	.datum(graticule)
+	.attr("class", "graticule")
+	.attr("d", path);
 
 ////////////////////////////////////////////////////////////////////////////
 // Tooltip //
@@ -387,15 +387,11 @@ var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in
           .append('div')                                                  // 
           .attr('class', 'myTooltip');                                    // 
 
-        myTooltip.append('img')
-        	.attr('id', 'thumb')
-        	.attr('align', 'left')
-
         myTooltip.append('div')                                           // 
           .attr('class', 'name');                                         // 
-
-        myTooltip.append('div')                                           // 
-          .attr('class', 'field');                                        // 
+        myTooltip.append('img')
+        	.attr('id', 'thumb')
+        	.attr('align', 'left');
 
         myTooltip.append('div')                                           // 
           .attr('class', 'institution');                                  // 
@@ -404,7 +400,11 @@ var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in
           .attr('class', 'born');                                         // 
 
         myTooltip.append('div')                                           // 
-          .attr('class', 'city');                                         // 
+          .attr('class', 'city'); 
+
+        myTooltip.append('div')                                           // 
+          .attr('class', 'field')
+          .attr('align', 'left');                                        // 
 ////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////		
@@ -412,7 +412,7 @@ var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in
 ////////////////////////////////////////////////////////////////////////////////	
 
 // Make array of the fields_set for using the same color mappings.
-var legend_labels = ["literature", "peace", "economics", "physiology", "chemistry", "physics"]  
+var legend_labels = ["literature", "peace", "economics", "physiology", "chemistry", "physics"];
 
 // Map the fields to specific colors to be used in makign circles and the legend
 var colorCircle = d3.scale.ordinal()
@@ -447,8 +447,8 @@ var legend = mainSVG.selectAll("g.legend")
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads Begin
 ////////////////////////////////////////////////////////////////////////////
-histWidth = width/3;
-histHeight = height/6;
+var histWidth = width/3;
+var histHeight = height/6;
 
 // start from 25 to have room for a y-axis
 // second arg: 0.1, is space between bars.
@@ -474,14 +474,14 @@ chart.call(tipHist);
 
 
 chart.append("text")
-				.attr("class", "ylabel")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 10)
-        .attr("x",0 - (histHeight / 2))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .style("font-size", 9)
-        .text("# of Nobel Prizes");
+	.attr("class", "ylabel")
+	.attr("transform", "rotate(-90)")
+	.attr("y", 10)
+	.attr("x",0 - (histHeight / 2))
+	.attr("dy", "1em")
+	.style("text-anchor", "middle")
+	.style("font-size", 9)
+	.text("# of Nobel Prizes");
 
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads End
@@ -511,10 +511,10 @@ d3.json("data/world-110m.json", function(error, world) {
   				years.add(+d.year_won)
   			});
 
-			years = years.values() // Get the values in the set.
+			years = years.values(); // Get the values in the set.
 
 			// Countries projected onto the globe.
-			var countries_data = topojson.feature(world, world.objects.countries).features
+			var countries_data = topojson.feature(world, world.objects.countries).features;
 
 			countries = worldGroup.selectAll(".country")
 				.data(countries_data)
@@ -1101,7 +1101,7 @@ d3.json("data/world-110m.json", function(error, world) {
 					d.institution + "<span>");
 		myTooltip.select(".city").html("Location at award: " + "<span style='color:#000000'>" + 
 					d.award_city + "<span>")
-		myTooltip.select(".born").html("Birth location: " + "<span style='color:#000000'>" + 
+		myTooltip.select(".born").html("Birth city: " + "<span style='color:#000000'>" + 
 					d.born_city + "<span>")
 		//myTooltip.style("display", "block");
 
