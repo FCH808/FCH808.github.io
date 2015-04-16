@@ -156,6 +156,14 @@
     visibility:hidden;
    }
 
+	.axis path,
+	.axis line {
+	    fill: none;
+	    stroke: grey;
+	    stroke-width: 1;
+	    shape-rendering: crispEdges;
+	}
+
 /* 
 	.yearSlider {
 	  position: absolute;
@@ -251,13 +259,13 @@ No longer used
 			<div class="col-xs-12 col-sm-6 col-md-6 hist-title">
 				<div class="btn-group bootstrap-select pull-right" >
 					<select class="country selectpicker" data-style="btn-info">
-						<optgroup label="Updated Each Tick">
+						<optgroup label="Choose one:">
 							<option value="born_country">Country Born In</option>
 							<option value="award_country">Country When Awarded</option>
 						</optgroup>
 					</select>
 				</div>
-				<p style="margin-left: 50px">Top 5: Total # of Nobel Laureates per Country by..</p>
+				<p style="margin-left: 50px">Top 5: Nobel Laureates per Country by..</p>
 
 
 				<text class="yearCount">Year 1900</text>
@@ -451,15 +459,30 @@ var y = d3.scale.linear()
 .range([histHeight, 0]);
  	// var barWidth = width / data.length;
 
-
-
 var chart = d3.select(".chart")	
 	.attr("width", histWidth)
  	.attr("height", histHeight);
 
 chart.call(tipHist);
 
-chart.text("# of Nobel Prizes")
+
+
+
+
+//.append("g").attr("class", "y_axis")
+    // Add the Y Axis
+
+
+chart.append("text")
+				.attr("class", "ylabel")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 10)
+        .attr("x",0 - (histHeight / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .style("font-size", 9)
+        .text("# of Nobel Prizes");
+
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads End
 ////////////////////////////////////////////////////////////////////////////
@@ -668,7 +691,7 @@ d3.json("data/world-110m.json", function(error, world) {
 					y.domain([0, d3.max(nested, function(d) { return d.values['totalNobels'] *1.15; })]);
 
 
-		  		var bar = chart.selectAll("g")
+		  		var bar = chart.selectAll("g.country_bar")
 		  			.data(nested, nestedKey);
 
 				// Update existing bars, move them to their new places, adjust height, etc.
@@ -740,6 +763,8 @@ d3.json("data/world-110m.json", function(error, world) {
 					d3.selectAll(".country_bar").remove()
 					update_bar(); // Redraw/update current year if new data is selected for histogram
 				});
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Histogram End				
 ///////////////////////////////////////////////////////////////////////////////////////////
