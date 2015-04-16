@@ -308,32 +308,31 @@ No longer used
 	var currentZoom = 1, // Global variable for zoom level when creating circles. Needed for dynamic zoom.
 		circleSize = 5; // Size of circles
 
-		var color = d3.scale.category10();
+	var colorBar = d3.scale.category10();
 
-		var path = d3.geo.path()
-		.projection(projection);
+	var path = d3.geo.path()
+	.projection(projection);
 
-		var zoom = d3.behavior.zoom()
-		.scaleExtent([.8, 30]) // Controls the amount of allowable magnification.
-		.on("zoom", zoomed);
+	var zoom = d3.behavior.zoom()
+	.scaleExtent([.8, 30]) // Controls the amount of allowable magnification.
+	.on("zoom", zoomed);
 
-	var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in <body>
-		.append("svg")
-		.attr('id', 'mapSVG')
-		// Test
-		.attr("preserveAspectRatio", "xMidYMid")
-		.attr("viewBox", "0 0 " + width + " " + height)
-		.attr("width", m_width)
-		.attr("height", m_width * height / width)		
-		.style("background-color", "#fcfcfa")
-		.call(zoom) 
+var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in <body>
+	.append("svg")
+	.attr('id', 'mapSVG')
+	.attr("preserveAspectRatio", "xMidYMid")
+	.attr("viewBox", "0 0 " + width + " " + height)
+	.attr("width", m_width)
+	.attr("height", m_width * height / width)		
+	.style("background-color", "#fcfcfa")
+	.call(zoom) 
 
-		var tipHist = d3.tip()
-		.attr('class', 'd3-tip-hist')
-		.offset([-10, 0])
-		.html(function(d) {
-			return "<span style='color:"+ color(d.key) +"'>" + d.key + "</span>";
-		});
+	var tipHist = d3.tip()
+	.attr('class', 'd3-tip-hist')
+	.offset([-10, 0])
+	.html(function(d) {
+		return "<span style='color:"+ colorBar(d.key) +"'>" + d.key + "</span>";
+	});
 
 
 
@@ -400,6 +399,38 @@ No longer used
           .attr('class', 'city');                                         // 
 ////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////		
+// Legend
+////////////////////////////////////////////////////////////////////////////////	
+
+// Make array of the fields_set for using the same color mappings.
+var legend_labels = ["literature", "peace", "economics", "physiology", "chemistry", "physics"]  
+
+// Map the fields to specific colors to be used in makign circles and the legend
+var colorCircle = d3.scale.ordinal()
+	.domain(legend_labels) 
+	.range(["#8c564b", "#e377c2", "#2ca02c", "#ffbb78", "#bcbd22", "#1f77b4"]);
+
+var ls_w = 20, ls_h = 20;
+
+var legend = mainSVG.selectAll("g.legend")
+  .data(legend_labels)
+  .enter().append("g")
+  .attr("class", "legend");
+
+  legend.append("rect")
+  	.attr("x", 20)
+  	.attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
+  	.attr("width", ls_w)
+  	.attr("height", ls_h)
+  	.style("fill", function(d, i) { return colorCircle(d); })
+  	.style("opacity", 0.8);
+
+   legend.append("text")
+   	.attr("font-size", 8)
+  	.attr("x", 50)
+  	.attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
+  	.text(function(d, i){ return legend_labels[i]; }); 
 
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads Begin
@@ -575,7 +606,7 @@ d3.json("data/world-110m.json", function(error, world) {
 					.attr("transform", function(d) {
 						return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
 					.attr("r", circleSize/currentZoom)
-					.style("fill", function(d) { return color(d.nobel_field);});
+					.style("fill", function(d) { return colorCircle(d.nobel_field_short);});
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Map people and paths End
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -646,7 +677,7 @@ d3.json("data/world-110m.json", function(error, world) {
 						.attr("y", function(d) {return y(d.values['totalNobels']); })
 						.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
 						.attr("width", x.rangeBand())
-						.style("fill", function(d) { return color(d.key);});
+						.style("fill", function(d) { return colorBar(d.key);});
 
 
 					updateBar.select("text")
@@ -672,7 +703,7 @@ d3.json("data/world-110m.json", function(error, world) {
 						.attr("y", function(d) {return y(d.values['totalNobels']); })
 						.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
 						.attr("width", x.rangeBand())						
-						.style("fill", function(d) { return color(d.key);})
+						.style("fill", function(d) { return colorBar(d.key);})
 						.style("stroke", "black")
 						.attr("rx", 2)
 						.attr("ry", 2)
@@ -959,6 +990,8 @@ d3.json("data/world-110m.json", function(error, world) {
 		});
 
 });	
+
+
 ////////////////////////////////////////////////////////////////////////////////		
 // Button clickables End
 ////////////////////////////////////////////////////////////////////////////////	
