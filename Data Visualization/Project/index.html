@@ -380,6 +380,10 @@ No longer used
           .append('div')                                                  // 
           .attr('class', 'myTooltip');                                    // 
 
+        myTooltip.append('img')
+        	.attr('id', 'thumb')
+        	.attr('align', 'left')
+
         myTooltip.append('div')                                           // 
           .attr('class', 'name');                                         // 
 
@@ -1018,25 +1022,27 @@ d3.json("data/world-110m.json", function(error, world) {
 ////////////////////////////////////////////////////////////////////////////////	
 
 	function mouseover(d) {
-		//tip.show(d)
-		//tip.show(data, target)
+
+		thumb_url = "http://www.nobelprize.org" + d.bio_thumbnail
 		//http://stackoverflow.com/questions/21153074/d3-positioning-tooltip-on-svg-element-not-working
 		// Display the tooltip at the x,y coord on the #mapViz html area
 		myTooltip // d3.event.pageY is off by quite a lot. Not sure why.
           .style("top", (d3.event.pageY - 100) + "px")
           .style("left", (d3.event.pageX + 10) + "px")
+
+    myTooltip.select("#thumb").attr('src',  thumb_url);
 		myTooltip.select(".name").html("Name: " + "<span style='color:#000000'>" + 
 				d.name + "<span>");
 		myTooltip.select(".field").html("Field: " + "<span style='color:#000000'>" +
 				 d.nobel_field + ", " + d.year_won + "<span>");
 		myTooltip.select(".institution").html("Inst.: " + "<span style='color:#000000'>" + 
 					d.institution + "<span>");
-		myTooltip.select(".city").html("Location: " + "<span style='color:#000000'>" + 
+		myTooltip.select(".city").html("Location at award: " + "<span style='color:#000000'>" + 
 					d.award_city + "<span>")
-		myTooltip.select(".born").html("Born: " + "<span style='color:#000000'>" + 
+		myTooltip.select(".born").html("Birth location: " + "<span style='color:#000000'>" + 
 					d.born_city + "<span>")
 		//myTooltip.style("display", "block");
-		console.log(d3.event.pageY, d3.event.pageX)
+
 
 		// When mousing over, make solid and larger
 		d3.select(this)
