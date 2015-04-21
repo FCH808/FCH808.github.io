@@ -1,0 +1,698 @@
+,name,institution,old_country_name_acquired,current_country_name_acquired,city,state,year,field,acquired_lat,acquired_lon,acquired_country_short_name,birth_country_old_name,birth_country_current_name,birth_lat,birth_lon,birth_country_short_name,age
+862,Zhores I. Alferov,A.F. Ioffe Physico-Technical Institute,Russia,Russia,St. Petersburg,,2000,Physics,59.9342802,30.3350986,RU,USSR,Belarus,53.709807,27.953389,BY,70
+367,Ivan Pavlov,Military Medical Academy,Russia,Russia,St. Petersburg,,1904,Physiology or Medicine,59.9342802,30.3350986,RU,Russia,Russia,61.52401,105.318756,RU,55
+404,Jens C. Skou,Aarhus University,Denmark,Denmark,Aarhus,,1997,Chemistry,56.162939,10.203921,DK,Denmark,Denmark,56.26392,9.501785,DK,79
+138,Dale T. Mortensen,Aarhus University,Denmark,Denmark,Aarhus,,2010,Economic Sciences,56.162939,10.203921,DK,USA,USA,37.09024,-95.712891,US,71
+138,Dale T. Mortensen,Northwestern University,USA,USA,Evanston,IL,2010,Economic Sciences,42.0450722,-87.6876969,US,USA,USA,37.09024,-95.712891,US,71
+494,Lev Landau,Academy of Sciences,Russia,Russia,Moscow,,1962,Physics,55.755826,37.6173,RU,Russian Empire,Azerbaijan,40.143105,47.576927,AZ,54
+636,Pyotr Kapitsa,Academy of Sciences,Russia,Russia,Moscow,,1978,Physics,55.755826,37.6173,RU,Russian Empire,Russia,61.52401,105.318756,RU,84
+491,Leonid Vitaliyevich Kantorovich,Academy of Sciences,Russia,Russia,Moscow,,1975,Economic Sciences,55.755826,37.6173,RU,Russian Empire,Russia,61.52401,105.318756,RU,63
+575,Nikolay Semenov,Institute for Chemical Physics of the Academy of Sciences of the USSR,Russia,Russia,Moscow,,1956,Chemistry,55.755826,37.6173,RU,Russia,Russia,61.52401,105.318756,RU,60
+811,Vitaly L. Ginzburg,P.N. Lebedev Physical Institute,Russia,Russia,Moscow,,2003,Physics,55.755826,37.6173,RU,Russia,Russia,61.52401,105.318756,RU,87
+615,Pavel A. Cherenkov,P.N. Lebedev Physical Institute,Russia,Russia,Moscow,,1958,Physics,55.755826,37.6173,RU,Russia,Russia,61.52401,105.318756,RU,54
+355,Igor Y. Tamm,P.N. Lebedev Physical Institute,Russia,Russia,Moscow,,1958,Physics,55.755826,37.6173,RU,Russia,Russia,61.52401,105.318756,RU,63
+355,Igor Y. Tamm,University of Moscow,Russia,Russia,Moscow,,1958,Physics,55.755826,37.6173,RU,Russia,Russia,61.52401,105.318756,RU,63
+358,Il´ja M. Frank,P.N. Lebedev Physical Institute,Russia,Russia,Moscow,,1958,Physics,55.755826,37.6173,RU,Russia,Russia,61.52401,105.318756,RU,50
+358,Il´ja M. Frank,University of Moscow,Russia,Russia,Moscow,,1958,Physics,55.755826,37.6173,RU,Russia,Russia,61.52401,105.318756,RU,50
+570,Nicolay G. Basov,P.N. Lebedev Physical Institute,Russia,Russia,Moscow,,1964,Physics,55.755826,37.6173,RU,USSR,Russia,61.52401,105.318756,RU,42
+27,Aleksandr M. Prokhorov,P.N. Lebedev Physical Institute,Russia,Russia,Moscow,,1964,Physics,55.755826,37.6173,RU,Australia,Australia,-25.274398,133.775136,AU,48
+435,John R. Hicks,All Souls College,United Kingdom,United Kingdom,Oxford,,1972,Economic Sciences,51.7520209,-1.2577263,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,68
+240,Frederick Soddy,University of Oxford,United Kingdom,United Kingdom,Oxford,,1921,Chemistry,51.7520209,-1.2577263,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,44
+758,Sir Robert Robinson,University of Oxford,United Kingdom,United Kingdom,Oxford,,1947,Chemistry,51.7520209,-1.2577263,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,61
+744,Sir Cyril Hinshelwood,University of Oxford,United Kingdom,United Kingdom,Oxford,,1956,Chemistry,51.7520209,-1.2577263,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,59
+743,Sir Charles Sherrington,University of Oxford,United Kingdom,United Kingdom,Oxford,,1932,Physiology or Medicine,51.7520209,-1.2577263,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,75
+207,Ernst B. Chain,University of Oxford,United Kingdom,United Kingdom,Oxford,,1945,Physiology or Medicine,51.7520209,-1.2577263,GB,Germany,Germany,51.165691,10.451526,DE,39
+749,Sir Howard Florey,University of Oxford,United Kingdom,United Kingdom,Oxford,,1945,Physiology or Medicine,51.7520209,-1.2577263,GB,Australia,Australia,-25.274398,133.775136,AU,47
+693,Rodney R. Porter,University of Oxford,United Kingdom,United Kingdom,Oxford,,1972,Physiology or Medicine,51.7520209,-1.2577263,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,55
+574,Nikolaas Tinbergen,University of Oxford,United Kingdom,United Kingdom,Oxford,,1973,Physiology or Medicine,51.7520209,-1.2577263,GB,the Netherlands,the Netherlands,52.132633,5.291266,NL,66
+160,Dorothy Crowfoot Hodgkin,University of Oxford,United Kingdom,United Kingdom,Oxford,,1964,Chemistry,51.7520209,-1.2577263,GB,Egypt,Egypt,26.820553,30.802498,EG,54
+634,Pieter Zeeman,Amsterdam University,the Netherlands,the Netherlands,Amsterdam,,1902,Physics,52.3702157,4.8951679,NL,the Netherlands,the Netherlands,52.132633,5.291266,NL,37
+410,Johannes Diderik van der Waals,Amsterdam University,the Netherlands,the Netherlands,Amsterdam,,1910,Physics,52.3702157,4.8951679,NL,the Netherlands,the Netherlands,52.132633,5.291266,NL,73
+29,Alexei A. Abrikosov,Argonne National Laboratory,USA,USA,Argonne,IL,2003,Physics,41.7154437,-87.9834563,US,USSR,Russia,61.52401,105.318756,RU,75
+175,Edward C. Prescott,Arizona State University,USA,USA,Tempe,AZ,2004,Economic Sciences,33.4255104,-111.9400054,US,USA,USA,37.09024,-95.712891,US,64
+175,Edward C. Prescott,Federal Reserve Bank of Minneapolis,USA,USA,Minneapolis,MN,2004,Economic Sciences,44.977753,-93.2650108,US,USA,USA,37.09024,-95.712891,US,64
+188,Elinor Ostrom,Arizona State University,USA,USA,Tempe,AZ,2009,Economic Sciences,33.4255104,-111.9400054,US,USA,USA,37.09024,-95.712891,US,76
+188,Elinor Ostrom,Indiana University,USA,USA,Bloomington,IN,2009,Economic Sciences,39.165325,-86.5263857,US,USA,USA,37.09024,-95.712891,US,76
+649,Riccardo Giacconi,Associated Universities Inc.,USA,USA,Washington,DC,2002,Physics,38.9071923,-77.0368707,US,Italy,Italy,41.87194,12.56738,IT,71
+406,Jerome Karle,US Naval Research Laboratory,USA,USA,Washington,DC,1985,Chemistry,38.9071923,-77.0368707,US,USA,USA,37.09024,-95.712891,US,67
+421,John Cockcroft,Atomic Energy Research Establishment,United Kingdom,United Kingdom,Berkshire,,1951,Physics,51.4659863,-1.2814014,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,54
+752,Sir John Eccles,Australian National University,Australia,Australia,Canberra,,1963,Physiology or Medicine,-35.2819998,149.1286843,AU,Australia,Australia,-25.274398,133.775136,AU,60
+91,Brian P. Schmidt,Australian National University,Australia,Australia,Weston Creek,,2011,Physics,-35.3419405,149.0488884,AU,USA,USA,37.09024,-95.712891,US,44
+572,Niels K. Jerne,Basel Institute for Immunology,Switzerland,Switzerland,Basel,,1984,Physiology or Medicine,47.5674422,7.5975507,CH,United Kingdom,United Kingdom,55.378051,-3.435973,GB,73
+278,Georges J.F. Köhler,Basel Institute for Immunology,Switzerland,Switzerland,Basel,,1984,Physiology or Medicine,47.5674422,7.5975507,CH,Germany,Germany,51.165691,10.451526,DE,38
+774,Tadeus Reichstein,Basel University,Switzerland,Switzerland,Basel,,1950,Physiology or Medicine,47.5674422,7.5975507,CH,Poland,Poland,51.919438,19.145136,PL,53
+822,Werner Arber,Biozentrum der Universität,Switzerland,Switzerland,Basel,,1978,Physiology or Medicine,47.5674422,7.5975507,CH,Switzerland,Switzerland,46.818188,8.227512,CH,49
+613,Paul Müller,Laboratorium der Farben-Fabriken J.R. Geigy A.G. (Laboratory of the J.R. Geigy Dye-Factory Co.),Switzerland,Switzerland,Basel,,1948,Physiology or Medicine,47.5674422,7.5975507,CH,Switzerland,Switzerland,46.818188,8.227512,CH,49
+61,Arno Penzias,Bell Laboratories,USA,USA,Holmdel,NJ,1978,Physics,40.3451095,-74.1840322,US,Germany,Germany,51.165691,10.451526,DE,45
+691,Robert Woodrow Wilson,Bell Laboratories,USA,USA,Holmdel,NJ,1978,Physics,40.3451095,-74.1840322,US,USA,USA,37.09024,-95.712891,US,42
+267,George E. Smith,Bell Laboratories,USA,USA,Murray Hill,NJ,2009,Physics,40.6953793,-74.4009849,US,USA,USA,37.09024,-95.712891,US,79
+829,Willard S. Boyle,Bell Laboratories,USA,USA,Murray Hill,NJ,2009,Physics,40.6953793,-74.4009849,US,Canada,Canada,56.130366,-106.346771,CA,85
+814,Walter H. Brattain,Bell Telephone Laboratories,USA,USA,Murray Hill,NJ,1956,Physics,40.6953793,-74.4009849,US,China,China,35.86166,104.195397,CN,54
+629,Philip W. Anderson,Bell Telephone Laboratories,USA,USA,Murray Hill,NJ,1977,Physics,40.6953793,-74.4009849,US,USA,USA,37.09024,-95.712891,US,54
+129,Clinton Davisson,Bell Telephone Laboratories,USA,USA,New York,NY,1937,Physics,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,56
+32,Alfred D. Hershey,Carnegie Institution of Washington,USA,USA,New York,NY,1969,Physiology or Medicine,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,61
+320,Harry M. Markowitz,City University of New York,USA,USA,New York,NY,1990,Economic Sciences,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,63
+365,Isidor Isaac Rabi,Columbia University,USA,USA,New York,NY,1944,Physics,40.7127837,-74.0059413,US,Austria-Hungary,Poland,51.919438,19.145136,PL,46
+349,Hideki Yukawa,Columbia University,USA,USA,New York,NY,1949,Physics,40.7127837,-74.0059413,US,Japan,Japan,36.204824,138.252924,JP,42
+349,Hideki Yukawa,Kyoto Imperial University,Japan,Japan,Kyoto,,1949,Physics,35.0116363,135.7680294,JP,Japan,Japan,36.204824,138.252924,JP,42
+635,Polykarp Kusch,Columbia University,USA,USA,New York,NY,1955,Physics,40.7127837,-74.0059413,US,Germany,Germany,51.165691,10.451526,DE,44
+800,Tsung-Dao Lee,Columbia University,USA,USA,New York,NY,1957,Physics,40.7127837,-74.0059413,US,China,China,35.86166,104.195397,CN,31
+391,James Rainwater,Columbia University,USA,USA,New York,NY,1975,Physics,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,58
+352,Horst L. Störmer,Columbia University,USA,USA,New York,NY,1998,Physics,40.7127837,-74.0059413,US,West Germany,Germany,51.165691,10.451526,DE,49
+317,Harold C. Urey,Columbia University,USA,USA,New York,NY,1934,Chemistry,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,41
+527,Martin Chalfie,Columbia University,USA,USA,New York,NY,2008,Chemistry,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,61
+156,Dickinson W. Richards,Columbia University,USA,USA,New York,NY,1956,Physiology or Medicine,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,61
+199,Eric R. Kandel,Columbia University,USA,USA,New York,NY,2000,Physiology or Medicine,40.7127837,-74.0059413,US,Austria,Austria,47.516231,14.550072,AT,71
+650,Richard Axel,Columbia University,USA,USA,New York,NY,2004,Physiology or Medicine,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,58
+568,Nicholas Murray Butler,Columbia University,USA,USA,New York,NY,1931,Peace,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,69
+845,William Vickrey,Columbia University,USA,USA,New York,NY,1996,Economic Sciences,40.7127837,-74.0059413,US,Canada,Canada,56.130366,-106.346771,CA,82
+667,Robert A. Mundell,Columbia University,USA,USA,New York,NY,1999,Economic Sciences,40.7127837,-74.0059413,US,Canada,Canada,56.130366,-106.346771,CA,67
+441,Joseph E. Stiglitz,Columbia University,USA,USA,New York,NY,2001,Economic Sciences,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,58
+169,Edmund S. Phelps,Columbia University,USA,USA,New York,NY,2006,Economic Sciences,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,73
+50,André F. Cournand,Columbia University Division,USA,USA,New York,NY,1956,Physiology or Medicine,40.7127837,-74.0059413,US,France,France,46.227638,2.213749,FR,61
+543,Max Theiler,Laboratories of the Division of Medicine and Public Health,USA,USA,New York,NY,1951,Physiology or Medicine,40.7127837,-74.0059413,US,South Africa,South Africa,-30.559482,22.937506,ZA,52
+676,Robert F. Engle III,New York University,USA,USA,New York,NY,2003,Economic Sciences,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,61
+789,Thomas J. Sargent,New York University,USA,USA,New York,NY,2011,Economic Sciences,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,68
+725,Severo Ochoa,New York University,USA,USA,New York,NY,1959,Physiology or Medicine,40.7127837,-74.0059413,US,Spain,Spain,40.463667,-3.74922,ES,54
+30,Alexis Carrel,Rockefeller Institute for Medical Research,USA,USA,New York,NY,1912,Physiology or Medicine,40.7127837,-74.0059413,US,France,France,46.227638,2.213749,FR,39
+461,Karl Landsteiner,Rockefeller Institute for Medical Research,USA,USA,New York,NY,1930,Physiology or Medicine,40.7127837,-74.0059413,US,Austrian Empire,Austria,47.516231,14.550072,AT,62
+343,Herbert S. Gasser,Rockefeller Institute for Medical Research,USA,USA,New York,NY,1944,Physiology or Medicine,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,56
+176,Edward Tatum,Rockefeller Institute for Medical Research,USA,USA,New York,NY,1958,Physiology or Medicine,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,49
+761,Stanford Moore,Rockefeller University,USA,USA,New York,NY,1972,Chemistry,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,59
+841,William H. Stein,Rockefeller University,USA,USA,New York,NY,1972,Chemistry,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,61
+93,Bruce Merrifield,Rockefeller University,USA,USA,New York,NY,1984,Chemistry,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,63
+692,Roderick MacKinnon,Rockefeller University,USA,USA,New York,NY,2003,Chemistry,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,47
+626,Peyton Rous,Rockefeller University,USA,USA,New York,NY,1966,Physiology or Medicine,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,87
+306,Haldan K. Hartline,Rockefeller University,USA,USA,New York,NY,1967,Physiology or Medicine,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,64
+280,Gerald M. Edelman,Rockefeller University,USA,USA,New York,NY,1972,Physiology or Medicine,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,43
+122,Christian de Duve,Rockefeller University,USA,USA,New York,NY,1974,Physiology or Medicine,40.7127837,-74.0059413,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,57
+122,Christian de Duve,Université Catholique de Louvain,Belgium,Belgium,Louvain,,1974,Physiology or Medicine,50.883333,4.7,BE,United Kingdom,United Kingdom,55.378051,-3.435973,GB,57
+301,Günter Blobel,Rockefeller University,USA,USA,New York,NY,1999,Physiology or Medicine,40.7127837,-74.0059413,US,Germany,Poland,51.919438,19.145136,PL,63
+606,Paul Greengard,Rockefeller University,USA,USA,New York,NY,2000,Physiology or Medicine,40.7127837,-74.0059413,US,USA,USA,37.09024,-95.712891,US,75
+642,Ralph M. Steinman,Rockefeller University,USA,USA,New York,NY,2011,Physiology or Medicine,40.7127837,-74.0059413,US,Canada,Canada,56.130366,-106.346771,CA,68
+542,Max Planck,Berlin University,Germany,Germany,Berlin,,1918,Physics,52.5200066,13.404954,DE,Schleswig,Germany,51.165691,10.451526,DE,60
+211,Erwin Schrödinger,Berlin University,Germany,Germany,Berlin,,1933,Physics,52.5200066,13.404954,DE,Austria,Austria,47.516231,14.550072,AT,46
+380,Jacobus H. van 't Hoff,Berlin University,Germany,Germany,Berlin,,1901,Chemistry,52.5200066,13.404954,DE,the Netherlands,the Netherlands,52.132633,5.291266,NL,49
+191,Emil Fischer,Berlin University,Germany,Germany,Berlin,,1902,Chemistry,52.5200066,13.404954,DE,Prussia,Germany,51.165691,10.451526,DE,50
+818,Walther Nernst,Berlin University,Germany,Germany,Berlin,,1920,Chemistry,52.5200066,13.404954,DE,Prussia,Germany,51.165691,10.451526,DE,56
+621,Peter Debye,Berlin University,Germany,Germany,Berlin,,1936,Chemistry,52.5200066,13.404954,DE,the Netherlands,the Netherlands,52.132633,5.291266,NL,52
+621,Peter Debye,Kaiser-Wilhelm-Institut (now Max-Planck-Institut) für Physik,Germany,Germany,Berlin,,1936,Chemistry,52.5200066,13.404954,DE,the Netherlands,the Netherlands,52.132633,5.291266,NL,52
+7,Adolf Butenandt,Berlin University,Germany,Germany,Berlin,,1939,Chemistry,52.5200066,13.404954,DE,Germany,Germany,51.165691,10.451526,DE,36
+7,Adolf Butenandt,Kaiser-Wilhelm-Institut (now Max-Planck-Institut) für Biochemie,Germany,Germany,Berlin-Dahlem,,1939,Chemistry,52.458056,13.2875,DE,Germany,Germany,51.165691,10.451526,DE,36
+285,Gerhard Ertl,Fritz-Haber-Institut der Max-Planck-Gesellschaft,Germany,Germany,Berlin,,2007,Chemistry,52.5200066,13.404954,DE,Germany,Germany,51.165691,10.451526,DE,71
+685,Robert Koch,Institute for Infectious Diseases,Germany,Germany,Berlin,,1905,Physiology or Medicine,52.5200066,13.404954,DE,Germany,Germany,51.165691,10.451526,DE,62
+20,Albert Einstein,Kaiser-Wilhelm-Institut (now Max-Planck-Institut) für Physik,Germany,Germany,Berlin,,1921,Physics,52.5200066,13.404954,DE,Germany,Germany,51.165691,10.451526,DE,42
+170,Eduard Buchner,Landwirtschaftliche Hochschule (Agricultural College),Germany,Germany,Berlin,,1907,Chemistry,52.5200066,13.404954,DE,Bavaria,Germany,51.165691,10.451526,DE,47
+778,Theodor Kocher,Berne University,Switzerland,Switzerland,Berne,,1909,Physiology or Medicine,46.9479222,7.4446085,CH,Switzerland,Switzerland,46.818188,8.227512,CH,68
+578,Norman Haworth,Birmingham University,United Kingdom,United Kingdom,Birmingham,,1937,Chemistry,52.486243,-1.890401,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,54
+585,Osamu Shimomura,Boston University Medical School,USA,USA,Massachusetts,MA,2008,Chemistry,42.4072107,-71.3824374,US,Japan,Japan,36.204824,138.252924,JP,80
+585,Osamu Shimomura,Marine Biological Laboratory (MBL),USA,USA,Woods Hole,MA,2008,Chemistry,41.5264977,-70.6730857,US,Japan,Japan,36.204824,138.252924,JP,80
+440,Joseph E. Murray,Brigham and Women's Hospital,USA,USA,Boston,MA,1990,Physiology or Medicine,42.3600825,-71.0588801,US,USA,USA,37.09024,-95.712891,US,71
+42,Alvin E. Roth,Harvard Business School,USA,USA,Boston,MA,2012,Economic Sciences,42.3600825,-71.0588801,US,USA,USA,37.09024,-95.712891,US,61
+42,Alvin E. Roth,Harvard University,USA,USA,Cambridge,MA,2012,Economic Sciences,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,61
+247,Fritz Lipmann,Harvard Medical School,USA,USA,Boston,MA,1953,Physiology or Medicine,42.3600825,-71.0588801,US,Germany,Russia,61.52401,105.318756,RU,54
+247,Fritz Lipmann,Massachusetts General Hospital,USA,USA,Boston,MA,1953,Physiology or Medicine,42.3600825,-71.0588801,US,Germany,Russia,61.52401,105.318756,RU,54
+425,John F. Enders,Harvard Medical School,USA,USA,Boston,MA,1954,Physiology or Medicine,42.3600825,-71.0588801,US,USA,USA,37.09024,-95.712891,US,57
+425,John F. Enders,Research Division of Infectious Diseases,USA,USA,Boston,MA,1954,Physiology or Medicine,42.3600825,-71.0588801,US,USA,USA,37.09024,-95.712891,US,57
+77,Baruj Benacerraf,Harvard Medical School,USA,USA,Boston,MA,1980,Physiology or Medicine,42.3600825,-71.0588801,US,Venezuela,Venezuela,6.42375,-66.58973,VE,60
+147,David H. Hubel,Harvard Medical School,USA,USA,Boston,MA,1981,Physiology or Medicine,42.3600825,-71.0588801,US,Canada,Canada,56.130366,-106.346771,CA,55
+797,Torsten N. Wiesel,Harvard Medical School,USA,USA,Boston,MA,1981,Physiology or Medicine,42.3600825,-71.0588801,US,Sweden,Sweden,60.128161,18.643501,SE,57
+379,Jack W. Szostak,Harvard Medical School,USA,USA,Boston,MA,2009,Physiology or Medicine,42.3600825,-71.0588801,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,57
+379,Jack W. Szostak,Massachusetts General Hospital,USA,USA,Boston,MA,2009,Physiology or Medicine,42.3600825,-71.0588801,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,57
+379,Jack W. Szostak,Howard Hughes Medical Institute,USA,USA,Chevy Chase,MD,2009,Physiology or Medicine,38.9949153,-77.0772052,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,57
+843,William P. Murphy,Peter Brent Brigham Hospital,USA,USA,Boston,MA,1934,Physiology or Medicine,42.3600825,-71.0588801,US,USA,USA,37.09024,-95.712891,US,42
+843,William P. Murphy,Harvard University,USA,USA,Cambridge,MA,1934,Physiology or Medicine,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,42
+788,Thomas H. Weller,Research Division of Infectious Diseases,USA,USA,Boston,MA,1954,Physiology or Medicine,42.3600825,-71.0588801,US,USA,USA,37.09024,-95.712891,US,39
+108,Cecil Powell,Bristol University,United Kingdom,United Kingdom,Bristol,,1950,Physics,51.454513,-2.58791,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,47
+489,Leon N. Cooper,Brown University,USA,USA,Providence,RI,1972,Physics,41.8239891,-71.4128343,US,USA,USA,37.09024,-95.712891,US,42
+452,Jules Bordet,Brussels University,Belgium,Belgium,Brussels,,1919,Physiology or Medicine,50.8503396,4.3517103,BE,Belgium,Belgium,50.503887,4.469936,BE,49
+231,François Englert,Université Libre de Bruxelles,Belgium,Belgium,Brussels,,2013,Physics,50.8503396,4.3517103,BE,Belgium,Belgium,50.503887,4.469936,BE,81
+357,Ilya Prigogine,Université Libre de Bruxelles,Belgium,Belgium,Brussels,,1977,Chemistry,50.8503396,4.3517103,BE,Russia,Russia,61.52401,105.318756,RU,60
+357,Ilya Prigogine,University of Texas,USA,USA,Austin,TX,1977,Chemistry,30.267153,-97.7430608,US,Russia,Russia,61.52401,105.318756,RU,60
+110,Charles Edouard Guillaume,Bureau International des Poids et Mesures (International Bureau of Weights and Measures),France,France,Sèvres,,1920,Physics,48.8212407,2.2109771,FR,Switzerland,Switzerland,46.818188,8.227512,CH,59
+759,Sir Venkata Raman,Calcutta University,India,India,Calcutta,,1930,Physics,22.572646,88.363895,IN,India,India,20.593684,78.96288,IN,42
+666,Robert A. Millikan,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1923,Physics,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,55
+100,Carl D. Anderson,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1936,Physics,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,31
+708,Rudolf Mössbauer,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1961,Physics,34.1477849,-118.1445155,US,Germany,Germany,51.165691,10.451526,DE,32
+708,Rudolf Mössbauer,Technical University,Federal Republic of Germany,Federal Republic of Germany,Munich,,1961,Physics,48.1351253,11.5819806,DE,Germany,Germany,51.165691,10.451526,DE,32
+657,Richard P. Feynman,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1965,Physics,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,47
+561,Murray Gell-Mann,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1969,Physics,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,40
+831,William A. Fowler,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1983,Physics,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,72
+303,H. David Politzer,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,2004,Physics,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,55
+497,Linus Pauling,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1954,Chemistry,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,53
+709,Rudolph A. Marcus,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1992,Chemistry,34.1477849,-118.1445155,US,Canada,Canada,56.130366,-106.346771,CA,69
+11,Ahmed Zewail,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1999,Chemistry,34.1477849,-118.1445155,US,Egypt,Egypt,26.820553,30.802498,EG,53
+679,Robert H. Grubbs,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,2005,Chemistry,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,63
+787,Thomas H. Morgan,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1933,Physiology or Medicine,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,67
+262,George Beadle,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1958,Physiology or Medicine,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,55
+540,Max Delbrück,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1969,Physiology or Medicine,34.1477849,-118.1445155,US,Germany,Germany,51.165691,10.451526,DE,63
+698,Roger W. Sperry,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1981,Physiology or Medicine,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,68
+173,Edward B. Lewis,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1995,Physiology or Medicine,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,77
+498,Linus Pauling,California Institute of Technology (Caltech),USA,USA,Pasadena,CA,1962,Peace,34.1477849,-118.1445155,US,USA,USA,37.09024,-95.712891,US,61
+753,Sir Martin J. Evans,Cardiff University,United Kingdom,United Kingdom,Cardiff,,2007,Physiology or Medicine,51.481581,-3.17909,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,66
+591,Otto Stern,Carnegie Institute of Technology,USA,USA,Pittsburgh,PA,1943,Physics,40.4406248,-79.9958864,US,Germany,Poland,51.919438,19.145136,PL,55
+340,Herbert A. Simon,Carnegie Mellon University,USA,USA,Pittsburgh,PA,1978,Economic Sciences,40.4406248,-79.9958864,US,USA,USA,37.09024,-95.712891,US,62
+224,Finn E. Kydland,Carnegie Mellon University,USA,USA,Pittsburgh,PA,2004,Economic Sciences,40.4406248,-79.9958864,US,Norway,Norway,60.472024,8.468946,NO,61
+224,Finn E. Kydland,University of California,USA,USA,Santa Barbara,CA,2004,Economic Sciences,34.4208305,-119.6981901,US,Norway,Norway,60.472024,8.468946,NO,61
+390,James M. Buchanan Jr.,Center for Study of Public Choice,USA,USA,Fairfax,VA,1986,Economic Sciences,38.8462236,-77.3063733,US,USA,USA,37.09024,-95.712891,US,67
+806,Vernon L. Smith,George Mason University,USA,USA,Fairfax,VA,2002,Economic Sciences,38.8462236,-77.3063733,US,USA,USA,37.09024,-95.712891,US,75
+294,Godfrey N. Hounsfield,Central Research Laboratories,United Kingdom,United Kingdom,London,,1979,Physiology or Medicine,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,60
+177,Edward V. Appleton,Department of Scientific and Industrial Research,United Kingdom,United Kingdom,London,,1947,Physics,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,55
+756,Sir Paul Nurse,Imperial Cancer Research Fund,United Kingdom,United Kingdom,London,,2001,Physiology or Medicine,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,52
+792,Tim Hunt,Imperial Cancer Research Fund,United Kingdom,United Kingdom,London,,2001,Physiology or Medicine,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,58
+647,Renato Dulbecco,Imperial Cancer Research Fund Laboratory,United Kingdom,United Kingdom,London,,1975,Physiology or Medicine,51.5073509,-0.1277583,GB,Italy,Italy,41.87194,12.56738,IT,61
+152,Dennis Gabor,Imperial College,United Kingdom,United Kingdom,London,,1971,Physics,51.5073509,-0.1277583,GB,Hungary,Hungary,47.162494,19.503304,HU,71
+4,Abdus Salam,Imperial College,United Kingdom,United Kingdom,London,,1979,Physics,51.5073509,-0.1277583,GB,India,Pakistan,30.375321,69.345116,PK,53
+4,Abdus Salam,International Centre for Theoretical Physics,Italy,Italy,Trieste,,1979,Physics,45.6495264,13.7768182,IT,India,Pakistan,30.375321,69.345116,PK,53
+153,Derek Barton,Imperial College,United Kingdom,United Kingdom,London,,1969,Chemistry,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,51
+257,Geoffrey Wilkinson,Imperial College,United Kingdom,United Kingdom,London,,1973,Chemistry,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,52
+124,Christopher A. Pissarides,London School of Economics and Political Science,United Kingdom,United Kingdom,London,,2010,Economic Sciences,51.5073509,-0.1277583,GB,Cyprus,Cyprus,35.126413,33.429859,CY,62
+595,Owen Willans Richardson,London University,United Kingdom,United Kingdom,London,,1928,Physics,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,49
+272,George Paget Thomson,London University,United Kingdom,United Kingdom,London,,1937,Physics,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,45
+63,Arthur Harden,London University,United Kingdom,United Kingdom,London,,1929,Chemistry,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,64
+57,Archibald V. Hill,London University,United Kingdom,United Kingdom,London,,1922,Physiology or Medicine,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,36
+739,Sir Alexander Fleming,London University,United Kingdom,United Kingdom,London,,1945,Physiology or Medicine,51.5073509,-0.1277583,GB,Scotland,Scotland,56.4906712,-4.2026458,GB,64
+538,Maurice Wilkins,London University,United Kingdom,United Kingdom,London,,1962,Physiology or Medicine,51.5073509,-0.1277583,GB,New Zealand,New Zealand,-40.900557,174.885971,NZ,46
+750,Sir James W. Black,London University,United Kingdom,United Kingdom,London,,1988,Physiology or Medicine,51.5073509,-0.1277583,GB,Scotland,Scotland,56.4906712,-4.2026458,GB,64
+296,Guglielmo Marconi,Marconi Wireless Telegraph Co. Ltd.,United Kingdom,United Kingdom,London,,1909,Physics,51.5073509,-0.1277583,GB,Italy,Italy,41.87194,12.56738,IT,35
+56,Archer J.P. Martin,National Institute for Medical Research,United Kingdom,United Kingdom,London,,1952,Chemistry,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,42
+748,Sir Henry Dale,National Institute for Medical Research,United Kingdom,United Kingdom,London,,1936,Physiology or Medicine,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,61
+502,Lord Rayleigh,Royal Institution of Great Britain,United Kingdom,United Kingdom,London,,1904,Physics,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,62
+273,George Porter,Royal Institution of Great Britain,United Kingdom,United Kingdom,London,,1967,Chemistry,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,47
+833,William Bragg,University College,United Kingdom,United Kingdom,London,,1915,Physics,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,53
+760,Sir William Ramsay,University College,United Kingdom,United Kingdom,London,,1904,Chemistry,51.5073509,-0.1277583,GB,Scotland,Scotland,56.4906712,-4.2026458,GB,52
+624,Peter Medawar,University College,United Kingdom,United Kingdom,London,,1960,Physiology or Medicine,51.5073509,-0.1277583,GB,Brazil,Brazil,-14.235004,-51.92528,BR,45
+47,Andrew F. Huxley,University College,United Kingdom,United Kingdom,London,,1963,Physiology or Medicine,51.5073509,-0.1277583,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,46
+742,Sir Bernard Katz,University College,United Kingdom,United Kingdom,London,,1970,Physiology or Medicine,51.5073509,-0.1277583,GB,Germany,Germany,51.165691,10.451526,DE,59
+433,John O'Keefe,University College,United Kingdom,United Kingdom,London,,2014,Physiology or Medicine,51.5073509,-0.1277583,GB,USA,USA,37.09024,-95.712891,US,75
+104,Carlo Rubbia,CERN,Switzerland,Switzerland,Geneva,,1984,Physics,46.1983922,6.1422961,CH,Italy,Italy,41.87194,12.56738,IT,50
+736,Simon van der Meer,CERN,Switzerland,Switzerland,Geneva,,1984,Physics,46.1983922,6.1422961,CH,the Netherlands,the Netherlands,52.132633,5.291266,NL,59
+378,Jack Steinberger,CERN,Switzerland,Switzerland,Geneva,,1988,Physics,46.1983922,6.1422961,CH,Germany,Germany,51.165691,10.451526,DE,67
+277,Georges Charpak,CERN,Switzerland,Switzerland,Geneva,,1992,Physics,46.1983922,6.1422961,CH,Poland,Poland,51.919438,19.145136,PL,68
+277,Georges Charpak,École Supérieure de Physique et Chimie,France,France,Paris,,1992,Physics,48.856614,2.3522219,FR,Poland,Poland,51.919438,19.145136,PL,68
+115,Charles K. Kao,Chinese University of Hong Kong,China,China,Hong Kong,,2009,Physics,22.396428,114.109497,HK,China,China,35.86166,104.195397,CN,76
+115,Charles K. Kao,Standard Telecommunication Laboratories,United Kingdom,United Kingdom,Harlow,,2009,Physics,51.767787,0.087806,GB,China,China,35.86166,104.195397,CN,76
+74,Barbara McClintock,Cold Spring Harbor Laboratory,USA,USA,Cold Spring Harbor,NY,1983,Physiology or Medicine,40.8714873,-73.456788,US,USA,USA,37.09024,-95.712891,US,81
+633,Pierre-Gilles de Gennes,Collège de France,France,France,Paris,,1991,Physics,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,59
+126,Claude Cohen-Tannoudji,Collège de France,France,France,Paris,,1997,Physics,48.856614,2.3522219,FR,French Algeria,Algeria,28.033886,1.659626,DZ,64
+126,Claude Cohen-Tannoudji,École Normale Supérieure,France,France,Paris,,1997,Physics,48.856614,2.3522219,FR,French Algeria,Algeria,28.033886,1.659626,DZ,64
+724,Serge Haroche,Collège de France,France,France,Paris,,2012,Physics,48.856614,2.3522219,FR,Morocco,Morocco,31.791702,-7.09262,MA,68
+724,Serge Haroche,École Normale Supérieure,France,France,Paris,,2012,Physics,48.856614,2.3522219,FR,Morocco,Morocco,31.791702,-7.09262,MA,68
+402,Jean-Marie Lehn,Collège de France,France,France,Paris,,1987,Chemistry,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,48
+402,Jean-Marie Lehn,Université Louis Pasteur,France,France,Strasbourg,,1987,Chemistry,48.5734053,7.7521113,FR,France,France,46.227638,2.213749,FR,48
+632,Pierre Curie,École municipale de physique et de chimie industrielles (Municipal School of Industrial Physics and Chemistry),France,France,Paris,,1903,Physics,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,44
+536,Maurice Allais,École Nationale Supérieur des Mines de Paris,France,France,Paris,,1988,Economic Sciences,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,77
+35,Alfred Kastler,École Normale Supérieure,France,France,Paris,,1966,Physics,48.856614,2.3522219,FR,Germany,France,46.227638,2.213749,FR,64
+328,Henri Becquerel,École Polytechnique,France,France,Paris,,1903,Physics,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,51
+249,Frédéric Joliot,Institut du Radium,France,France,Paris,,1935,Chemistry,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,35
+362,Irène Joliot-Curie,Institut du Radium,France,France,Paris,,1935,Chemistry,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,38
+40,Alphonse Laveran,Institut Pasteur,France,France,Paris,,1907,Physiology or Medicine,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,62
+356,Ilya Mechnikov,Institut Pasteur,France,France,Paris,,1908,Physiology or Medicine,48.856614,2.3522219,FR,Russian Empire,Ukraine,48.379433,31.16558,UA,63
+232,François Jacob,Institut Pasteur,France,France,Paris,,1965,Physiology or Medicine,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,45
+52,André Lwoff,Institut Pasteur,France,France,Paris,,1965,Physiology or Medicine,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,63
+381,Jacques Monod,Institut Pasteur,France,France,Paris,,1965,Physiology or Medicine,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,55
+234,Françoise Barré-Sinoussi,Regulation of Retroviral Infections Unit,France,France,Paris,,2008,Physiology or Medicine,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,61
+253,Gabriel Lippmann,Sorbonne University,France,France,Paris,,1908,Physics,48.856614,2.3522219,FR,Luxembourg,Luxembourg,49.815273,6.129583,LU,63
+398,Jean Baptiste Perrin,Sorbonne University,France,France,Paris,,1926,Physics,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,56
+331,Henri Moissan,Sorbonne University,France,France,Paris,,1906,Chemistry,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,54
+522,Marie Curie,Sorbonne University,France,France,Paris,,1911,Chemistry,48.856614,2.3522219,FR,Russian Empire,Poland,51.919438,19.145136,PL,44
+117,Charles Richet,Sorbonne University,France,France,Paris,,1913,Physiology or Medicine,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,63
+506,Louis Renault,Sorbonne University,France,France,Paris,,1907,Peace,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,64
+507,Louis de Broglie,Sorbonne University,France,France,Paris,,1929,Physics,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,37
+399,Jean Dausset,Université de Paris,France,France,Paris,,1980,Physiology or Medicine,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,64
+508,Luc Montagnier,World Foundation for AIDS Research and Prevention,France,France,Paris,,2008,Physiology or Medicine,48.856614,2.3522219,FR,France,France,46.227638,2.213749,FR,76
+478,Kurt Alder,Cologne University,Federal Republic of Germany,Federal Republic of Germany,Cologne,,1950,Chemistry,50.937531,6.9602786,DE,Prussia,Poland,51.919438,19.145136,PL,48
+571,Niels Bohr,Copenhagen University,Denmark,Denmark,Copenhagen,,1922,Physics,55.6760968,12.5683371,US,Denmark,Denmark,56.26392,9.501785,DK,37
+69,August Krogh,Copenhagen University,Denmark,Denmark,Copenhagen,,1920,Physiology or Medicine,55.6760968,12.5683371,US,Denmark,Denmark,56.26392,9.501785,DK,46
+411,Johannes Fibiger,Copenhagen University,Denmark,Denmark,Copenhagen,,1926,Physiology or Medicine,55.6760968,12.5683371,US,Denmark,Denmark,56.26392,9.501785,DK,59
+573,Niels Ryberg Finsen,Finsen Medical Light Institute,Denmark,Denmark,Copenhagen,,1903,Physiology or Medicine,55.6760968,12.5683371,US,Faroe Islands (Denmark),Faroe Islands (Denmark),54.9508691,11.9897761,DK,43
+1,Aage N. Bohr,Niels Bohr Institute,Denmark,Denmark,Copenhagen,,1975,Physics,55.6760968,12.5683371,US,Denmark,Denmark,56.26392,9.501785,DK,53
+78,Ben R. Mottelson,Nordita,Denmark,Denmark,Copenhagen,,1975,Physics,55.6760968,12.5683371,US,USA,USA,37.09024,-95.712891,US,49
+332,Henrik Dam,Polytechnic Institute,Denmark,Denmark,Copenhagen,,1943,Physiology or Medicine,55.6760968,12.5683371,US,Denmark,Denmark,56.26392,9.501785,DK,48
+310,Hans Bethe,Cornell University,USA,USA,Ithaca,NY,1967,Physics,42.4439614,-76.5018807,US,Germany,France,46.227638,2.213749,FR,61
+466,Kenneth G. Wilson,Cornell University,USA,USA,Ithaca,NY,1982,Physics,42.4439614,-76.5018807,US,USA,USA,37.09024,-95.712891,US,46
+150,David M. Lee,Cornell University,USA,USA,Ithaca,NY,1996,Physics,42.4439614,-76.5018807,US,USA,USA,37.09024,-95.712891,US,65
+672,Robert C. Richardson,Cornell University,USA,USA,Ithaca,NY,1996,Physics,42.4439614,-76.5018807,US,USA,USA,37.09024,-95.712891,US,59
+383,James B. Sumner,Cornell University,USA,USA,Ithaca,NY,1946,Chemistry,42.4439614,-76.5018807,US,USA,USA,37.09024,-95.712891,US,59
+810,Vincent du Vigneaud,Cornell University,USA,USA,Ithaca,NY,1955,Chemistry,42.4439614,-76.5018807,US,USA,USA,37.09024,-95.712891,US,54
+665,Roald Hoffmann,Cornell University,USA,USA,Ithaca,NY,1981,Chemistry,42.4439614,-76.5018807,US,Poland,Ukraine,48.379433,31.16558,UA,44
+690,Robert W. Holley,Cornell University,USA,USA,Ithaca,NY,1968,Physiology or Medicine,42.4439614,-76.5018807,US,USA,USA,37.09024,-95.712891,US,46
+547,Melvin Schwartz,Digital Pathways,USA,USA,Mountain View,CA,1988,Physics,37.3860517,-122.0838511,US,USA,USA,37.09024,-95.712891,US,56
+832,William B. Shockley,Semiconductor Laboratory of Beckman Instruments,USA,USA,Mountain View,CA,1956,Physics,37.3860517,-122.0838511,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,46
+114,Charles J. Pedersen,Du Pont,USA,USA,Wilmington,DE,1987,Chemistry,39.7390721,-75.5397878,US,Korea,South Korea,35.907757,127.766922,KR,83
+683,Robert J. Lefkowitz,Duke University Medical Center,USA,USA,Durham,NC,2012,Chemistry,35.9940329,-78.898619,US,USA,USA,37.09024,-95.712891,US,69
+683,Robert J. Lefkowitz,Howard Hughes Medical Institute,USA,USA,Chevy Chase,MD,2012,Chemistry,38.9949153,-77.0772052,US,USA,USA,37.09024,-95.712891,US,69
+112,Charles Glover Barkla,Edinburgh University,United Kingdom,United Kingdom,Edinburgh,,1917,Physics,55.953252,-3.188267,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,40
+539,Max Born,Edinburgh University,United Kingdom,United Kingdom,Edinburgh,,1954,Physics,55.953252,-3.188267,GB,Germany,Poland,51.919438,19.145136,PL,72
+623,Peter Higgs,University of Edinburgh,United Kingdom,United Kingdom,Edinburgh,,2013,Physics,55.953252,-3.188267,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,84
+492,Leopold Ruzicka,Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology),Switzerland,Switzerland,Zurich,,1939,Chemistry,47.3686498,8.5391825,CH,Austria-Hungary,Croatia,45.1,15.2,HR,52
+812,Vladimir Prelog,Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology),Switzerland,Switzerland,Zurich,,1975,Chemistry,47.3686498,8.5391825,CH,Austria-Hungary,Bosnia and Herzegovina,43.915886,17.679076,BA,69
+658,Richard R. Ernst,Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology),Switzerland,Switzerland,Zurich,,1991,Chemistry,47.3686498,8.5391825,CH,Switzerland,Switzerland,46.818188,8.227512,CH,58
+479,Kurt Wüthrich,Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology),Switzerland,Switzerland,Zurich,,2002,Chemistry,47.3686498,8.5391825,CH,Switzerland,Switzerland,46.818188,8.227512,CH,64
+479,Kurt Wüthrich,The Scripps Research Institute,USA,USA,La Jolla,CA,2002,Chemistry,32.8328112,-117.2712717,US,Switzerland,Switzerland,46.818188,8.227512,CH,64
+36,Alfred Werner,University of Zurich,Switzerland,Switzerland,Zurich,,1913,Chemistry,47.3686498,8.5391825,CH,France,France,46.227638,2.213749,FR,47
+611,Paul Karrer,University of Zurich,Switzerland,Switzerland,Zurich,,1937,Chemistry,47.3686498,8.5391825,CH,Russia,Russia,61.52401,105.318756,RU,48
+815,Walter Hess,University of Zurich,Switzerland,Switzerland,Zurich,,1949,Physiology or Medicine,47.3686498,8.5391825,CH,Switzerland,Switzerland,46.818188,8.227512,CH,68
+700,Rolf M. Zinkernagel,University of Zurich,Switzerland,Switzerland,Zurich,,1996,Physiology or Medicine,47.3686498,8.5391825,CH,Switzerland,Switzerland,46.818188,8.227512,CH,52
+859,Yoichiro Nambu,Enrico Fermi Institute,USA,USA,Chicago,IL,2008,Physics,41.8781136,-87.6297982,US,Japan,Japan,36.204824,138.252924,JP,87
+17,Albert A. Michelson,University of Chicago,USA,USA,Chicago,IL,1907,Physics,41.8781136,-87.6297982,US,Prussia,Poland,51.919438,19.145136,PL,55
+62,Arthur H. Compton,University of Chicago,USA,USA,Chicago,IL,1927,Physics,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,35
+385,James Cronin,University of Chicago,USA,USA,Chicago,IL,1980,Physics,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,49
+767,Subramanyan Chandrasekhar,University of Chicago,USA,USA,Chicago,IL,1983,Physics,41.8781136,-87.6297982,US,India,Pakistan,30.375321,69.345116,PK,73
+687,Robert S. Mulliken,University of Chicago,USA,USA,Chicago,IL,1966,Chemistry,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,70
+556,Milton Friedman,University of Chicago,USA,USA,Chicago,IL,1976,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,64
+783,Theodore W. Schultz,University of Chicago,USA,USA,Chicago,IL,1979,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,77
+271,George J. Stigler,University of Chicago,USA,USA,Chicago,IL,1982,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,71
+549,Merton H. Miller,University of Chicago,USA,USA,Chicago,IL,1990,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,67
+703,Ronald H. Coase,University of Chicago,USA,USA,Chicago,IL,1991,Economic Sciences,41.8781136,-87.6297982,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,81
+256,Gary S. Becker,University of Chicago,USA,USA,Chicago,IL,1992,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,62
+689,Robert W. Fogel,University of Chicago,USA,USA,Chicago,IL,1993,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,67
+674,Robert E. Lucas Jr.,University of Chicago,USA,USA,Chicago,IL,1995,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,58
+389,James J. Heckman,University of Chicago,USA,USA,Chicago,IL,2000,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,56
+694,Roger B. Myerson,University of Chicago,USA,USA,Chicago,IL,2007,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,56
+212,Eugene F. Fama,University of Chicago,USA,USA,Chicago,IL,2013,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,74
+481,Lars Peter Hansen,University of Chicago,USA,USA,Chicago,IL,2013,Economic Sciences,41.8781136,-87.6297982,US,USA,USA,37.09024,-95.712891,US,61
+109,Charles B. Huggins,University of Chicago,USA,USA,Chicago,IL,1966,Physiology or Medicine,41.8781136,-87.6297982,US,Canada,Canada,56.130366,-106.346771,CA,65
+490,Leonid Hurwicz,University of Minnesota,USA,USA,Minneapolis,MN,2007,Economic Sciences,44.977753,-93.2650108,US,Russia,Russia,61.52401,105.318756,RU,90
+488,Leon M. Lederman,Fermi National Accelerator Laboratory,USA,USA,Batavia,IL,1988,Physics,41.8500284,-88.3125738,US,USA,USA,37.09024,-95.712891,US,66
+622,Peter Grünberg,Forschungszentrum Jülich,Germany,Germany,Jülich,,2007,Physics,50.9224226,6.3639119,DE,Czechoslovakia,Czech Republic,49.817492,15.472962,CZ,68
+544,Max von Laue,Frankfurt-on-the-Main University,Germany,Germany,Frankfurt-on-the-Main,,1914,Physics,50.1109221,8.6821267,DE,Germany,Germany,51.165691,10.451526,DE,35
+605,Paul Ehrlich,Königliches Institut für experimentelle Therapie (Royal Institute for Experimental Therapy),Germany,Germany,Frankfurt-on-the-Main,,1908,Physiology or Medicine,50.1109221,8.6821267,DE,Prussia,Poland,51.919438,19.145136,PL,54
+605,Paul Ehrlich,Goettingen University,Germany,Germany,Göttingen,,1908,Physiology or Medicine,51.5412804,9.9158035,DE,Prussia,Poland,51.919438,19.145136,PL,54
+164,E. Donnall Thomas,Fred Hutchinson Cancer Research Center,USA,USA,Seattle,WA,1990,Physiology or Medicine,47.6062095,-122.3320708,US,USA,USA,37.09024,-95.712891,US,70
+486,Leland H. Hartwell,Fred Hutchinson Cancer Research Center,USA,USA,Seattle,WA,2001,Physiology or Medicine,47.6062095,-122.3320708,US,USA,USA,37.09024,-95.712891,US,62
+496,Linda B. Buck,Fred Hutchinson Cancer Research Center,USA,USA,Seattle,WA,2004,Physiology or Medicine,47.6062095,-122.3320708,US,USA,USA,37.09024,-95.712891,US,57
+312,Hans G. Dehmelt,University of Washington,USA,USA,Seattle,WA,1989,Physics,47.6062095,-122.3320708,US,Prussia,Germany,51.165691,10.451526,DE,67
+168,Edmond H. Fischer,University of Washington,USA,USA,Seattle,WA,1992,Physiology or Medicine,47.6062095,-122.3320708,US,China,China,35.86166,104.195397,CN,72
+178,Edwin G. Krebs,University of Washington,USA,USA,Seattle,WA,1992,Physiology or Medicine,47.6062095,-122.3320708,US,USA,USA,37.09024,-95.712891,US,74
+209,Ernst Ruska,Fritz-Haber-Institut der Max-Planck-Gesellschaft,Federal Republic of Germany,Federal Republic of Germany,Berlin,,1986,Physics,52.5200066,13.404954,DE,Germany,Germany,51.165691,10.451526,DE,80
+368,Ivar Giaever,General Electric Company,USA,USA,Schenectady,NY,1973,Physics,42.8142432,-73.9395687,US,Norway,Norway,60.472024,8.468946,NO,44
+360,Irving Langmuir,General Electric Company,USA,USA,Schenectady,NY,1932,Chemistry,42.8142432,-73.9395687,US,USA,USA,37.09024,-95.712891,US,51
+764,Stefan W. Hell,German Cancer Research Center,Germany,Germany,Heidelberg,,2014,Chemistry,49.3987524,8.6724335,DE,Romania,Romania,45.943161,24.96676,RO,52
+764,Stefan W. Hell,Max Planck Institute for Biophysical Chemistry,Germany,Germany,Göttingen,,2014,Chemistry,51.5412804,9.9158035,DE,Romania,Romania,45.943161,24.96676,RO,52
+316,Harald zur Hausen,German Cancer Research Center,Germany,Germany,Heidelberg,,2008,Physiology or Medicine,49.3987524,8.6724335,DE,Germany,Germany,51.165691,10.451526,DE,72
+98,Carl Bosch,I.G. Farbenindustrie A.G.,Germany,Germany,Heidelberg,,1931,Chemistry,49.3987524,8.6724335,DE,Germany,Germany,51.165691,10.451526,DE,57
+98,Carl Bosch,University of Heidelberg,Germany,Germany,Heidelberg,,1931,Chemistry,49.3987524,8.6724335,DE,Germany,Germany,51.165691,10.451526,DE,57
+655,Richard Kuhn,Kaiser-Wilhelm-Institut (now Max-Planck Institut) für Medizinische Forschung,Germany,Germany,Heidelberg,,1938,Chemistry,49.3987524,8.6724335,DE,Austria-Hungary,Austria,47.516231,14.550072,AT,38
+655,Richard Kuhn,University of Heidelberg,Germany,Germany,Heidelberg,,1938,Chemistry,49.3987524,8.6724335,DE,Austria-Hungary,Austria,47.516231,14.550072,AT,38
+244,Friedrich Bergius,University of Heidelberg,Germany,Germany,Heidelberg,,1931,Chemistry,49.3987524,8.6724335,DE,Germany,Poland,51.919438,19.145136,PL,47
+244,Friedrich Bergius,I.G. Farbenindustrie A.G.,Germany,Germany,Mannheim-Rheinau,,1931,Chemistry,49.4320257,8.5275238,DE,Germany,Poland,51.919438,19.145136,PL,47
+26,Albrecht Kossel,University of Heidelberg,Germany,Germany,Heidelberg,,1910,Physiology or Medicine,49.3987524,8.6724335,DE,Mecklenburg,Germany,51.165691,10.451526,DE,57
+132,Corneille Heymans,Ghent University,Belgium,Belgium,Ghent,,1938,Physiology or Medicine,51.0543422,3.7174243,BE,Belgium,Belgium,50.503887,4.469936,BE,46
+729,Shinya Yamanaka,Gladstone Institutes,USA,USA,San Francisco,CA,2012,Physiology or Medicine,37.7749295,-122.4194155,US,Japan,Japan,36.204824,138.252924,JP,50
+729,Shinya Yamanaka,Kyoto University,Japan,Japan,Kyoto,,2012,Physiology or Medicine,35.0116363,135.7680294,JP,Japan,Japan,36.204824,138.252924,JP,50
+189,Elizabeth H. Blackburn,University of California,USA,USA,San Francisco,CA,2009,Physiology or Medicine,37.7749295,-122.4194155,US,Australia,Australia,-25.274398,133.775136,AU,61
+373,J. Michael Bishop,University of California School of Medicine,USA,USA,San Francisco,CA,1989,Physiology or Medicine,37.7749295,-122.4194155,US,USA,USA,37.09024,-95.712891,US,53
+318,Harold E. Varmus,University of California School of Medicine,USA,USA,San Francisco,CA,1989,Physiology or Medicine,37.7749295,-122.4194155,US,USA,USA,37.09024,-95.712891,US,50
+762,Stanley B. Prusiner,University of California School of Medicine,USA,USA,San Francisco,CA,1997,Physiology or Medicine,37.7749295,-122.4194155,US,USA,USA,37.09024,-95.712891,US,55
+625,Peter Mitchell,Glynn Research Laboratories,United Kingdom,United Kingdom,Bodmin,,1978,Chemistry,50.46863,-4.715114,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,58
+388,James Franck,Goettingen University,Germany,Germany,Göttingen,,1925,Physics,51.5412804,9.9158035,DE,Germany,Germany,51.165691,10.451526,DE,43
+592,Otto Wallach,Goettingen University,Germany,Germany,Göttingen,,1910,Chemistry,51.5412804,9.9158035,DE,Germany,Russia,61.52401,105.318756,RU,63
+662,Richard Zsigmondy,Goettingen University,Germany,Germany,Göttingen,,1925,Chemistry,51.5412804,9.9158035,DE,Austrian Empire,Austria,47.516231,14.550072,AT,60
+8,Adolf Windaus,Goettingen University,Germany,Germany,Göttingen,,1928,Chemistry,51.5412804,9.9158035,DE,Germany,Germany,51.165691,10.451526,DE,52
+248,Fritz Pregl,Graz University,Austria,Austria,Graz,,1923,Chemistry,47.070714,15.439504,AT,Austria-Hungary,Slovenia,46.151241,14.995463,SI,54
+589,Otto Loewi,Graz University,Austria,Austria,Graz,,1936,Physiology or Medicine,47.070714,15.439504,AT,Germany,Germany,51.165691,10.451526,DE,63
+412,Johannes Stark,Greifswald University,Germany,Germany,Greifswald,,1919,Physics,54.0865463,13.3923414,DE,Germany,Germany,51.165691,10.451526,DE,45
+245,Frits Zernike,Groningen University,the Netherlands,the Netherlands,Groningen,,1953,Physics,53.2193835,6.5665018,NL,the Netherlands,the Netherlands,52.132633,5.291266,NL,65
+751,Sir John B. Gurdon,Gurdon Institute,United Kingdom,United Kingdom,Cambridge,,2012,Physiology or Medicine,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,79
+702,Ronald G.W. Norrish,Institute of Physical Chemistry,United Kingdom,United Kingdom,Cambridge,,1967,Chemistry,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,70
+541,Max F. Perutz,MRC Laboratory of Molecular Biology,United Kingdom,United Kingdom,Cambridge,,1962,Chemistry,52.205337,0.121817,GB,Austria,Austria,47.516231,14.550072,AT,48
+418,John C. Kendrew,MRC Laboratory of Molecular Biology,United Kingdom,United Kingdom,Cambridge,,1962,Chemistry,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,45
+239,Frederick Sanger,MRC Laboratory of Molecular Biology,United Kingdom,United Kingdom,Cambridge,,1980,Chemistry,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,62
+3,Aaron Klug,MRC Laboratory of Molecular Biology,United Kingdom,United Kingdom,Cambridge,,1982,Chemistry,52.205337,0.121817,GB,Lithuania,Lithuania,55.169438,23.881275,LT,56
+424,John E. Walker,MRC Laboratory of Molecular Biology,United Kingdom,United Kingdom,Cambridge,,1997,Chemistry,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,56
+804,Venkatraman Ramakrishnan,MRC Laboratory of Molecular Biology,United Kingdom,United Kingdom,Cambridge,,2009,Chemistry,52.205337,0.121817,GB,India,India,20.593684,78.96288,IN,57
+225,Francis Crick,MRC Laboratory of Molecular Biology,United Kingdom,United Kingdom,Cambridge,,1962,Physiology or Medicine,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,46
+135,César Milstein,MRC Laboratory of Molecular Biology,United Kingdom,United Kingdom,Cambridge,,1984,Physiology or Medicine,52.205337,0.121817,GB,Argentina,Argentina,-38.416097,-63.616672,AR,57
+423,John E. Sulston,The Wellcome Trust Sanger Institute,United Kingdom,United Kingdom,Cambridge,,2002,Physiology or Medicine,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,60
+43,Amartya Sen,Trinity College,United Kingdom,United Kingdom,Cambridge,,1998,Economic Sciences,52.205337,0.121817,GB,India,India,20.593684,78.96288,IN,65
+375,J.J. Thomson,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1906,Physics,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,50
+95,C.T.R. Wilson,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1927,Physics,52.205337,0.121817,GB,Scotland,Scotland,56.4906712,-4.2026458,GB,58
+601,Paul A.M. Dirac,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1933,Physics,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,31
+89,Brian D. Josephson,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1973,Physics,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,33
+532,Martin Ryle,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1974,Physics,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,56
+54,Antony Hewish,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1974,Physics,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,50
+754,Sir Nevill F. Mott,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1977,Physics,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,72
+226,Francis W. Aston,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1922,Chemistry,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,45
+503,Lord Todd,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1957,Chemistry,52.205337,0.121817,GB,Scotland,Scotland,56.4906712,-4.2026458,GB,50
+238,Frederick Sanger,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1958,Chemistry,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,40
+746,Sir Frederick Hopkins,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1929,Physiology or Medicine,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,68
+167,Edgar Adrian,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1932,Physiology or Medicine,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,43
+16,Alan L. Hodgkin,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1963,Physiology or Medicine,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,49
+678,Robert G. Edwards,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,2010,Physiology or Medicine,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,85
+386,James E. Meade,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1977,Economic Sciences,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,70
+660,Richard Stone,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1984,Economic Sciences,52.205337,0.121817,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,71
+382,James A. Mirrlees,University of Cambridge,United Kingdom,United Kingdom,Cambridge,,1996,Economic Sciences,52.205337,0.121817,GB,Scotland,Scotland,56.4906712,-4.2026458,GB,60
+68,Arvid Carlsson,Göteborg University,Sweden,Sweden,Gothenburg,,2000,Physiology or Medicine,57.70887,11.97456,SE,Sweden,Sweden,60.128161,18.643501,SE,77
+299,Gustav Hertz,Halle University,Germany,Germany,Halle,,1925,Physics,51.4969802,11.9688029,DE,Germany,Germany,51.165691,10.451526,DE,38
+617,Percy W. Bridgman,Harvard University,USA,USA,Cambridge,MA,1946,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,64
+165,E. M. Purcell,Harvard University,USA,USA,Cambridge,MA,1952,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,40
+453,Julian Schwinger,Harvard University,USA,USA,Cambridge,MA,1965,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,47
+429,John H. van Vleck,Harvard University,USA,USA,Cambridge,MA,1977,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,78
+766,Steven Weinberg,Harvard University,USA,USA,Cambridge,MA,1979,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,46
+569,Nicolaas Bloembergen,Harvard University,USA,USA,Cambridge,MA,1981,Physics,42.3736158,-71.1097335,US,the Netherlands,the Netherlands,52.132633,5.291266,NL,61
+577,Norman F. Ramsey,Harvard University,USA,USA,Cambridge,MA,1989,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,74
+706,Roy J. Glauber,Harvard University,USA,USA,Cambridge,MA,2005,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,80
+782,Theodore W. Richards,Harvard University,USA,USA,Cambridge,MA,1914,Chemistry,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,46
+669,Robert B. Woodward,Harvard University,USA,USA,Cambridge,MA,1965,Chemistry,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,48
+842,William Lipscomb,Harvard University,USA,USA,Cambridge,MA,1976,Chemistry,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,57
+163,Dudley R. Herschbach,Harvard University,USA,USA,Cambridge,MA,1986,Chemistry,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,54
+185,Elias James Corey,Harvard University,USA,USA,Cambridge,MA,1990,Chemistry,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,62
+528,Martin Karplus,Harvard University,USA,USA,Cambridge,MA,2013,Chemistry,42.3736158,-71.1097335,US,Austria,Austria,47.516231,14.550072,AT,83
+528,Martin Karplus,Université de Strasbourg,France,France,Strasbourg,,2013,Chemistry,48.5734053,7.7521113,FR,Austria,Austria,47.516231,14.550072,AT,83
+274,George R. Minot,Harvard University,USA,USA,Cambridge,MA,1934,Physiology or Medicine,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,49
+259,Georg von Békésy,Harvard University,USA,USA,Cambridge,MA,1961,Physiology or Medicine,42.3736158,-71.1097335,US,Hungary,Hungary,47.162494,19.503304,HU,62
+393,James Watson,Harvard University,USA,USA,Cambridge,MA,1962,Physiology or Medicine,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,34
+475,Konrad Bloch,Harvard University,USA,USA,Cambridge,MA,1964,Physiology or Medicine,42.3736158,-71.1097335,US,Germany,Poland,51.919438,19.145136,PL,52
+275,George Wald,Harvard University,USA,USA,Cambridge,MA,1967,Physiology or Medicine,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,61
+641,Ralph Bunche,Harvard University,USA,USA,Cambridge,MA,1950,Peace,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,46
+735,Simon Kuznets,Harvard University,USA,USA,Cambridge,MA,1971,Economic Sciences,42.3736158,-71.1097335,US,Russian Empire,Belarus,53.709807,27.953389,BY,70
+467,Kenneth J. Arrow,Harvard University,USA,USA,Cambridge,MA,1972,Economic Sciences,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,51
+820,Wassily Leontief,Harvard University,USA,USA,Cambridge,MA,1973,Economic Sciences,42.3736158,-71.1097335,US,Russia,Russia,61.52401,105.318756,RU,67
+671,Robert C. Merton,Harvard University,USA,USA,Cambridge,MA,1997,Economic Sciences,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,53
+813,Walter Gilbert,Harvard University,USA,USA,Cambridge,MA,1980,Chemistry,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,48
+727,Sheldon Glashow,Harvard University,USA,USA,Cambridge,MA,1979,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,47
+113,Charles H. Townes,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1964,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,49
+717,Samuel C.C. Ting,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1976,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,40
+405,Jerome I. Friedman,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1990,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,60
+337,Henry W. Kendall,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1990,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,64
+128,Clifford G. Shull,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1994,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,79
+852,Wolfgang Ketterle,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,2001,Physics,42.3736158,-71.1097335,US,West Germany,Germany,51.165691,10.451526,DE,44
+229,Frank Wilczek,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,2004,Physics,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,53
+523,Mario J. Molina,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1995,Chemistry,42.3736158,-71.1097335,US,Mexico,Mexico,23.634501,-102.552784,US,52
+659,Richard R. Schrock,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,2005,Chemistry,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,60
+714,Salvador E. Luria,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1969,Physiology or Medicine,42.3736158,-71.1097335,US,Italy,Italy,41.87194,12.56738,IT,57
+146,David Baltimore,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1975,Physiology or Medicine,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,37
+770,Susumu Tonegawa,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1987,Physiology or Medicine,42.3736158,-71.1097335,US,Japan,Japan,36.204824,138.252924,JP,48
+305,H. Robert Horvitz,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,2002,Physiology or Medicine,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,55
+600,Paul A. Samuelson,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1970,Economic Sciences,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,55
+227,Franco Modigliani,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1985,Economic Sciences,42.3736158,-71.1097335,US,Italy,Italy,41.87194,12.56738,IT,67
+686,Robert M. Solow,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1987,Economic Sciences,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,63
+618,Peter A. Diamond,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,2010,Economic Sciences,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,70
+631,Phillip A. Sharp,Massachusetts Institute of Technology (MIT),USA,USA,Cambridge,MA,1993,Physiology or Medicine,42.3736158,-71.1097335,US,USA,USA,37.09024,-95.712891,US,49
+516,Makoto Kobayashi,High Energy Accelerator Research Organization (KEK),Japan,Japan,Tsukuba,,2008,Physics,36.0834857,140.0766423,JP,Japan,Japan,36.204824,138.252924,JP,64
+12,Akira Suzuki,Hokkaido University,Japan,Japan,Sapporo,,2010,Chemistry,43.0620958,141.3543763,JP,Japan,Japan,36.204824,138.252924,JP,80
+699,Roger Y. Tsien,Howard Hughes Medical Institute,USA,USA,Chevy Chase,MD,2008,Chemistry,38.9949153,-77.0772052,US,USA,USA,37.09024,-95.712891,US,56
+699,Roger Y. Tsien,University of California,USA,USA,San Diego,CA,2008,Chemistry,32.715738,-117.1610838,US,USA,USA,37.09024,-95.712891,US,56
+784,Thomas A. Steitz,Howard Hughes Medical Institute,USA,USA,Chevy Chase,MD,2009,Chemistry,38.9949153,-77.0772052,US,USA,USA,37.09024,-95.712891,US,69
+784,Thomas A. Steitz,Yale University,USA,USA,New Haven,CT,2009,Chemistry,41.308274,-72.9278835,US,USA,USA,37.09024,-95.712891,US,69
+644,Randy W. Schekman,Howard Hughes Medical Institute,USA,USA,Chevy Chase,MD,2013,Physiology or Medicine,38.9949153,-77.0772052,US,USA,USA,37.09024,-95.712891,US,65
+644,Randy W. Schekman,University of California,USA,USA,Berkeley,CA,2013,Physiology or Medicine,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,65
+786,Thomas C. Südhof,Howard Hughes Medical Institute,USA,USA,Chevy Chase,MD,2013,Physiology or Medicine,38.9949153,-77.0772052,US,Germany,Germany,51.165691,10.451526,DE,58
+786,Thomas C. Südhof,Stanford University,USA,USA,Stanford,CA,2013,Physiology or Medicine,37.424106,-122.1660756,US,Germany,Germany,51.165691,10.451526,DE,58
+487,Leo Esaki,IBM Thomas J. Watson Research Center,USA,USA,Yorktown Heights,NY,1973,Physics,41.2709274,-73.7776336,US,Japan,Japan,36.204824,138.252924,JP,48
+283,Gerd Binnig,IBM Zurich Research Laboratory,Switzerland,Switzerland,Rüschlikon,,1986,Physics,47.3066286,8.5510601,CH,West Germany,Germany,51.165691,10.451526,DE,39
+325,Heinrich Rohrer,IBM Zurich Research Laboratory,Switzerland,Switzerland,Rüschlikon,,1986,Physics,47.3066286,8.5510601,CH,Switzerland,Switzerland,46.818188,8.227512,CH,53
+370,J. Georg Bednorz,IBM Zurich Research Laboratory,Switzerland,Switzerland,Rüschlikon,,1987,Physics,47.3066286,8.5510601,CH,West Germany,Germany,51.165691,10.451526,DE,37
+456,K. Alex Müller,IBM Zurich Research Laboratory,Switzerland,Switzerland,Rüschlikon,,1987,Physics,47.3066286,8.5510601,CH,Switzerland,Switzerland,46.818188,8.227512,CH,60
+345,Hermann J. Muller,Indiana University,USA,USA,Bloomington,IN,1946,Physiology or Medicine,39.165325,-86.5263857,US,USA,USA,37.09024,-95.712891,US,56
+808,Victor F. Hess,Innsbruck University,Austria,Austria,Innsbruck,,1936,Physics,47.2692124,11.4041024,AT,Austria,Austria,47.516231,14.550072,AT,53
+861,Yves Chauvin,Institut Français du Pétrole,France,France,Rueil-Malmaison,,2005,Chemistry,48.882767,2.17693,FR,Belgium,Belgium,50.503887,4.469936,BE,75
+118,Chen Ning Yang,Institute for Advanced Study,USA,USA,Princeton,NJ,1957,Physics,40.3572976,-74.6672226,US,China,China,35.86166,104.195397,CN,35
+200,Eric S. Maskin,Institute for Advanced Study,USA,USA,Princeton,NJ,2007,Economic Sciences,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,57
+854,Wolfgang Pauli,Princeton University,USA,USA,Princeton,NJ,1945,Physics,40.3572976,-74.6672226,US,Austria,Austria,47.516231,14.550072,AT,45
+214,Eugene Wigner,Princeton University,USA,USA,Princeton,NJ,1963,Physics,40.3572976,-74.6672226,US,Austria-Hungary,Hungary,47.162494,19.503304,HU,61
+803,Val Fitch,Princeton University,USA,USA,Princeton,NJ,1980,Physics,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,57
+711,Russell A. Hulse,Princeton University,USA,USA,Princeton,NJ,1993,Physics,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,43
+443,Joseph H. Taylor Jr.,Princeton University,USA,USA,Princeton,NJ,1993,Physics,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,52
+141,Daniel C. Tsui,Princeton University,USA,USA,Princeton,NJ,1998,Physics,40.3572976,-74.6672226,US,China,China,35.86166,104.195397,CN,59
+198,Eric F. Wieschaus,Princeton University,USA,USA,Princeton,NJ,1995,Physiology or Medicine,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,48
+740,Sir Arthur Lewis,Princeton University,USA,USA,Princeton,NJ,1979,Economic Sciences,40.3572976,-74.6672226,US,British West Indies,Saint Lucia,13.909444,-60.978893,LC,64
+426,John F. Nash Jr.,Princeton University,USA,USA,Princeton,NJ,1994,Economic Sciences,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,66
+142,Daniel Kahneman,Princeton University,USA,USA,Princeton,NJ,2002,Economic Sciences,40.3572976,-74.6672226,US,British Mandate of Palestine,Israel,31.046051,34.851612,IL,68
+612,Paul Krugman,Princeton University,USA,USA,Princeton,NJ,2008,Economic Sciences,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,55
+125,Christopher A. Sims,Princeton University,USA,USA,Princeton,NJ,2011,Economic Sciences,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,69
+428,John H. Northrop,Rockefeller Institute for Medical Research,USA,USA,Princeton,NJ,1946,Chemistry,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,55
+821,Wendell M. Stanley,Rockefeller Institute for Medical Research,USA,USA,Princeton,NJ,1946,Chemistry,40.3572976,-74.6672226,US,USA,USA,37.09024,-95.712891,US,42
+512,Luis Leloir,Institute for Biochemical Research,Argentina,Argentina,Buenos Aires,,1970,Chemistry,-34.6037232,-58.3815931,AR,France,France,46.227638,2.213749,FR,64
+80,Bernardo Houssay,Instituto de Biologia y Medicina Experimental (Institute for Biology and Experimental Medicine),Argentina,Argentina,Buenos Aires,,1947,Physiology or Medicine,-34.6037232,-58.3815931,AR,Argentina,Argentina,-38.416097,-63.616672,AR,60
+664,Rita Levi-Montalcini,Institute of Cell Biology of the C.N.R.,Italy,Italy,Rome,,1986,Physiology or Medicine,41.9027835,12.4963655,IT,Italy,Italy,41.87194,12.56738,IT,77
+140,Daniel Bovet,Istituto Superiore di Sanità (Chief Institute of Public Health),Italy,Italy,Rome,,1957,Physiology or Medicine,41.9027835,12.4963655,IT,Switzerland,Switzerland,46.818188,8.227512,CH,50
+195,Enrico Fermi,Rome University,Italy,Italy,Rome,,1938,Physics,41.9027835,12.4963655,IT,Italy,Italy,41.87194,12.56738,IT,37
+292,Giulio Natta,Institute of Technology,Italy,Italy,Milan,,1963,Chemistry,45.4654219,9.1859243,IT,Italy,Italy,41.87194,12.56738,IT,60
+265,George D. Snell,Jackson Laboratory,USA,USA,Bar Harbor,ME,1980,Physiology or Medicine,44.3876119,-68.2039123,US,USA,USA,37.09024,-95.712891,US,77
+197,Eric Betzig,Janelia Research Campus,USA,USA,Ashburn,VA,2014,Chemistry,39.0437567,-77.4874416,US,USA,USA,37.09024,-95.712891,US,54
+6,Adam G. Riess,Johns Hopkins University,USA,USA,Baltimore,MD,2011,Physics,39.2903848,-76.6121893,US,USA,USA,37.09024,-95.712891,US,42
+6,Adam G. Riess,Space Telescope Science Institute,USA,USA,Baltimore,MD,2011,Physics,39.2903848,-76.6121893,US,USA,USA,37.09024,-95.712891,US,42
+619,Peter Agre,Johns Hopkins University School of Medicine,USA,USA,Baltimore,MD,2003,Chemistry,39.2903848,-76.6121893,US,USA,USA,37.09024,-95.712891,US,54
+144,Daniel Nathans,Johns Hopkins University School of Medicine,USA,USA,Baltimore,MD,1978,Physiology or Medicine,39.2903848,-76.6121893,US,USA,USA,37.09024,-95.712891,US,50
+308,Hamilton O. Smith,Johns Hopkins University School of Medicine,USA,USA,Baltimore,MD,1978,Physiology or Medicine,39.2903848,-76.6121893,US,USA,USA,37.09024,-95.712891,US,47
+107,Carol W. Greider,Johns Hopkins University School of Medicine,USA,USA,Baltimore,MD,2009,Physiology or Medicine,39.2903848,-76.6121893,US,USA,USA,37.09024,-95.712891,US,48
+246,Fritz Haber,Kaiser-Wilhelm-Institut (now Fritz-Haber-Institut) für physikalische Chemie und Electrochemie,Germany,Germany,Berlin-Dahlem,,1918,Chemistry,52.458056,13.2875,DE,Prussia,Poland,51.919438,19.145136,PL,50
+588,Otto Hahn,Kaiser-Wilhelm-Institut (now Max-Planck Institut) für Chemie,Germany,Germany,Berlin-Dahlem,,1944,Chemistry,52.458056,13.2875,DE,Germany,Germany,51.165691,10.451526,DE,65
+593,Otto Warburg,Kaiser-Wilhelm-Institut (now Max-Planck-Institut) für Biologie,Germany,Germany,Berlin-Dahlem,,1931,Physiology or Medicine,52.458056,13.2875,DE,Germany,Germany,51.165691,10.451526,DE,48
+640,Ragnar Granit,Karolinska Institutet,Sweden,Sweden,Stockholm,,1967,Physiology or Medicine,59.3293235,18.0685808,SE,Russian Empire,Finland,61.92411,25.748151,FI,67
+801,Ulf von Euler,Karolinska Institutet,Sweden,Sweden,Stockholm,,1970,Physiology or Medicine,59.3293235,18.0685808,SE,Sweden,Sweden,60.128161,18.643501,SE,65
+769,Sune K. Bergström,Karolinska Institutet,Sweden,Sweden,Stockholm,,1982,Physiology or Medicine,59.3293235,18.0685808,SE,Sweden,Sweden,60.128161,18.643501,SE,66
+79,Bengt I. Samuelsson,Karolinska Institutet,Sweden,Sweden,Stockholm,,1982,Physiology or Medicine,59.3293235,18.0685808,SE,Sweden,Sweden,60.128161,18.643501,SE,48
+354,Hugo Theorell,Karolinska Institutet,Sweden,Sweden,Stockholm,,1955,Physiology or Medicine,59.3293235,18.0685808,SE,Sweden,Sweden,60.128161,18.643501,SE,52
+309,Hannes Alfvén,Royal Institute of Technology,Sweden,Sweden,Stockholm,,1970,Physics,59.3293235,18.0685808,SE,Sweden,Sweden,60.128161,18.643501,SE,62
+83,Bertil Ohlin,Stockholm School of Economics,Sweden,Sweden,Stockholm,,1977,Economic Sciences,59.3293235,18.0685808,SE,Sweden,Sweden,60.128161,18.643501,SE,78
+771,Svante Arrhenius,Stockholm University,Sweden,Sweden,Stockholm,,1903,Chemistry,59.3293235,18.0685808,SE,Sweden,Sweden,60.128161,18.643501,SE,44
+315,Hans von Euler-Chelpin,Stockholm University,Sweden,Sweden,Stockholm,,1929,Chemistry,59.3293235,18.0685808,SE,Germany,Germany,51.165691,10.451526,DE,56
+276,George de Hevesy,Stockholm University,Sweden,Sweden,Stockholm,,1943,Chemistry,59.3293235,18.0685808,SE,Austria-Hungary,Hungary,47.162494,19.503304,HU,58
+630,Philipp Lenard,Kiel University,Germany,Germany,Kiel,,1905,Physics,54.3232927,10.1227652,DE,Hungary,Slovakia,48.669026,19.699024,SK,43
+590,Otto Meyerhof,Kiel University,Germany,Germany,Kiel,,1922,Physiology or Medicine,54.3232927,10.1227652,DE,Germany,Germany,51.165691,10.451526,DE,38
+587,Otto Diels,Kiel University,Federal Republic of Germany,Federal Republic of Germany,Kiel,,1950,Chemistry,54.3232927,10.1227652,DE,Germany,Germany,51.165691,10.451526,DE,74
+476,Konrad Lorenz,Konrad-Lorenz-Institut der Österreichischen Akademie der Wissen­schaften,Austria,Austria,Altenberg,,1973,Physiology or Medicine,48.3736086,14.3495882,AT,Austria,Austria,47.516231,14.550072,AT,70
+798,Toshihide Maskawa,Kyoto Sangyo University,Japan,Japan,Kyoto,,2008,Physics,35.0116363,135.7680294,JP,Japan,Japan,36.204824,138.252924,JP,68
+798,Toshihide Maskawa,Yukawa Institute for Theoretical Physics (YITP),Japan,Japan,Kyoto,,2008,Physics,35.0116363,135.7680294,JP,Japan,Japan,36.204824,138.252924,JP,68
+465,Kenichi Fukui,Kyoto University,Japan,Japan,Kyoto,,1981,Chemistry,35.0116363,135.7680294,JP,Japan,Japan,36.204824,138.252924,JP,63
+474,Koichi Tanaka,Shimadzu Corp.,Japan,Japan,Kyoto,,2002,Chemistry,35.0116363,135.7680294,JP,Japan,Japan,36.204824,138.252924,JP,43
+720,Saul Perlmutter,Lawrence Berkeley National Laboratory,USA,USA,Berkeley,CA,2011,Physics,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,52
+720,Saul Perlmutter,University of California,USA,USA,Berkeley,CA,2011,Physics,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,52
+772,Sydney Brenner,The Molecular Sciences Institute,USA,USA,Berkeley,CA,2002,Physiology or Medicine,37.8715926,-122.272747,US,South Africa,South Africa,-30.559482,22.937506,ZA,75
+203,Ernest Lawrence,University of California,USA,USA,Berkeley,CA,1939,Physics,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,38
+193,Emilio Segrè,University of California,USA,USA,Berkeley,CA,1959,Physics,37.8715926,-122.272747,US,Italy,Italy,41.87194,12.56738,IT,54
+594,Owen Chamberlain,University of California,USA,USA,Berkeley,CA,1959,Physics,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,39
+157,Donald A. Glaser,University of California,USA,USA,Berkeley,CA,1960,Physics,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,34
+511,Luis Alvarez,University of California,USA,USA,Berkeley,CA,1968,Physics,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,57
+268,George F. Smoot,University of California,USA,USA,Berkeley,CA,2006,Physics,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,61
+837,William F. Giauque,University of California,USA,USA,Berkeley,CA,1949,Chemistry,37.8715926,-122.272747,US,Canada,Canada,56.130366,-106.346771,CA,54
+179,Edwin M. McMillan,University of California,USA,USA,Berkeley,CA,1951,Chemistry,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,44
+293,Glenn T. Seaborg,University of California,USA,USA,Berkeley,CA,1951,Chemistry,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,39
+546,Melvin Calvin,University of California,USA,USA,Berkeley,CA,1961,Chemistry,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,50
+860,Yuan T. Lee,University of California,USA,USA,Berkeley,CA,1986,Chemistry,37.8715926,-122.272747,US,Taiwan,Taiwan,23.69781,120.960515,TW,50
+281,Gerard Debreu,University of California,USA,USA,Berkeley,CA,1983,Economic Sciences,37.8715926,-122.272747,US,France,France,46.227638,2.213749,FR,62
+417,John C. Harsanyi,University of California,USA,USA,Berkeley,CA,1994,Economic Sciences,37.8715926,-122.272747,US,Hungary,Hungary,47.162494,19.503304,HU,74
+143,Daniel L. McFadden,University of California,USA,USA,Berkeley,CA,2000,Economic Sciences,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,63
+260,George A. Akerlof,University of California,USA,USA,Berkeley,CA,2001,Economic Sciences,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,61
+582,Oliver E. Williamson,University of California,USA,USA,Berkeley,CA,2009,Economic Sciences,37.8715926,-122.272747,US,USA,USA,37.09024,-95.712891,US,77
+327,Hendrik A. Lorentz,Leiden University,the Netherlands,the Netherlands,Leiden,,1902,Physics,52.1601144,4.4970097,NL,the Netherlands,the Netherlands,52.132633,5.291266,NL,49
+323,Heike Kamerlingh Onnes,Leiden University,the Netherlands,the Netherlands,Leiden,,1913,Physics,52.1601144,4.4970097,NL,the Netherlands,the Netherlands,52.132633,5.291266,NL,60
+830,Willem Einthoven,Leiden University,the Netherlands,the Netherlands,Leiden,,1924,Physiology or Medicine,52.1601144,4.4970097,NL,"Java, Dutch East Indies",Indonesia,-0.789275,113.921327,ID,64
+824,Werner Heisenberg,Leipzig University,Germany,Germany,Leipzig,,1932,Physics,51.3396955,12.3730747,DE,Germany,Germany,51.165691,10.451526,DE,31
+826,Wilhelm Ostwald,Leipzig University,Germany,Germany,Leipzig,,1909,Chemistry,51.3396955,12.3730747,DE,Russian Empire,Latvia,56.879635,24.603189,LV,56
+384,James Chadwick,Liverpool University,United Kingdom,United Kingdom,Liverpool,,1935,Physics,53.4083714,-2.9915726,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,44
+704,Ronald Ross,University College,United Kingdom,United Kingdom,Liverpool,,1902,Physiology or Medicine,53.4083714,-2.9915726,GB,India,India,20.593684,78.96288,IN,45
+562,Myron S. Scholes,Long Term Capital Management,USA,USA,Greenwich,CT,1997,Economic Sciences,41.0262417,-73.6281964,US,Canada,Canada,56.130366,-106.346771,CA,56
+780,Theodor W. Hänsch,Ludwig-Maximilians- Universität,Germany,Germany,Munich,,2005,Physics,48.1351253,11.5819806,DE,Germany,Germany,51.165691,10.451526,DE,64
+780,Theodor W. Hänsch,Max-Planck-Institut für Quantenoptik,Germany,Germany,Garching,,2005,Physics,48.2488721,11.6532477,DE,Germany,Germany,51.165691,10.451526,DE,64
+825,Wilhelm Conrad Röntgen,Munich University,Germany,Germany,Munich,,1901,Physics,48.1351253,11.5819806,DE,Prussia,Germany,51.165691,10.451526,DE,56
+9,Adolf von Baeyer,Munich University,Germany,Germany,Munich,,1905,Chemistry,48.1351253,11.5819806,DE,Prussia,Germany,51.165691,10.451526,DE,70
+661,Richard Willstätter,Munich University,Germany,Germany,Munich,,1915,Chemistry,48.1351253,11.5819806,DE,Germany,Germany,51.165691,10.451526,DE,43
+326,Heinrich Wieland,Munich University,Germany,Germany,Munich,,1927,Chemistry,48.1351253,11.5819806,DE,Germany,Germany,51.165691,10.451526,DE,50
+311,Hans Fischer,Technische Hochschule (Institute of Technology),Germany,Germany,Munich,,1930,Chemistry,48.1351253,11.5819806,DE,Germany,Germany,51.165691,10.451526,DE,49
+718,Santiago Ramón y Cajal,Madrid University,Spain,Spain,Madrid,,1906,Physiology or Medicine,40.4167754,-3.7037902,ES,Spain,Spain,40.463667,-3.74922,ES,54
+823,Werner Forssmann,Mainz University,Federal Republic of Germany,Federal Republic of Germany,Mainz,,1956,Physiology or Medicine,49.9928617,8.2472526,DE,Germany,Germany,51.165691,10.451526,DE,52
+609,Paul J. Crutzen,Max-Planck-Institut für Chemie,Federal Republic of Germany,Federal Republic of Germany,Mainz,,1995,Chemistry,49.9928617,8.2472526,DE,the Netherlands,the Netherlands,52.132633,5.291266,NL,62
+192,Emil von Behring,Marburg University,Germany,Germany,Marburg,,1901,Physiology or Medicine,50.8021728,8.7667933,DE,Prussia,Poland,51.919438,19.145136,PL,47
+681,Robert Huber,Max-Planck-Institut für Biochemie,Federal Republic of Germany,Federal Republic of Germany,Martinsried,,1988,Chemistry,48.1089197,11.451958,DE,Germany,Germany,51.165691,10.451526,DE,51
+322,Hartmut Michel,Max-Planck-Institut für Biophysik,Federal Republic of Germany,Federal Republic of Germany,Frankfurt-on-the-Main,,1988,Chemistry,50.1109221,8.6821267,DE,West Germany,Germany,51.165691,10.451526,DE,40
+210,Erwin Neher,Max-Planck-Institut für Biophysikalische Chemie,Federal Republic of Germany,Federal Republic of Germany,Göttingen,,1991,Physiology or Medicine,51.5412804,9.9158035,DE,Germany,Germany,51.165691,10.451526,DE,47
+518,Manfred Eigen,Max-Planck-Institut für Physikalische Chemie,Federal Republic of Germany,Federal Republic of Germany,Göttingen,,1967,Chemistry,51.5412804,9.9158035,DE,Germany,Germany,51.165691,10.451526,DE,40
+123,Christiane Nüsslein-Volhard,Max-Planck-Institut für Entwicklungsbiologie,Federal Republic of Germany,Federal Republic of Germany,Tübingen,,1995,Physiology or Medicine,48.5216364,9.0576448,DE,Germany,Germany,51.165691,10.451526,DE,53
+471,Klaus von Klitzing,Max-Planck-Institut für Festkörperforschung,Federal Republic of Germany,Federal Republic of Germany,Stuttgart,,1985,Physics,48.7758459,9.1829321,DE,German-occupied Poland,Poland,51.919438,19.145136,PL,42
+462,Karl Ziegler,Max-Planck-Institut für Kohlenforschung (Max-Planck-Institute for Carbon Research),Federal Republic of Germany,Federal Republic of Germany,Mülheim/Ruhr,,1963,Chemistry,51.4185682,6.8845226,DE,Germany,Germany,51.165691,10.451526,DE,65
+817,Walther Bothe,Max-Planck-Institut für medizinische Forschung,Federal Republic of Germany,Federal Republic of Germany,Heidelberg,,1954,Physics,49.3987524,8.6724335,DE,Germany,Germany,51.165691,10.451526,DE,63
+817,Walther Bothe,University of Heidelberg,Federal Republic of Germany,Federal Republic of Germany,Heidelberg,,1954,Physics,49.3987524,8.6724335,DE,Germany,Germany,51.165691,10.451526,DE,63
+81,Bert Sakmann,Max-Planck-Institut für medizinische Forschung,Federal Republic of Germany,Federal Republic of Germany,Heidelberg,,1991,Physiology or Medicine,49.3987524,8.6724335,DE,Germany,Germany,51.165691,10.451526,DE,49
+371,J. Hans D. Jensen,University of Heidelberg,Federal Republic of Germany,Federal Republic of Germany,Heidelberg,,1963,Physics,49.3987524,8.6724335,DE,Germany,Germany,51.165691,10.451526,DE,56
+258,Georg Wittig,University of Heidelberg,Federal Republic of Germany,Federal Republic of Germany,Heidelberg,,1979,Chemistry,49.3987524,8.6724335,DE,Germany,Germany,51.165691,10.451526,DE,82
+220,Feodor Lynen,Max-Planck-Institut für Zellchemie,Federal Republic of Germany,Federal Republic of Germany,Munich,,1964,Physiology or Medicine,48.1351253,11.5819806,DE,Germany,Germany,51.165691,10.451526,DE,53
+208,Ernst Otto Fischer,Technical University,Federal Republic of Germany,Federal Republic of Germany,Munich,,1973,Chemistry,48.1351253,11.5819806,DE,Germany,Germany,51.165691,10.451526,DE,55
+463,Karl von Frisch,Zoologisches Institut der Universität München,Federal Republic of Germany,Federal Republic of Germany,Munich,,1973,Physiology or Medicine,48.1351253,11.5819806,DE,Austria,Austria,47.516231,14.550072,AT,87
+174,Edward C. Kendall,Mayo Clinic,USA,USA,Rochester,MN,1950,Physiology or Medicine,44.0234,-92.46295,US,USA,USA,37.09024,-95.712891,US,64
+628,Philip S. Hench,Mayo Clinic,USA,USA,Rochester,MN,1950,Physiology or Medicine,44.0234,-92.46295,US,USA,USA,37.09024,-95.712891,US,54
+84,Bertram N. Brockhouse,McMaster University,Canada,Canada,Ontario,,1994,Physics,51.253775,-85.3232139,CA,Canada,Canada,56.130366,-106.346771,CA,76
+364,Isamu Akasaki,Meijo University,Japan,Japan,Nagoya,,2014,Physics,35.1814464,136.906398,JP,Japan,Japan,36.204824,138.252924,JP,85
+364,Isamu Akasaki,Nagoya University,Japan,Japan,Nagoya,,2014,Physics,35.1814464,136.906398,JP,Japan,Japan,36.204824,138.252924,JP,85
+350,Hiroshi Amano,Nagoya University,Japan,Japan,Nagoya,,2014,Physics,35.1814464,136.906398,JP,Japan,Japan,36.204824,138.252924,JP,54
+712,Ryoji Noyori,Nagoya University,Japan,Japan,Nagoya,,2001,Chemistry,35.1814464,136.906398,JP,Japan,Japan,36.204824,138.252924,JP,63
+284,Gerhard Domagk,Munster University,Germany,Germany,Munster,,1939,Physiology or Medicine,51.9606649,7.6261347,DE,Germany,Poland,51.919438,19.145136,PL,44
+809,Victor Grignard,Nancy University,France,France,Nancy,,1912,Chemistry,48.692054,6.184417,FR,France,France,46.227638,2.213749,FR,41
+419,John C. Mather,NASA Goddard Space Flight Center,USA,USA,Greenbelt,MD,2006,Physics,39.0045544,-76.8755282,US,USA,USA,37.09024,-95.712891,US,60
+531,Martin Rodbell,National Institute of Environmental Health Sciences,USA,USA,Research Triangle Park,NC,1994,Physiology or Medicine,35.8991678,-78.8636402,US,USA,USA,37.09024,-95.712891,US,69
+288,Gertrude B. Elion,Wellcome Research Laboratories,USA,USA,Research Triangle Park,NC,1988,Physiology or Medicine,35.8991678,-78.8636402,US,USA,USA,37.09024,-95.712891,US,70
+269,George H. Hitchings,Wellcome Research Laboratories,USA,USA,Research Triangle Park,NC,1988,Physiology or Medicine,35.8991678,-78.8636402,US,USA,USA,37.09024,-95.712891,US,83
+835,William D. Phillips,National Institute of Standards and Technology,USA,USA,Gaithersburg,MD,1997,Physics,39.1434406,-77.2013705,US,USA,USA,37.09024,-95.712891,US,49
+431,John L. Hall,National Institute of Standards and Technology,USA,USA,Boulder,CO,2005,Physics,40.0149856,-105.2705456,US,USA,USA,37.09024,-95.712891,US,71
+431,John L. Hall,University of Colorado,USA,USA,Boulder,CO,2005,Physics,40.0149856,-105.2705456,US,USA,USA,37.09024,-95.712891,US,71
+149,David J. Wineland,National Institute of Standards and Technology,USA,USA,Boulder,CO,2012,Physics,40.0149856,-105.2705456,US,USA,USA,37.09024,-95.712891,US,68
+149,David J. Wineland,University of Colorado,USA,USA,Boulder,CO,2012,Physics,40.0149856,-105.2705456,US,USA,USA,37.09024,-95.712891,US,68
+791,Thomas R. Cech,University of Colorado,USA,USA,Boulder,CO,1989,Chemistry,40.0149856,-105.2705456,US,USA,USA,37.09024,-95.712891,US,42
+196,Eric A. Cornell,University of Colorado,USA,USA,Boulder,CO,2001,Physics,40.0149856,-105.2705456,US,USA,USA,37.09024,-95.712891,US,40
+101,Carl E. Wieman,University of Colorado,USA,USA,Boulder,CO,2001,Physics,40.0149856,-105.2705456,US,USA,USA,37.09024,-95.712891,US,50
+120,Christian Anfinsen,National Institutes of Health,USA,USA,Bethesda,MD,1972,Chemistry,38.984652,-77.0947092,US,USA,USA,37.09024,-95.712891,US,56
+526,Marshall W. Nirenberg,National Institutes of Health,USA,USA,Bethesda,MD,1968,Physiology or Medicine,38.984652,-77.0947092,US,USA,USA,37.09024,-95.712891,US,41
+454,Julius Axelrod,National Institutes of Health,USA,USA,Bethesda,MD,1970,Physiology or Medicine,38.984652,-77.0947092,US,USA,USA,37.09024,-95.712891,US,58
+136,D. Carleton Gajdusek,National Institutes of Health,USA,USA,Bethesda,MD,1976,Physiology or Medicine,38.984652,-77.0947092,US,USA,USA,37.09024,-95.712891,US,53
+286,Gerhard Herzberg,National Research Council of Canada,Canada,Canada,Ottawa,,1971,Chemistry,45.4215296,-75.6971931,CA,Germany,Germany,51.165691,10.451526,DE,67
+180,Egas Moniz,Neurological Institute,Portugal,Portugal,Lisbon,,1949,Physiology or Medicine,38.7222524,-9.1393366,PT,Portugal,Portugal,39.399872,-8.224454,PT,75
+180,Egas Moniz,University of Lisbon,Portugal,Portugal,Lisbon,,1949,Physiology or Medicine,38.7222524,-9.1393366,PT,Portugal,Portugal,39.399872,-8.224454,PT,75
+654,Richard J. Roberts,New England Biolabs,USA,USA,Beverly,MA,1993,Physiology or Medicine,42.5584283,-70.880049,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,50
+75,Barry J. Marshall,NHMRC Helicobacter pylori Research Laboratory,Australia,Australia,Nedlands,,2005,Physiology or Medicine,-31.9808612,115.7995504,AU,Australia,Australia,-25.274398,133.775136,AU,54
+75,Barry J. Marshall,University of Western Australia,Australia,Australia,Perth,,2005,Physiology or Medicine,-31.9535132,115.8570471,AU,Australia,Australia,-25.274398,133.775136,AU,54
+434,John Pople,Northwestern University,USA,USA,Evanston,IL,1998,Chemistry,42.0450722,-87.6876969,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,73
+545,May-Britt Moser,Norwegian University of Science and Technology (NTNU),Norway,Norway,Trondheim,,2014,Physiology or Medicine,63.4305149,10.3950528,NO,Norway,Norway,60.472024,8.468946,NO,51
+171,Edvard I. Moser,Norwegian University of Science and Technology (NTNU),Norway,Norway,Trondheim,,2014,Physiology or Medicine,63.4305149,10.3950528,NO,Norway,Norway,60.472024,8.468946,NO,52
+96,Camillo Golgi,Pavia University,Italy,Italy,Pavia,,1906,Physiology or Medicine,45.1847248,9.1582069,IT,Italy,Italy,41.87194,12.56738,IT,63
+396,Jaroslav Heyrovsky,Polarographic Institute of the Czechoslovak Academy of Science,Czech Republic,Czech Republic,Prague,,1959,Chemistry,50.0755381,14.4378005,CZ,Austria-Hungary,Czech Republic,49.817492,15.472962,CZ,69
+341,Herbert C. Brown,Purdue University,USA,USA,West Lafayette,IN,1979,Chemistry,40.4258686,-86.9080655,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,67
+181,Ei-ichi Negishi,Purdue University,USA,USA,West Lafayette,IN,2010,Chemistry,40.4258686,-86.9080655,US,China,China,35.86166,104.195397,CN,75
+646,Reinhard Selten,Rheinische Friedrich-Wilhelms-Universität,Federal Republic of Germany,Federal Republic of Germany,Bonn,,1994,Economic Sciences,50.73743,7.0982068,DE,Germany,Poland,51.919438,19.145136,PL,64
+853,Wolfgang Paul,University of Bonn,Federal Republic of Germany,Federal Republic of Germany,Bonn,,1989,Physics,50.73743,7.0982068,DE,Germany,Germany,51.165691,10.451526,DE,76
+675,Robert F. Curl Jr.,Rice University,USA,USA,Houston,TX,1996,Chemistry,29.7604267,-95.3698028,US,USA,USA,37.09024,-95.712891,US,63
+651,Richard E. Smalley,Rice University,USA,USA,Houston,TX,1996,Chemistry,29.7604267,-95.3698028,US,USA,USA,37.09024,-95.712891,US,53
+223,Ferid Murad,University of Texas Medical School at Houston,USA,USA,Houston,TX,1998,Physiology or Medicine,29.7604267,-95.3698028,US,USA,USA,37.09024,-95.712891,US,62
+656,Richard L.M. Synge,Rowett Research Institute,United Kingdom,United Kingdom,Bucksburn (Scotland),,1952,Chemistry,57.1785036,-2.176764,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,38
+723,Selman A. Waksman,Rutgers University,USA,USA,New Brunswick,NJ,1952,Physiology or Medicine,40.4862157,-74.4518188,US,Russian Empire,Ukraine,48.379433,31.16558,UA,64
+172,Edward A. Doisy,Saint Louis University,USA,USA,St. Louis,MO,1943,Physiology or Medicine,38.6270025,-90.1994042,US,USA,USA,37.09024,-95.712891,US,50
+442,Joseph Erlanger,Washington University,USA,USA,St. Louis,MO,1944,Physiology or Medicine,38.6270025,-90.1994042,US,USA,USA,37.09024,-95.712891,US,70
+99,Carl Cori,Washington University,USA,USA,St. Louis,MO,1947,Physiology or Medicine,38.6270025,-90.1994042,US,Austria-Hungary,Czech Republic,49.817492,15.472962,CZ,51
+289,Gerty Cori,Washington University,USA,USA,St. Louis,MO,1947,Physiology or Medicine,38.6270025,-90.1994042,US,Austria-Hungary,Czech Republic,49.817492,15.472962,CZ,51
+162,Douglass C. North,Washington University,USA,USA,St. Louis,MO,1993,Economic Sciences,38.6270025,-90.1994042,US,USA,USA,37.09024,-95.712891,US,73
+313,Hans Krebs,Sheffield University,United Kingdom,United Kingdom,Sheffield,,1953,Physiology or Medicine,53.381129,-1.470085,GB,Germany,Germany,51.165691,10.451526,DE,53
+620,Peter C. Doherty,St. Jude Children's Research Hospital,USA,USA,Memphis,TN,1996,Physiology or Medicine,35.1495343,-90.0489801,US,Australia,Australia,-25.274398,133.775136,AU,56
+346,Hermann Staudinger,Staatliches Institut für makromolekulare Chemie (State Research Institute for Macromolecular Chemistry),Federal Republic of Germany,Federal Republic of Germany,Breisgau,,1953,Chemistry,47.9213,7.74014,DE,Germany,Germany,51.165691,10.451526,DE,72
+346,Hermann Staudinger,University of Freiburg,Federal Republic of Germany,Federal Republic of Germany,Breisgau,,1953,Chemistry,47.9213,7.74014,DE,Germany,Germany,51.165691,10.451526,DE,72
+94,Burton Richter,Stanford Linear Accelerator Center,USA,USA,Stanford,CA,1976,Physics,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,45
+219,Felix Bloch,Stanford University,USA,USA,Stanford,CA,1952,Physics,37.424106,-122.1660756,US,Switzerland,Switzerland,46.818188,8.227512,CH,47
+846,Willis E. Lamb,Stanford University,USA,USA,Stanford,CA,1955,Physics,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,42
+680,Robert Hofstadter,Stanford University,USA,USA,Stanford,CA,1961,Physics,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,46
+66,Arthur L. Schawlow,Stanford University,USA,USA,Stanford,CA,1981,Physics,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,60
+652,Richard E. Taylor,Stanford University,USA,USA,Stanford,CA,1990,Physics,37.424106,-122.1660756,US,Canada,Canada,56.130366,-106.346771,CA,61
+529,Martin L. Perl,Stanford University,USA,USA,Stanford,CA,1995,Physics,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,68
+161,Douglas D. Osheroff,Stanford University,USA,USA,Stanford,CA,1996,Physics,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,51
+765,Steven Chu,Stanford University,USA,USA,Stanford,CA,1997,Physics,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,49
+668,Robert B. Laughlin,Stanford University,USA,USA,Stanford,CA,1998,Physics,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,48
+610,Paul J. Flory,Stanford University,USA,USA,Stanford,CA,1974,Chemistry,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,64
+602,Paul Berg,Stanford University,USA,USA,Stanford,CA,1980,Chemistry,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,54
+336,Henry Taube,Stanford University,USA,USA,Stanford,CA,1983,Chemistry,37.424106,-122.1660756,US,Canada,Canada,56.130366,-106.346771,CA,68
+695,Roger D. Kornberg,Stanford University,USA,USA,Stanford,CA,2006,Chemistry,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,59
+836,William E. Moerner,Stanford University,USA,USA,Stanford,CA,2014,Chemistry,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,61
+65,Arthur Kornberg,Stanford University,USA,USA,Stanford,CA,1959,Physiology or Medicine,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,41
+838,William F. Sharpe,Stanford University,USA,USA,Stanford,CA,1990,Economic Sciences,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,56
+0,A. Michael Spence,Stanford University,USA,USA,Stanford,CA,2001,Economic Sciences,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,58
+90,Brian K. Kobilka,Stanford University School of Medicine,USA,USA,Stanford,CA,2012,Chemistry,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,57
+550,Michael Levitt,Stanford University School of Medicine,USA,USA,Stanford,CA,2013,Chemistry,37.424106,-122.1660756,US,South Africa,South Africa,-30.559482,22.937506,ZA,66
+49,Andrew Z. Fire,Stanford University School of Medicine,USA,USA,Stanford,CA,2006,Physiology or Medicine,37.424106,-122.1660756,US,USA,USA,37.09024,-95.712891,US,47
+221,Ferdinand Braun,Strasbourg University,Alsace,France,Strasbourg,,1909,Physics,48.5734053,7.7521113,FR,Hesse-Kassel,Germany,51.165691,10.451526,DE,59
+451,Jules A. Hoffmann,University of Strasbourg,France,France,Strasbourg,,2011,Physiology or Medicine,48.5734053,7.7521113,FR,Luxembourg,Luxembourg,49.815273,6.129583,LU,70
+677,Robert F. Furchgott,SUNY Health Science Center,USA,USA,Brooklyn,NY,1998,Physiology or Medicine,40.6781784,-73.9441579,US,USA,USA,37.09024,-95.712891,US,82
+298,Gustaf Dalén,Swedish Gas-Accumulator Co.,Sweden,Sweden,Lidingö-Stockholm,,1912,Physics,59.36296,18.1468,SE,Sweden,Sweden,60.128161,18.643501,SE,43
+25,Albert Szent-Györgyi,Szeged University,Hungary,Hungary,Szeged,,1937,Physiology or Medicine,46.2530102,20.1414253,HU,Austria-Hungary,Hungary,47.162494,19.503304,HU,44
+2,Aaron Ciechanover,Technion - Israel Institute of Technology,Israel,Israel,Haifa,,2004,Chemistry,32.7940463,34.989571,IL,British Protectorate of Palestine,Israel,31.046051,34.851612,IL,57
+72,Avram Hershko,Technion - Israel Institute of Technology,Israel,Israel,Haifa,,2004,Chemistry,32.7940463,34.989571,IL,Hungary,Hungary,47.162494,19.503304,HU,67
+139,Dan Shechtman,Technion - Israel Institute of Technology,Israel,Israel,Haifa,,2011,Chemistry,32.7940463,34.989571,IL,British Mandate of Palestine,Israel,31.046051,34.851612,IL,70
+377,Jack S. Kilby,Texas Instruments,USA,USA,Dallas,TX,2000,Physics,32.7766642,-96.7969879,US,USA,USA,37.09024,-95.712891,US,77
+409,Johann Deisenhofer,University of Texas Southwestern Medical Center at Dallas,USA,USA,Dallas,TX,1988,Chemistry,32.7766642,-96.7969879,US,Germany,Germany,51.165691,10.451526,DE,45
+551,Michael S. Brown,University of Texas Southwestern Medical Center at Dallas,USA,USA,Dallas,TX,1985,Physiology or Medicine,32.7766642,-96.7969879,US,USA,USA,37.09024,-95.712891,US,44
+444,Joseph L. Goldstein,University of Texas Southwestern Medical Center at Dallas,USA,USA,Dallas,TX,1985,Physiology or Medicine,32.7766642,-96.7969879,US,USA,USA,37.09024,-95.712891,US,45
+34,Alfred G. Gilman,University of Texas Southwestern Medical Center at Dallas,USA,USA,Dallas,TX,1994,Physiology or Medicine,32.7766642,-96.7969879,US,USA,USA,37.09024,-95.712891,US,53
+92,Bruce A. Beutler,University of Texas Southwestern Medical Center at Dallas,USA,USA,Dallas,TX,2011,Physiology or Medicine,32.7766642,-96.7969879,US,USA,USA,37.09024,-95.712891,US,54
+92,Bruce A. Beutler,The Scripps Research Institute,USA,USA,La Jolla,CA,2011,Physiology or Medicine,32.8328112,-117.2712717,US,USA,USA,37.09024,-95.712891,US,54
+76,Baruch S. Blumberg,The Institute for Cancer Research,USA,USA,Philadelphia,PA,1976,Physiology or Medicine,39.9525839,-75.1652215,US,USA,USA,37.09024,-95.712891,US,51
+688,Robert Schrieffer,University of Pennsylvania,USA,USA,Philadelphia,PA,1972,Physics,39.9525839,-75.1652215,US,USA,USA,37.09024,-95.712891,US,41
+645,Raymond Davis Jr.,University of Pennsylvania,USA,USA,Philadelphia,PA,2002,Physics,39.9525839,-75.1652215,US,USA,USA,37.09024,-95.712891,US,88
+14,Alan G. MacDiarmid,University of Pennsylvania,USA,USA,Philadelphia,PA,2000,Chemistry,39.9525839,-75.1652215,US,New Zealand,New Zealand,-40.900557,174.885971,NZ,73
+483,Lawrence R. Klein,University of Pennsylvania,USA,USA,Philadelphia,PA,1980,Economic Sciences,39.9525839,-75.1652215,US,USA,USA,37.09024,-95.712891,US,60
+339,Herbert A. Hauptman,The Medical Foundation of Buffalo,USA,USA,Buffalo,NY,1985,Chemistry,42.8864468,-78.8783689,US,USA,USA,37.09024,-95.712891,US,68
+394,Jan Tinbergen,The Netherlands School of Economics,the Netherlands,the Netherlands,Rotterdam,,1969,Economic Sciences,51.9244201,4.4777325,NL,the Netherlands,the Netherlands,52.132633,5.291266,NL,66
+696,Roger Guillemin,The Salk Institute,USA,USA,San Diego,CA,1977,Physiology or Medicine,32.715738,-117.1610838,US,France,France,46.227638,2.213749,FR,53
+130,Clive W.J. Granger,University of California,USA,USA,San Diego,CA,2003,Economic Sciences,32.715738,-117.1610838,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,69
+457,K. Barry Sharpless,The Scripps Research Institute,USA,USA,La Jolla,CA,2001,Chemistry,32.8328112,-117.2712717,US,USA,USA,37.09024,-95.712891,US,60
+520,Maria Goeppert Mayer,University of California,USA,USA,La Jolla,CA,1963,Physics,32.8328112,-117.2712717,US,Germany,Poland,51.919438,19.145136,PL,57
+437,John R. Vane,The Wellcome Research Laboratories,United Kingdom,United Kingdom,Beckenham,,1982,Physiology or Medicine,51.40817,-0.025813,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,55
+737,Sin-Itiro Tomonaga,Tokyo University of Education,Japan,Japan,Tokyo,,1965,Physics,35.7090259,139.7319925,JP,Japan,Japan,36.204824,138.252924,JP,59
+535,Masatoshi Koshiba,University of Tokyo,Japan,Japan,Tokyo,,2002,Physics,35.7090259,139.7319925,JP,Japan,Japan,36.204824,138.252924,JP,76
+348,Hideki Shirakawa,University of Tsukuba,Japan,Japan,Tokyo,,2000,Chemistry,35.7090259,139.7319925,JP,Japan,Japan,36.204824,138.252924,JP,64
+400,Jean Tirole,Toulouse School of Economics (TSE),France,France,Toulouse,,2014,Economic Sciences,43.604652,1.444209,FR,France,France,46.227638,2.213749,FR,61
+614,Paul Sabatier,Toulouse University,France,France,Toulouse,,1912,Chemistry,43.604652,1.444209,FR,France,France,46.227638,2.213749,FR,58
+205,Ernest T.S. Walton,Trinity College,Ireland,Ireland,Dublin,,1951,Physics,53.3498053,-6.2603097,IE,Ireland,Ireland,53.41291,-8.24389,IE,48
+38,Allan M. Cormack,Tufts University,USA,USA,Medford,MA,1979,Physiology or Medicine,42.4184296,-71.1061639,US,South Africa,South Africa,-30.559482,22.937506,ZA,55
+21,Albert Fert,Unité Mixte de Physique CNRS/THALES,France,France,Orsay,,2007,Physics,48.697161,2.189617,FR,France,France,46.227638,2.213749,FR,69
+21,Albert Fert,Université Paris-Sud,France,France,Orsay,,2007,Physics,48.697161,2.189617,FR,France,France,46.227638,2.213749,FR,69
+19,Albert Claude,Université Catholique de Louvain,Belgium,Belgium,Louvain,,1974,Physiology or Medicine,50.883333,4.7,BE,Belgium,Belgium,50.503887,4.469936,BE,75
+552,Michael Smith,University of British Columbia,Canada,Canada,Vancouver,,1993,Chemistry,49.2827291,-123.1207375,CA,United Kingdom,United Kingdom,55.378051,-3.435973,GB,61
+237,Frederick Reines,University of California,USA,USA,Irvine,CA,1995,Physics,33.6839473,-117.7946942,US,USA,USA,37.09024,-95.712891,US,77
+217,F. Sherwood Rowland,University of California,USA,USA,Irvine,CA,1995,Chemistry,33.6839473,-117.7946942,US,USA,USA,37.09024,-95.712891,US,68
+361,Irwin Rose,University of California,USA,USA,Irvine,CA,2004,Chemistry,33.6839473,-117.7946942,US,USA,USA,37.09024,-95.712891,US,78
+828,Willard F. Libby,University of California,USA,USA,Los Angeles,CA,1960,Chemistry,34.0522342,-118.2436849,US,USA,USA,37.09024,-95.712891,US,52
+158,Donald J. Cram,University of California,USA,USA,Los Angeles,CA,1987,Chemistry,34.0522342,-118.2436849,US,USA,USA,37.09024,-95.712891,US,68
+604,Paul D. Boyer,University of California,USA,USA,Los Angeles,CA,1997,Chemistry,34.0522342,-118.2436849,US,USA,USA,37.09024,-95.712891,US,79
+500,Lloyd S. Shapley,University of California,USA,USA,Los Angeles,CA,2012,Economic Sciences,34.0522342,-118.2436849,US,USA,USA,37.09024,-95.712891,US,89
+504,Louis J. Ignarro,University of California School of Medicine,USA,USA,Los Angeles,CA,1998,Physiology or Medicine,34.0522342,-118.2436849,US,USA,USA,37.09024,-95.712891,US,57
+261,George A. Olah,University of Southern California,USA,USA,Los Angeles,CA,1994,Chemistry,34.0522342,-118.2436849,US,Hungary,Hungary,47.162494,19.503304,HU,67
+58,Arieh Warshel,University of Southern California,USA,USA,Los Angeles,CA,2013,Chemistry,34.0522342,-118.2436849,US,British Mandate of Palestine,Israel,31.046051,34.851612,IL,73
+342,Herbert Kroemer,University of California,USA,USA,Santa Barbara,CA,2000,Physics,34.4208305,-119.6981901,US,Germany,Germany,51.165691,10.451526,DE,72
+732,Shuji Nakamura,University of California,USA,USA,Santa Barbara,CA,2014,Physics,34.4208305,-119.6981901,US,Japan,Japan,36.204824,138.252924,JP,60
+816,Walter Kohn,University of California,USA,USA,Santa Barbara,CA,1998,Chemistry,34.4208305,-119.6981901,US,Austria,Austria,47.516231,14.550072,AT,75
+15,Alan Heeger,University of California,USA,USA,Santa Barbara,CA,2000,Chemistry,34.4208305,-119.6981901,US,USA,USA,37.09024,-95.712891,US,64
+148,David J. Gross,University of California,USA,USA,Santa Barbara,CA,2004,Physics,34.4208305,-119.6981901,US,USA,USA,37.09024,-95.712891,US,63
+653,Richard F. Heck,University of Delaware,USA,USA,,,2010,Chemistry,37.09024,-95.712891,US,USA,USA,37.09024,-95.712891,US,79
+314,Hans Spemann,University of Freiburg im Breisgau,Germany,Germany,Breisgau,,1935,Physiology or Medicine,47.9213,7.74014,DE,Württemberg,Germany,51.165691,10.451526,DE,66
+505,Louis Néel,University of Grenoble,France,France,Grenoble,,1970,Physics,45.188529,5.724524,FR,France,France,46.227638,2.213749,FR,66
+67,Artturi Virtanen,University of Helsinki,Finland,Finland,Helsinki,,1945,Chemistry,60.1733244,24.9410248,FI,Russian Empire,Finland,61.92411,25.748151,FI,50
+415,John Bardeen,University of Illinois,USA,USA,Urbana,IL,1956,Physics,40.1105875,-88.2072697,US,USA,USA,37.09024,-95.712891,US,48
+416,John Bardeen,University of Illinois,USA,USA,Urbana,IL,1972,Physics,40.1105875,-88.2072697,US,USA,USA,37.09024,-95.712891,US,64
+53,Anthony J. Leggett,University of Illinois,USA,USA,Urbana,IL,2003,Physics,40.1105875,-88.2072697,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,65
+603,Paul C. Lauterbur,University of Illinois,USA,USA,Urbana,IL,2003,Physiology or Medicine,40.1105875,-88.2072697,US,USA,USA,37.09024,-95.712891,US,74
+682,Robert J. Aumann,University of Jerusalem,Israel,Israel,Jerusalem,,2005,Economic Sciences,31.768319,35.21371,IL,Germany,Germany,51.165691,10.451526,DE,75
+45,Andre Geim,University of Manchester,United Kingdom,United Kingdom,Manchester,,2010,Physics,53.4807593,-2.2426305,GB,Russia,Russia,61.52401,105.318756,RU,52
+477,Konstantin Novoselov,University of Manchester,United Kingdom,United Kingdom,Manchester,,2010,Physics,53.4807593,-2.2426305,GB,Russia,Russia,61.52401,105.318756,RU,36
+482,Lawrence Bragg,Victoria University,United Kingdom,United Kingdom,Manchester,,1915,Physics,53.4807593,-2.2426305,GB,Australia,Australia,-25.274398,133.775136,AU,25
+597,Patrick M.S. Blackett,Victoria University,United Kingdom,United Kingdom,Manchester,,1948,Physics,53.4807593,-2.2426305,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,51
+204,Ernest Rutherford,Victoria University,United Kingdom,United Kingdom,Manchester,,1908,Chemistry,53.4807593,-2.2426305,GB,New Zealand,New Zealand,-40.900557,174.885971,NZ,37
+785,Thomas C. Schelling,University of Maryland,USA,USA,College Park,MD,2005,Economic Sciences,38.9896967,-76.93776,US,USA,USA,37.09024,-95.712891,US,84
+133,Craig C. Mello,University of Massachusetts Medical School,USA,USA,Worcester,MA,2006,Physiology or Medicine,42.2625932,-71.8022934,US,USA,USA,37.09024,-95.712891,US,46
+583,Oliver Smithies,University of North Carolina at Chapel Hill,USA,USA,Chapel Hill,NC,2007,Physiology or Medicine,35.9131996,-79.0558445,US,United Kingdom,United Kingdom,55.378051,-3.435973,GB,82
+757,Sir Peter Mansfield,University of Nottingham,United Kingdom,United Kingdom,Nottingham,,2003,Physiology or Medicine,52.9547832,-1.1581086,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,70
+580,Odd Hassel,University of Oslo,Norway,Norway,Oslo,,1969,Chemistry,59.9138688,10.7522454,NO,Norway,Norway,60.472024,8.468946,NO,72
+639,Ragnar Frisch,University of Oslo,Norway,Norway,Oslo,,1969,Economic Sciences,59.9138688,10.7522454,NO,Norway,Norway,60.472024,8.468946,NO,74
+799,Trygve Haavelmo,University of Oslo,Norway,Norway,Oslo,,1989,Economic Sciences,59.9138688,10.7522454,NO,Norway,Norway,60.472024,8.468946,NO,78
+270,George H. Whipple,University of Rochester,USA,USA,Rochester,NY,1934,Physiology or Medicine,43.16103,-77.6109219,US,USA,USA,37.09024,-95.712891,US,56
+422,John Cornforth,University of Sussex,United Kingdom,United Kingdom,Brighton,,1975,Chemistry,50.82253,-0.137163,GB,Australia,Australia,-25.274398,133.775136,AU,58
+747,Sir Harold Kroto,University of Sussex,United Kingdom,United Kingdom,Brighton,,1996,Chemistry,50.82253,-0.137163,GB,United Kingdom,United Kingdom,55.378051,-3.435973,GB,57
+420,John C. Polanyi,University of Toronto,Canada,Canada,Toronto,,1986,Chemistry,43.653226,-79.3831843,CA,Germany,Germany,51.165691,10.451526,DE,57
+236,Frederick G. Banting,University of Toronto,Canada,Canada,Toronto,,1923,Physiology or Medicine,43.653226,-79.3831843,CA,Canada,Canada,56.130366,-106.346771,CA,32
+432,John Macleod,University of Toronto,Canada,Canada,Toronto,,1923,Physiology or Medicine,43.653226,-79.3831843,CA,Scotland,Scotland,56.4906712,-4.2026458,GB,47
+524,Mario R. Capecchi,University of Utah,USA,USA,Salt Lake City,UT,2007,Physiology or Medicine,40.7607793,-111.8910474,US,Italy,Italy,41.87194,12.56738,IT,70
+446,Joshua Lederberg,University of Wisconsin,USA,USA,Madison,WI,1958,Physiology or Medicine,43.0730517,-89.4012302,US,USA,USA,37.09024,-95.712891,US,33
+304,H. Gobind Khorana,University of Wisconsin,USA,USA,Madison,WI,1968,Physiology or Medicine,43.0730517,-89.4012302,US,India,India,20.593684,78.96288,IN,46
+353,Howard M. Temin,University of Wisconsin,USA,USA,Madison,WI,1975,Physiology or Medicine,43.0730517,-89.4012302,US,USA,USA,37.09024,-95.712891,US,41
+519,Manne Siegbahn,Uppsala University,Sweden,Sweden,Uppsala,,1924,Physics,59.8585638,17.6389267,SE,Sweden,Sweden,60.128161,18.643501,SE,38
+458,Kai M. Siegbahn,Uppsala University,Sweden,Sweden,Uppsala,,1981,Physics,59.8585638,17.6389267,SE,Sweden,Sweden,60.128161,18.643501,SE,63
+777,The Svedberg,Uppsala University,Sweden,Sweden,Uppsala,,1926,Chemistry,59.8585638,17.6389267,SE,Sweden,Sweden,60.128161,18.643501,SE,42
+60,Arne Tiselius,Uppsala University,Sweden,Sweden,Uppsala,,1948,Chemistry,59.8585638,17.6389267,SE,Sweden,Sweden,60.128161,18.643501,SE,46
+39,Allvar Gullstrand,Uppsala University,Sweden,Sweden,Uppsala,,1911,Physiology or Medicine,59.8585638,17.6389267,SE,Sweden,Sweden,60.128161,18.643501,SE,49
+282,Gerardus 't Hooft,Utrecht University,the Netherlands,the Netherlands,Utrecht,,1999,Physics,52.0907374,5.1214201,NL,the Netherlands,the Netherlands,52.132633,5.291266,NL,53
+119,Christiaan Eijkman,Utrecht University,the Netherlands,the Netherlands,Utrecht,,1929,Physiology or Medicine,52.0907374,5.1214201,NL,the Netherlands,the Netherlands,52.132633,5.291266,NL,71
+166,"Earl W. Sutherland, Jr.",Vanderbilt University,USA,USA,Nashville,TN,1971,Physiology or Medicine,36.1626638,-86.7816016,US,USA,USA,37.09024,-95.712891,US,56
+763,Stanley Cohen,Vanderbilt University School of Medicine,USA,USA,Nashville,TN,1986,Physiology or Medicine,36.1626638,-86.7816016,US,USA,USA,37.09024,-95.712891,US,64
+48,Andrew V. Schally,Veterans Administration Hospital,USA,USA,New Orleans,LA,1977,Physiology or Medicine,29.9510658,-90.0715323,US,Poland,Lithuania,55.169438,23.881275,LT,51
+705,Rosalyn Yalow,Veterans Administration Hospital,USA,USA,Bronx,NY,1977,Physiology or Medicine,40.8370495,-73.8654295,US,USA,USA,37.09024,-95.712891,US,56
+670,Robert Bárány,Vienna University,Austria,Austria,Vienna,,1914,Physiology or Medicine,48.2081743,16.3738189,AT,Austria,Austria,47.516231,14.550072,AT,38
+455,Julius Wagner-Jauregg,Vienna University,Austria,Austria,Vienna,,1927,Physiology or Medicine,48.2081743,16.3738189,AT,Austria,Austria,47.516231,14.550072,AT,70
+414,John B. Fenn,Virginia Commonwealth University,USA,USA,Richmond,VA,2002,Chemistry,37.5407246,-77.4360481,US,USA,USA,37.09024,-95.712891,US,85
+745,Sir Frank Macfarlane Burnet,Walter and Eliza Hall Institute for Medical Research,Australia,Australia,Melbourne,,1960,Physiology or Medicine,-37.814107,144.96328,AU,Australia,Australia,-25.274398,133.775136,AU,61
+5,Ada E. Yonath,Weizmann Institute of Science,Israel,Israel,Rehovot,,2009,Chemistry,31.892773,34.811272,IL,British Mandate of Palestine,Israel,31.046051,34.851612,IL,70
+235,Frederick C. Robbins,Western Reserve University,USA,USA,Cleveland,OH,1954,Physiology or Medicine,41.49932,-81.6943605,US,USA,USA,37.09024,-95.712891,US,38
+827,Wilhelm Wien,Würzburg University,Germany,Germany,Würzburg,,1911,Physics,49.7913044,9.9533548,DE,Prussia,Russia,61.52401,105.318756,RU,47
+480,Lars Onsager,Yale University,USA,USA,New Haven,CT,1968,Chemistry,41.308274,-72.9278835,US,Norway,Norway,60.472024,8.468946,NO,65
+733,Sidney Altman,Yale University,USA,USA,New Haven,CT,1989,Chemistry,41.308274,-72.9278835,US,Canada,Canada,56.130366,-106.346771,CA,50
+387,James E. Rothman,Yale University,USA,USA,New Haven,CT,2013,Physiology or Medicine,41.308274,-72.9278835,US,USA,USA,37.09024,-95.712891,US,63
+793,Tjalling C. Koopmans,Yale University,USA,USA,New Haven,CT,1975,Economic Sciences,41.308274,-72.9278835,US,the Netherlands,the Netherlands,52.132633,5.291266,NL,65
+392,James Tobin,Yale University,USA,USA,New Haven,CT,1981,Economic Sciences,41.308274,-72.9278835,US,USA,USA,37.09024,-95.712891,US,63
+684,Robert J. Shiller,Yale University,USA,USA,New Haven,CT,2013,Economic Sciences,41.308274,-72.9278835,US,USA,USA,37.09024,-95.712891,US,67
+266,George E. Palade,Yale University,USA,USA,New Haven,CT,1974,Physiology or Medicine,41.308274,-72.9278835,US,Romania,Romania,45.943161,24.96676,RO,62

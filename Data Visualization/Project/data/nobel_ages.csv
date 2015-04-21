@@ -1,0 +1,865 @@
+name,age
+Malala Yousafzai,17
+Lawrence Bragg,25
+Werner Heisenberg,31
+Paul A.M. Dirac,31
+Carl D. Anderson,31
+Tsung-Dao Lee,31
+Rudolf Mössbauer,32
+Frederick G. Banting,32
+Mairead Corrigan,32
+Tawakkol Karman,32
+Brian D. Josephson,33
+Joshua Lederberg,33
+Betty Williams,33
+Rigoberta Menchú Tum,33
+Donald A. Glaser,34
+James Watson,34
+Guglielmo Marconi,35
+Max von Laue,35
+Arthur H. Compton,35
+Chen Ning Yang,35
+Frédéric Joliot,35
+Martin Luther King Jr.,35
+Marie Curie,36
+Konstantin Novoselov,36
+Adolf Butenandt,36
+Archibald V. Hill,36
+Pieter Zeeman,37
+Niels Bohr,37
+Louis de Broglie,37
+Enrico Fermi,37
+J. Georg Bednorz,37
+Ernest Rutherford,37
+David Baltimore,37
+Manne Siegbahn,38
+Gustav Hertz,38
+Ernest Lawrence,38
+Irène Joliot-Curie,38
+Richard Kuhn,38
+Richard L.M. Synge,38
+Robert Bárány,38
+Otto Meyerhof,38
+Frederick C. Robbins,38
+Georges J.F. Köhler,38
+Owen Chamberlain,39
+Gerd Binnig,39
+Glenn T. Seaborg,39
+Alexis Carrel,39
+Ernst B. Chain,39
+Thomas H. Weller,39
+Leymah Gbowee,39
+Charles Glover Barkla,40
+E. M. Purcell,40
+Murray Gell-Mann,40
+Samuel C.C. Ting,40
+Eric A. Cornell,40
+Frederick Sanger,40
+Manfred Eigen,40
+Hartmut Michel,40
+Lech Walesa,40
+Robert Schrieffer,41
+Victor Grignard,41
+Harold C. Urey,41
+Arthur Kornberg,41
+Marshall W. Nirenberg,41
+Howard M. Temin,41
+Albert Einstein,42
+Sir Venkata Raman,42
+Hideki Yukawa,42
+Willis E. Lamb,42
+Nicolay G. Basov,42
+Leon N. Cooper,42
+Robert Woodrow Wilson,42
+Klaus von Klitzing,42
+Adam G. Riess,42
+The Svedberg,42
+Wendell M. Stanley,42
+Archer J.P. Martin,42
+Thomas R. Cech,42
+William P. Murphy,42
+Rudyard Kipling,42
+Philipp Lenard,43
+Gustaf Dalén,43
+James Franck,43
+Russell A. Hulse,43
+Richard Willstätter,43
+Koichi Tanaka,43
+Niels Ryberg Finsen,43
+Edgar Adrian,43
+Gerald M. Edelman,43
+Pierre Curie,44
+James Chadwick,44
+Polykarp Kusch,44
+Ivar Giaever,44
+Wolfgang Ketterle,44
+Brian P. Schmidt,44
+Svante Arrhenius,44
+Marie Curie,44
+Frederick Soddy,44
+Edwin M. McMillan,44
+Roald Hoffmann,44
+Albert Szent-Györgyi,44
+Gerhard Domagk,44
+Michael S. Brown,44
+Albert Camus,44
+Johannes Stark,45
+George Paget Thomson,45
+Wolfgang Pauli,45
+Burton Richter,45
+Arno Penzias,45
+Francis W. Aston,45
+John C. Kendrew,45
+Johann Deisenhofer,45
+Ronald Ross,45
+Peter Medawar,45
+François Jacob,45
+Joseph L. Goldstein,45
+Sinclair Lewis,45
+Erwin Schrödinger,46
+Isidor Isaac Rabi,46
+William B. Shockley,46
+Robert Hofstadter,46
+Steven Weinberg,46
+Kenneth G. Wilson,46
+Theodore W. Richards,46
+Arne Tiselius,46
+August Krogh,46
+Corneille Heymans,46
+Francis Crick,46
+Maurice Wilkins,46
+Andrew F. Huxley,46
+Robert W. Holley,46
+H. Gobind Khorana,46
+Craig C. Mello,46
+Sigrid Undset,46
+Pearl Buck,46
+Carl von Ossietzky,46
+Ralph Bunche,46
+Oscar Arias Sánchez,46
+Aung San Suu Kyi ,46
+Wilhelm Wien,47
+Cecil Powell,47
+Felix Bloch,47
+Julian Schwinger,47
+Richard P. Feynman,47
+Sheldon Glashow,47
+Eduard Buchner,47
+Alfred Werner,47
+Friedrich Bergius,47
+George Porter,47
+Roderick MacKinnon,47
+Emil von Behring,47
+John Macleod,47
+Sir Howard Florey,47
+Hamilton O. Smith,47
+Erwin Neher,47
+Andrew Z. Fire,47
+Joseph Brodsky,47
+Alfred Fried,47
+José Ramos-Horta,47
+Jody Williams,47
+Ernest T.S. Walton,48
+John Bardeen,48
+Aleksandr M. Prokhorov,48
+Leo Esaki,48
+Robert B. Laughlin,48
+Paul Karrer,48
+Kurt Alder,48
+Max F. Perutz,48
+Robert B. Woodward,48
+Walter Gilbert,48
+Jean-Marie Lehn,48
+Otto Warburg,48
+Henrik Dam,48
+Bengt I. Samuelsson,48
+Susumu Tonegawa,48
+Eric F. Wieschaus,48
+Carol W. Greider,48
+Eugene O'Neill,48
+Theodore Roosevelt,48
+Gustav Stresemann,48
+Georges Pire,48
+Carlos Filipe Ximenes Belo,48
+Barack H. Obama,48
+Hendrik A. Lorentz,49
+Owen Willans Richardson,49
+Charles H. Townes,49
+Ben R. Mottelson,49
+James Cronin,49
+Steven Chu,49
+William D. Phillips,49
+Horst L. Störmer,49
+Jacobus H. van 't Hoff,49
+Hans Fischer,49
+Kary B. Mullis,49
+Allvar Gullstrand,49
+Jules Bordet,49
+George R. Minot,49
+Paul Müller,49
+Edward Tatum,49
+Alan L. Hodgkin,49
+Werner Arber,49
+Bert Sakmann,49
+Phillip A. Sharp,49
+Maurice Maeterlinck,49
+Romain Rolland,49
+Adolfo Pérez Esquivel,49
+J.J. Thomson,50
+Il´ja M. Frank,50
+Antony Hewish,50
+Carlo Rubbia,50
+Carl E. Wieman,50
+Emil Fischer,50
+Fritz Haber,50
+Heinrich Wieland,50
+Artturi Virtanen,50
+Lord Todd,50
+Melvin Calvin,50
+Yuan T. Lee,50
+Sidney Altman,50
+Edward A. Doisy,50
+Daniel Bovet,50
+Daniel Nathans,50
+Harold E. Varmus,50
+Richard J. Roberts,50
+Shinya Yamanaka,50
+Gerhart Hauptmann,50
+Henry Kissinger,50
+Henri Becquerel,51
+Patrick M.S. Blackett,51
+Douglas D. Osheroff,51
+Irving Langmuir,51
+Derek Barton,51
+Robert Huber,51
+Carl Cori,51
+Gerty Cori,51
+Baruch S. Blumberg,51
+Andrew V. Schally,51
+May-Britt Moser,51
+Selma Lagerlöf,51
+Frans Eemil Sillanpää,51
+Kenneth J. Arrow,51
+Joseph H. Taylor Jr.,52
+Andre Geim,52
+Saul Perlmutter,52
+Sir William Ramsay,52
+Adolf Windaus,52
+Peter Debye,52
+Leopold Ruzicka,52
+Willard F. Libby,52
+Geoffrey Wilkinson,52
+Mario J. Molina,52
+Stefan W. Hell,52
+Max Theiler,52
+Hugo Theorell,52
+Werner Forssmann,52
+Konrad Bloch,52
+Rolf M. Zinkernagel,52
+Sir Paul Nurse,52
+Edvard I. Moser,52
+Rabindranath Tagore,52
+William Faulkner,52
+Alexandr Solzhenitsyn,52
+Wole Soyinka,52
+Christian Lange,52
+William Bragg,53
+Victor F. Hess,53
+Aage N. Bohr,53
+Abdus Salam,53
+Heinrich Rohrer,53
+Gerardus 't Hooft,53
+Frank Wilczek,53
+Linus Pauling,53
+Richard E. Smalley,53
+Ahmed Zewail,53
+Tadeus Reichstein,53
+Hans Krebs,53
+Feodor Lynen,53
+D. Carleton Gajdusek,53
+Roger Guillemin,53
+J. Michael Bishop,53
+Alfred G. Gilman,53
+Christiane Nüsslein-Volhard,53
+Halldór Laxness,53
+Desmond Tutu,53
+Robert C. Merton,53
+John Cockcroft,54
+Walter H. Brattain,54
+Pavel A. Cherenkov,54
+Emilio Segrè,54
+Lev Landau,54
+Philip W. Anderson,54
+Hiroshi Amano,54
+Henri Moissan,54
+Fritz Pregl,54
+Norman Haworth,54
+William F. Giauque,54
+Vincent du Vigneaud,54
+Dorothy Crowfoot Hodgkin,54
+Paul Berg,54
+Dudley R. Herschbach,54
+Peter Agre,54
+Eric Betzig,54
+Santiago Ramón y Cajal,54
+Paul Ehrlich,54
+Philip S. Hench,54
+Fritz Lipmann,54
+Severo Ochoa,54
+Barry J. Marshall,54
+Bruce A. Beutler,54
+Thomas Mann,54
+Orhan Pamuk,54
+Andrei Sakharov,54
+The 14th Dalai Lama ,54
+David Trimble,54
+Albert A. Michelson,55
+Robert A. Millikan,55
+Otto Stern,55
+Edward V. Appleton,55
+H. David Politzer,55
+John H. Northrop,55
+Ernst Otto Fischer,55
+Ivan Pavlov,55
+George Beadle,55
+Jacques Monod,55
+Rodney R. Porter,55
+Allan M. Cormack,55
+David H. Hubel,55
+John R. Vane,55
+Stanley B. Prusiner,55
+H. Robert Horvitz,55
+Grazia Deledda,55
+Ernest Hemingway,55
+Heinrich Böll,55
+Gabriel García Márquez,55
+Liu Xiaobo,55
+Paul A. Samuelson,55
+Paul Krugman,55
+Wilhelm Conrad Röntgen,56
+Jean Baptiste Perrin,56
+Clinton Davisson,56
+J. Hans D. Jensen,56
+Martin Ryle,56
+Melvin Schwartz,56
+Wilhelm Ostwald,56
+Walther Nernst,56
+Hans von Euler-Chelpin,56
+Christian Anfinsen,56
+Aaron Klug,56
+John E. Walker,56
+Roger Y. Tsien,56
+George H. Whipple,56
+Herbert S. Gasser,56
+Hermann J. Muller,56
+"Earl W. Sutherland, Jr.",56
+Rosalyn Yalow,56
+Peter C. Doherty,56
+Jacinto Benavente,56
+Roger Martin du Gard,56
+Gabriela Mistral,56
+Seamus Heaney,56
+Herta Müller,56
+Dag Hammarskjöld,56
+Norman Borlaug,56
+Shirin Ebadi,56
+William F. Sharpe,56
+Myron S. Scholes,56
+James J. Heckman,56
+Roger B. Myerson,56
+Maria Goeppert Mayer,57
+Luis Alvarez,57
+Val Fitch,57
+Carl Bosch,57
+William Lipscomb,57
+John C. Polanyi,57
+Sir Harold Kroto,57
+Aaron Ciechanover,57
+Venkatraman Ramakrishnan,57
+Brian K. Kobilka,57
+Albrecht Kossel,57
+John F. Enders,57
+Salvador E. Luria,57
+Christian de Duve,57
+Torsten N. Wiesel,57
+César Milstein,57
+Louis J. Ignarro,57
+Linda B. Buck,57
+Jack W. Szostak,57
+Verner von Heidenstam,57
+Wladyslaw Reymont,57
+Mo Yan,57
+Paul Henri d'Estournelles de Constant,57
+F.W. de Klerk,57
+Eric S. Maskin,57
+C.T.R. Wilson,58
+James Rainwater,58
+Paul Sabatier,58
+George de Hevesy,58
+John Cornforth,58
+Peter Mitchell,58
+Richard R. Ernst,58
+Julius Axelrod,58
+Tim Hunt,58
+Richard Axel,58
+Thomas C. Südhof,58
+William Butler Yeats,58
+Salvatore Quasimodo,58
+Elfriede Jelinek,58
+Carlos Saavedra Lamas,58
+Willy Brandt,58
+Elie Wiesel,58
+Robert E. Lucas Jr.,58
+A. Michael Spence,58
+Joseph E. Stiglitz,58
+Ferdinand Braun,59
+Charles Edouard Guillaume,59
+Sin-Itiro Tomonaga,59
+Simon van der Meer,59
+Pierre-Gilles de Gennes,59
+Robert C. Richardson,59
+Daniel C. Tsui,59
+James B. Sumner,59
+Sir Cyril Hinshelwood,59
+Stanford Moore,59
+Roger D. Kornberg,59
+Johannes Fibiger,59
+Sir Bernard Katz,59
+Henryk Sienkiewicz,59
+Jean-Paul Sartre,59
+Kenzaburo Oe,59
+Albert Gobat,59
+Henri La Fontaine,59
+Mikhail Gorbachev,59
+Al Gore,59
+Heike Kamerlingh Onnes,60
+Max Planck,60
+Arthur L. Schawlow,60
+K. Alex Müller,60
+Jerome I. Friedman,60
+John C. Mather,60
+Shuji Nakamura,60
+Richard Zsigmondy,60
+Nikolay Semenov,60
+Giulio Natta,60
+Ilya Prigogine,60
+K. Barry Sharpless,60
+Richard R. Schrock,60
+Bernardo Houssay,60
+Sir John Eccles,60
+Godfrey N. Hounsfield,60
+Baruj Benacerraf,60
+John E. Sulston,60
+Karl Gjellerup,60
+Henrik Pontoppidan,60
+T.S. Eliot,60
+Pär Lagerkvist,60
+John Steinbeck,60
+Mikhail Sholokhov,60
+Gao Xingjian,60
+Charles G. Dawes,60
+Lester Bowles Pearson,60
+Anwar al-Sadat,60
+Kailash Satyarthi,60
+Lawrence R. Klein,60
+James A. Mirrlees,60
+Eugene Wigner,61
+Hans Bethe,61
+Nicolaas Bloembergen,61
+Richard E. Taylor,61
+George F. Smoot,61
+Sir Robert Robinson,61
+William H. Stein,61
+Michael Smith,61
+Martin Chalfie,61
+William E. Moerner,61
+Sir Henry Dale,61
+André F. Cournand,61
+Dickinson W. Richards,61
+Sir Frank Macfarlane Burnet,61
+George Wald,61
+Alfred D. Hershey,61
+Renato Dulbecco,61
+Françoise Barré-Sinoussi,61
+Elizabeth H. Blackburn,61
+Knut Hamsun,61
+Patrick White,61
+Saul Bellow,61
+Hjalmar Branting,61
+Fridtjof Nansen,61
+Sir Norman Angell,61
+Linus Pauling,61
+John Hume,61
+George A. Akerlof,61
+Robert F. Engle III,61
+Finn E. Kydland,61
+Alvin E. Roth,61
+Lars Peter Hansen,61
+Jean Tirole,61
+Lord Rayleigh,62
+Hannes Alfvén,62
+Frederick Sanger,62
+Elias James Corey,62
+Paul J. Crutzen,62
+Robert Koch,62
+Alphonse Laveran,62
+Charles Nicolle,62
+Karl Landsteiner,62
+Georg von Békésy,62
+George E. Palade,62
+Ferid Murad,62
+Leland H. Hartwell,62
+Sully Prudhomme,62
+Rudolf Eucken,62
+Derek Walcott,62
+Toni Morrison,62
+Bertha von Suttner,62
+Sir Austen Chamberlain,62
+Albert Lutuli,62
+Herbert A. Simon,62
+Gerard Debreu,62
+Gary S. Becker,62
+Christopher A. Pissarides,62
+Gabriel Lippmann,63
+Walther Bothe,63
+Igor Y. Tamm,63
+Kai M. Siegbahn,63
+David J. Gross,63
+Otto Wallach,63
+Kenichi Fukui,63
+Bruce Merrifield,63
+Robert F. Curl Jr.,63
+Ryoji Noyori,63
+Robert H. Grubbs,63
+Camillo Golgi,63
+Ilya Mechnikov,63
+Charles Richet,63
+Otto Loewi,63
+André Lwoff,63
+Max Delbrück,63
+Günter Blobel,63
+James E. Rothman,63
+Ivan Bunin,63
+Giorgos Seferis,63
+Samuel Beckett,63
+J. M. Coetzee,63
+Woodrow Wilson,63
+Le Duc Tho ,63
+Kofi Annan,63
+Mohamed ElBaradei,63
+Leonid Vitaliyevich Kantorovich,63
+James Tobin,63
+Robert M. Solow,63
+Harry M. Markowitz,63
+Daniel L. McFadden,63
+Percy W. Bridgman,64
+Alfred Kastler,64
+John Bardeen,64
+Henry W. Kendall,64
+Claude Cohen-Tannoudji,64
+Theodor W. Hänsch,64
+Makoto Kobayashi,64
+Arthur Harden,64
+Luis Leloir,64
+Paul J. Flory,64
+Alan Heeger,64
+Hideki Shirakawa,64
+Kurt Wüthrich,64
+Willem Einthoven,64
+Sir Alexander Fleming,64
+Edward C. Kendall,64
+Selman A. Waksman,64
+Haldan K. Hartline,64
+Jean Dausset,64
+Stanley Cohen,64
+Sir James W. Black,64
+Louis Renault,64
+Klas Pontus Arnoldson,64
+Aristide Briand,64
+Nathan Söderblom,64
+Wangari Maathai,64
+Milton Friedman,64
+Sir Arthur Lewis,64
+Reinhard Selten,64
+Edward C. Prescott,64
+Frits Zernike,65
+David M. Lee,65
+Anthony J. Leggett,65
+Otto Hahn,65
+Karl Ziegler,65
+Lars Onsager,65
+Charles B. Huggins,65
+Ulf von Euler,65
+Randy W. Schekman,65
+John Galsworthy,65
+Menachem Begin,65
+Yasser Arafat,65
+Tjalling C. Koopmans,65
+Amartya Sen,65
+Louis Néel,66
+Leon M. Lederman,66
+Michael Levitt,66
+Hans Spemann,66
+Nikolaas Tinbergen,66
+Sune K. Bergström,66
+Sir Martin J. Evans,66
+Muhammad Yunus,66
+Jan Tinbergen,66
+John F. Nash Jr.,66
+Jack Steinberger,67
+Hans G. Dehmelt,67
+Gerhard Herzberg,67
+Herbert C. Brown,67
+Jerome Karle,67
+George A. Olah,67
+Avram Hershko,67
+Thomas H. Morgan,67
+Ragnar Granit,67
+Erik Axel Karlfeldt,67
+Luigi Pirandello,67
+François Mauriac,67
+Pablo Neruda,67
+Elihu Root,67
+Wassily Leontief,67
+Franco Modigliani,67
+James M. Buchanan Jr.,67
+Merton H. Miller,67
+Robert W. Fogel,67
+Robert A. Mundell,67
+Robert J. Shiller,67
+Georges Charpak,68
+Martin L. Perl,68
+Martinus J.G. Veltman,68
+Peter Grünberg,68
+Toshihide Maskawa,68
+Serge Haroche,68
+David J. Wineland,68
+Henry Taube,68
+Herbert A. Hauptman,68
+Donald J. Cram,68
+F. Sherwood Rowland,68
+Theodor Kocher,68
+Sir Frederick Hopkins,68
+Walter Hess,68
+Roger W. Sperry,68
+J. Robin Warren,68
+Ralph M. Steinman,68
+Henri Bergson,68
+Boris Pasternak,68
+Miguel Angel Asturias,68
+Odysseus Elytis,68
+Nadine Gordimer,68
+Jean-Marie Gustave Le Clézio,68
+John R. Hicks,68
+Daniel Kahneman,68
+Thomas J. Sargent,68
+Albert Fert,69
+Jaroslav Heyrovsky,69
+Vladimir Prelog,69
+Rudolph A. Marcus,69
+Thomas A. Steitz,69
+Robert J. Lefkowitz,69
+Martin Rodbell,69
+George Bernard Shaw,69
+Hermann Hesse,69
+Ivo Andric,69
+Yasunari Kawabata,69
+Czeslaw Milosz,69
+V. S. Naipaul,69
+Patrick Modiano,69
+Élie Ducommun,69
+Léon Bourgeois,69
+Ludwig Quidde,69
+Nicholas Murray Butler,69
+Lord Boyd Orr,69
+Mother Teresa ,69
+Clive W.J. Granger,69
+Christopher A. Sims,69
+Zhores I. Alferov,70
+Adolf von Baeyer,70
+Robert S. Mulliken,70
+Ronald G.W. Norrish,70
+Ada E. Yonath,70
+Dan Shechtman,70
+Julius Wagner-Jauregg,70
+Joseph Erlanger,70
+Konrad Lorenz,70
+Gertrude B. Elion,70
+E. Donnall Thomas,70
+Sir Peter Mansfield,70
+Mario R. Capecchi,70
+Jules A. Hoffmann,70
+Harry Martinson,70
+Philip Noel-Baker,70
+Seán MacBride,70
+Simon Kuznets,70
+James E. Meade,70
+Peter A. Diamond,70
+Dennis Gabor,71
+Riccardo Giacconi,71
+John L. Hall,71
+Gerhard Ertl,71
+Christiaan Eijkman,71
+Joseph E. Murray,71
+Eric R. Kandel,71
+Bjørnstjerne Bjørnson,71
+Giosuè Carducci,71
+Johannes V. Jensen,71
+Dario Fo,71
+Fredrik Bajer,71
+Jane Addams,71
+Arthur Henderson,71
+Alfonso García Robles,71
+Shimon Peres,71
+Martti Ahtisaari,71
+George J. Stigler,71
+Richard Stone,71
+Dale T. Mortensen,71
+Max Born,72
+Sir Nevill F. Mott,72
+William A. Fowler,72
+Herbert Kroemer,72
+Hermann Staudinger,72
+Odd Hassel,72
+Edmond H. Fischer,72
+Harald zur Hausen,72
+José Echegaray,72
+William Golding,72
+Claude Simon,72
+Günter Grass,72
+Léon Jouhaux,72
+Yitzhak Rabin,72
+Johannes Diderik van der Waals,73
+Subramanyan Chandrasekhar,73
+John Pople,73
+Alan G. MacDiarmid,73
+Arieh Warshel,73
+Niels K. Jerne,73
+Saint-John Perse,73
+Camilo José Cela,73
+Wislawa Szymborska,73
+Imre Kertész,73
+Henry Dunant,73
+Tobias Asser,73
+Frank B. Kellogg,73
+Robert Cecil,73
+George C. Marshall,73
+Eisaku Sato,73
+Ellen Johnson Sirleaf,73
+Douglass C. North,73
+Edmund S. Phelps,73
+Norman F. Ramsey,74
+Otto Diels,74
+Edwin G. Krebs,74
+Paul C. Lauterbur,74
+Frédéric Mistral,74
+Carl Spitteler,74
+Eyvind Johnson,74
+Isaac Bashevis Singer,74
+Mario Vargas Llosa,74
+Ernesto Teodoro Moneta,74
+Cordell Hull,74
+Ragnar Frisch,74
+John C. Harsanyi,74
+Eugene F. Fama,74
+Alexei A. Abrikosov,75
+Walter Kohn,75
+Yves Chauvin,75
+Ei-ichi Negishi,75
+Sir Charles Sherrington,75
+Egas Moniz,75
+Albert Claude,75
+Paul Greengard,75
+Sydney Brenner,75
+John O'Keefe,75
+Juan Ramón Jiménez,75
+Nelly Sachs,75
+Harold Pinter,75
+Randal Cremer,75
+Nelson Mandela,75
+Kim Dae-jung,75
+Friedrich August von Hayek,75
+Vernon L. Smith,75
+Robert J. Aumann,75
+Wolfgang Paul,76
+Bertram N. Brockhouse,76
+Masatoshi Koshiba,76
+Charles K. Kao,76
+Luc Montagnier,76
+Elias Canetti,76
+Octavio Paz,76
+José Saramago,76
+Gunnar Myrdal,76
+Elinor Ostrom,76
+Frederick Reines,77
+Jack S. Kilby,77
+George D. Snell,77
+Rita Levi-Montalcini,77
+Edward B. Lewis,77
+Arvid Carlsson,77
+Anatole France,77
+Naguib Mahfouz,77
+Albert Schweitzer,77
+Theodore W. Schultz,77
+Maurice Allais,77
+Oliver E. Williamson,77
+John H. van Vleck,78
+Irwin Rose,78
+André Gide,78
+Bertrand Russell,78
+Shmuel Agnon,78
+Jimmy Carter,78
+Bertil Ohlin,78
+Trygve Haavelmo,78
+Clifford G. Shull,79
+George E. Smith,79
+Paul D. Boyer,79
+Jens C. Skou,79
+Richard F. Heck,79
+Sir John B. Gurdon,79
+Winston Churchill,79
+Eugenio Montale,79
+Vicente Aleixandre,79
+Frédéric Passy,79
+Emily Greene Balch,79
+Ernst Ruska,80
+Roy J. Glauber,80
+Osamu Shimomura,80
+Akira Suzuki,80
+Paul Heyse,80
+Tomas Tranströmer,80
+Auguste Beernaert,80
+Alva Myrdal,80
+François Englert,81
+Barbara McClintock,81
+John R. Mott,81
+René Cassin,81
+Ronald H. Coase,81
+Georg Wittig,82
+Robert F. Furchgott,82
+Oliver Smithies,82
+Alice Munro,82
+William Vickrey,82
+Charles J. Pedersen,83
+Martin Karplus,83
+George H. Hitchings,83
+Jaroslav Seifert,83
+Pyotr Kapitsa,84
+Peter Higgs,84
+William S. Knowles,84
+Thomas C. Schelling,84
+Willard S. Boyle,85
+Isamu Akasaki,85
+John B. Fenn,85
+Robert G. Edwards,85
+Theodor Mommsen,85
+Ferdinand Buisson,86
+Vitaly L. Ginzburg,87
+Yoichiro Nambu,87
+Peyton Rous,87
+Karl von Frisch,87
+Joseph Rotblat,87
+Raymond Davis Jr.,88
+Doris Lessing,88
+Lloyd S. Shapley,89
+Leonid Hurwicz,90
