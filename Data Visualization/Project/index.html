@@ -95,7 +95,7 @@
 
 
 	.circle {
-		fill-opacity: 0.4;
+		fill-opacity: 0.8;
 		stroke: black;
 		stroke-opacity: .8;
 	}
@@ -376,7 +376,7 @@ var legend_labels = ["literature", "peace", "economics", "physiology", "chemistr
 // Map the fields to specific colors to be used in making circles and the legend
 var colorCircle = d3.scale.ordinal()
 	.domain(legend_labels) 
-	.range(["#8c564b", "#e377c2", "#2ca02c", "#ffbb78", "#bcbd22", "#1f77b4"]);
+	.range(["#8c564b", "#e377c2", "#d82b25", "#7FFFD4", "#FFFF00", "#1f77b4"]);
 
 var ls_w = 20, ls_h = 20;
 
@@ -603,7 +603,7 @@ d3.json("data/world-110m.json", function(error, world) {
 					.style("fill", function(d) { return colorCircle(d.nobel_field_short);})
 					.attr("transform", function(d) {
 						return "translate(" + d.birth_x + "," + d.birth_y + ")"; })
-					.style("fill-opacity", 0.4)
+					.style("fill-opacity", 0.8)
 					.style("visibility", circleVis) // Create hidden/vis circles depending on toggle
 					//.style("stroke-opacity", circleStrokeOpacity)
 					.transition()
@@ -696,10 +696,11 @@ d3.json("data/world-110m.json", function(error, world) {
 
 				// Update existing bars, move them to their new places, adjust height, etc.
 					updateBar = bar.transition()
-						.duration(newSpeed/2)
+						.duration(newSpeed/2) // If same country and count, speed to move bar if place changes.
 						.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
-
+					////////////////////////////////////////////////////////////////////////////
 					// Update existing bars' rect dimensions/position, text, data-driven fields.
+					////////////////////////////////////////////////////////////////////////////
 					updateBar.select("rect")
 						.attr("y", function(d) {return y(d.values['totalNobels']); })
 						.attr("height", function(d) {return histHeight - y(d.values['totalNobels']); })
@@ -710,20 +711,21 @@ d3.json("data/world-110m.json", function(error, world) {
 					updateBar.select("text")
 						.attr("x", x.rangeBand() / 2)
 						.attr("y", function(d) {return y(d.values['totalNobels']) - 8; })
-						.attr("dy", ".75em")
+						.attr("dy", "0.5em") // Feedback: Move text slightly further away from bar.
 						.text(function(d) {return d.values['countryShortName'] + " - " + d.values['totalNobels']; });
-					
+					/////////////////////////////////////////////////////////////
 					// Enter in new bars, and adjust their data-driven properties
+					/////////////////////////////////////////////////////////////			
 					newBar = bar.enter().append("g").attr("class", "country_bar");
 
 					newBar.attr("transform", function(d) { return "translate(" + x(d.key) +
 						"," + x(d.key) +")"; })
 						.transition()
-						.duration(newSpeed/6)
-						.ease("elastic")
+						.duration(newSpeed/10) // Speed of new bars added, including same country but more counts.
+						//.ease("elastic") // from feedback: removed bounce since it was a bit distracting
 						.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 
-
+					// Add mouseover title text.
 					newBar.append("svg:title").text(function(d) { return d.key + ": " + d.values['totalNobels']; });
 
 					newBar.append("rect")
@@ -741,14 +743,16 @@ d3.json("data/world-110m.json", function(error, world) {
 						.attr("class", "chart-text")
 						.attr("x", x.rangeBand() / 2)
 						.attr("y", function(d) {return y(d.values['totalNobels'])  - 8; })
-						.attr("dy", ".75em")
+						.attr("dy", "0.5em")  // Feedback: Move text slightly further away from bar.
 						.text(function(d) {return d.values['countryShortName'] + " - " + d.values['totalNobels']; });
-						
+
+					////////////////////////////////////////////////////////////////////////////						
 					// Remove outdated bars that should no longer be shown.
+					////////////////////////////////////////////////////////////////////////////					
 					bar.exit()
 						.attr("class", "chart-exit")
 						.transition()
-						.duration(newSpeed/2)
+						.duration(newSpeed/6) // Speed to remove bars whose count changes.
 						.attr("x", 0)
 						.style("fill-opacity", 1e-6)
 						.style("stroke-opacity", 1e-6)
@@ -1181,7 +1185,7 @@ d3.json("data/world-110m.json", function(error, world) {
 		d3.select(this)
 		//	.transition()
 		//	.duration(200)
-			.style("fill-opacity", 0.4)
+			.style("fill-opacity", 0.8)
 			.attr("r", circleSize/currentZoom)
 
 		return myTooltip.style("visibility", "hidden")
