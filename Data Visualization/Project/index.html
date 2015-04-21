@@ -219,14 +219,14 @@
 			</div> 
 
 
-			<div class="col-xs-5 col-sm-2 col-md-2 buttons-borders">
+			<div class="col-xs-5 col-sm-2 col-md-2 buttons-borders" style="text-align:center">
 
 					<g id="animation_slider" class="yearSlider">
 						<label for="animation_speed" style="text-align: center; font-size: 9px">
 							<span id="animation_speed-value">1</span> Seconds Between Years
 						</label>
 						<input type="range" min="0.0" max="2" step="0.1" id="animation_speed" class="animation_slider" style="display: inline;">
-						<label id="pause_label" for="animation_speed" style="text-align: center; font-size: 9px; color:gray; display:none">Pause to adjust
+						<label id="pause_label" for="animation_speed" style="text-align: center; font-size: 9px; color:gray; display:none"><br>(Pause to adjust)
 						</label>
 					</g>
 			</div>
@@ -267,7 +267,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 // Start with default born country grouping for histogram
-window.country = 'born_country'
+window.country = 'award_country'
 
 
 var m_width = $("#mapViz").width(),
