@@ -409,8 +409,10 @@ var legend = mainSVG.selectAll("g.legend")
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads Begin
 ////////////////////////////////////////////////////////////////////////////
+
+// Create using the ratios of same variables defined earlier for the main map.
 var histWidth = m_width/2;
-var histHeight = height/6;
+var histHeight = (m_width * height / width)/6;
 
 
 
@@ -589,9 +591,6 @@ d3.json("data/world-110m.json", function(error, world) {
 					.attr("d", makeArc2)
 
 				
-				
-
-
 
 				var c0 = circlesTemp.enter()
 					.append("circle")
@@ -772,6 +771,43 @@ d3.json("data/world-110m.json", function(error, world) {
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Histogram End				
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Resize map and histogram on window resize.				
+///////////////////////////////////////////////////////////////////////////////////////////
+				//Resize mainSVG/chart as window size changes.
+				$(window).resize(function() {
+					var w = $("#mapViz").width();
+					mainSVG.attr("width", w);
+					mainSVG.attr("height", w * height / width);
+
+					histWidth = w/2
+					if(w < 460){		
+							chart.attr("width", w);
+							console.log(w)
+						} else {
+							chart.attr("width", histWidth)
+						}
+
+				});
+
+				// A bit of a hack to have histogram update wait until the window is resized to 
+				// fire off an update to the chart (only if the years are paused to stay in sync.)
+				// so that it doesn't constantly redraw the paused histogram.
+				// http://alvarotrigo.com/blog/firing-resize-event-only-once-when-resizing-is-finished/
+				var id;
+				$(window).resize(function() {
+				    clearTimeout(id);
+				    id = setTimeout(doneResizing, 500);
+				    
+				});
+
+				function doneResizing(){
+					// If paused, redraw histogram on resize since it won't update/redraw automatically
+					if( d3.select("#play_btn").text() == "Play "){
+					update_bar();	
+					};   
+				}
 
 			}; // End the update(year) function for one year.
 
@@ -1218,22 +1254,7 @@ d3.json("data/world-110m.json", function(error, world) {
 		.selectAll("circle").attr("r", circleSize/d3.event.scale); 
 	}
 
-	//Resize mainSVG as window size changes.
-	$(window).resize(function() {
-		var w = $("#mapViz").width();
-		mainSVG.attr("width", w);
-		mainSVG.attr("height", w * height / width);
 
-		histWidth = w/2
-		if(w < 460){		
-			chart.attr("width", w);
-			console.log(w)
-		} else{
-			chart.attr("width", histWidth)
-		}
-
-
-	});
 
 </script>
 
