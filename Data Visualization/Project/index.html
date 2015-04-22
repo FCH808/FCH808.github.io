@@ -567,10 +567,6 @@ d3.json("data/world-110m.json", function(error, world) {
 				    return "url(#" + val + ")";
 				}
 */
-
-				// Exit is needed for filtering when toggling nobel fields to display.
-
-
 				//circlesTemp.style("fill-opacity", 0.4)
 				
 
@@ -620,7 +616,8 @@ d3.json("data/world-110m.json", function(error, world) {
 					.attr("transform", function(d) {
 						return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
 					.attr("r", circleSize/currentZoom);
-
+					
+				// Exit is needed for filtering when toggling nobel fields to display.
 				arcs.exit().remove();
 				circlesTemp.exit().remove();
 
