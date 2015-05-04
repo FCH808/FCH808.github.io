@@ -228,7 +228,7 @@
 
 					<g id="animation_slider" class="yearSlider">
 						<label for="animation_speed" style="text-align: center; font-size: 9px">
-							<span id="animation_speed-value">1</span> Seconds Between Years
+							<span id="animation_speed-value"></span> Delay Between Years
 						</label>
 						<input type="range" min="0.0" max="2" step="0.1" id="animation_speed" class="animation_slider" style="display: inline;">
 						<label id="pause_label" for="animation_speed" style="text-align: center; font-size: 9px; color:gray; display:none"><br>(Pause to adjust)
@@ -255,13 +255,15 @@
 
 		<div class="row map-border">
 			<div class="col-12">
-				<div class="btn-group-horizontal">			
-					<button id="zoom_out" type="button" class="btn btn-xs" aria-label="Left Align" style="float: left; font-size: 1.5em;">
+				<div class="btn-group-horizontal">		
+					<button id="zoom_in" type="button" class="btn btn-xs" aria-label="Left Align" style="float: right; font-size: 1.5em;">
+					  <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+					</button>					
+					<button id="zoom_out" type="button" class="btn btn-xs" aria-label="Left Align" style="float: right; font-size: 1.5em;">
 					  <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
 					</button>
-					<button id="zoom_in" type="button" class="btn btn-xs" aria-label="Left Align" style="float: left; font-size: 1.5em;">
-					  <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
-					</button>
+
+					<p>*Circles are Nobel Laureates appearing in their city of birth, then moving to their current location when they were awarded the Nobel Prize.</p>
 				</div>
 
 				<div id="mapViz"></div>
@@ -1092,8 +1094,9 @@ d3.json("data/world-110m.json", function(error, world) {
 	// update the elements
 	function updateSpeed(newSpeed) {
 	  // adjust the text on the range slider
-	  d3.select("#animation_speed-value").text(newSpeed);
-	  d3.select("#animation_speed").property("value", newSpeed);
+	  // User feedback: Remove explicit speed
+	  //d3.select("#animation_speed-value").text(newSpeed);
+	  //d3.select("#animation_speed").property("value", newSpeed);
 	}
 
 ////////////////////////////////////////////////////////////////////////////////	
