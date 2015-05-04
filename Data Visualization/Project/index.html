@@ -188,6 +188,7 @@
     visibility:hidden;
    }
 
+
 </style> 
 
 <body>
@@ -254,7 +255,17 @@
 
 		<div class="row map-border">
 			<div class="col-12">
+				<div class="btn-group-horizontal">			
+					<button id="zoom_out" type="button" class="btn btn-xs" aria-label="Left Align" style="float: left; font-size: 1.5em;">
+					  <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+					</button>
+					<button id="zoom_in" type="button" class="btn btn-xs" aria-label="Left Align" style="float: left; font-size: 1.5em;">
+					  <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+					</button>
+				</div>
+
 				<div id="mapViz"></div>
+
 			</div>
 		</div>
 
@@ -297,7 +308,7 @@ var path = d3.geo.path()
 	.projection(projection);
 
 var zoom = d3.behavior.zoom()
-	.scaleExtent([.8, 30]) // Controls the amount of allowable magnification.
+	.scaleExtent([.8, 200]) // Controls the amount of allowable magnification.
 	.on("zoom", zoomed);
 
 var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in <body>
@@ -1220,6 +1231,9 @@ d3.json("data/world-110m.json", function(error, world) {
 		    //.each("end", animateFirst)
 		  };
 
+///////////////////////////////////////////////////////////////////////////////////////////
+// Zoom functions		
+///////////////////////////////////////////////////////////////////////////////////////////
 
 	function zoomed() {
 
@@ -1238,6 +1252,27 @@ d3.json("data/world-110m.json", function(error, world) {
 		.selectAll("circle").attr("r", circleSize/d3.event.scale); 
 	}
 
+  function zoomByFactor(factor) {
+    var scale = zoom.scale();
+    var extent = zoom.scaleExtent();
+    var newScale = scale * factor;
+    if (extent[0] <= newScale && newScale <= extent[1]) {
+      var t = zoom.translate();
+      var c = [width / 2, height / 2];
+      zoom
+        .scale(newScale)
+        .translate(
+          [c[0] + (t[0] - c[0]) / scale * newScale, 
+           c[1] + (t[1] - c[1]) / scale * newScale])
+        .event(zoomCanvas.transition().duration(350));
+    }
+  };
+
+  function zoomIn() { zoomByFactor(1.4); }
+  function zoomOut() { zoomByFactor(0.7); }
+
+  d3.select('#zoom_in').on('mousedown', zoomIn)
+  d3.select('#zoom_out').on('mousedown', zoomOut)
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Resize map and histogram on window resize.				
 ///////////////////////////////////////////////////////////////////////////////////////////
