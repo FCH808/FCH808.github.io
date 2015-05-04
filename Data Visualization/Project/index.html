@@ -321,6 +321,8 @@ var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in
 	.style("background-color", "#fcfcfa")
 	.call(zoom);
 
+
+/* Not needed with full name on bars
 // Create tooltip for full country name for barchart; applies same color as bar to text
 var tipHist = d3.tip()
 	.attr('class', 'd3-tip-hist')
@@ -328,6 +330,7 @@ var tipHist = d3.tip()
 	.html(function(d) {
 		return "<span style='color:"+ colorBar(d.key) +"'>" + d.key + "</span>";
 		});
+*/
 
 var graticule = d3.geo.graticule();  //Graticule is a geographic grid.
 
@@ -436,7 +439,8 @@ var chart = d3.select(".chart")
 	.attr("width", histWidth)
  	.attr("height", histHeight);
 
-chart.call(tipHist);
+
+// chart.call(tipHist); //Not needed with full name on bars
 
 
 chart.append("text")
@@ -586,11 +590,7 @@ d3.json("data/world-110m.json", function(error, world) {
 				    return "url(#" + val + ")";
 				}
 */
-				// Exit is needed for filtering when toggling nobel fields to display.
 
-
-				//circlesTemp.style("fill-opacity", 0.4)
-				
 				//circlesTemp.style("fill-opacity", 0.4)
 				
 				var v0 = arcs.enter()
@@ -756,9 +756,9 @@ d3.json("data/world-110m.json", function(error, world) {
 						.style("fill", function(d) { return colorBar(d.key);})
 						.style("stroke", "black")
 						.attr("rx", 2)
-						.attr("ry", 2)
-						.on('mouseover', tipHist.show)
-						.on('mouseout', tipHist.hide);
+						.attr("ry", 2);
+						//.on('mouseover', tipHist.show) // Not needed - full names used on bars 
+						//.on('mouseout', tipHist.hide); // Not needed
 
 					newBar.append("text")
 						.attr("class", "chart-text")
