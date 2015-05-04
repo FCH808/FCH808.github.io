@@ -31,6 +31,13 @@
 		fill: grey;
 	}*/
 
+	html {
+	  max-width: 1200px;
+	  margin: 0 auto;
+	  background: #eee; /* Fills the page */
+	  position: relative; /* Fix for absolute positioning */
+	}
+
 	body {
 		background: #fcfcfa;
 		font: 10px sans-serif;
@@ -303,6 +310,7 @@ var mainSVG = d3.select("#mapViz") // Select the "mapViz" div defined earlier in
 	.style("background-color", "#fcfcfa")
 	.call(zoom);
 
+// Create tooltip for full country name for barchart; applies same color as bar to text
 var tipHist = d3.tip()
 	.attr('class', 'd3-tip-hist')
 	.offset([-10, 0])
@@ -373,7 +381,7 @@ worldGroup.append("path")
 // Make array of the fields_set for using the same color mappings.
 var legend_labels = ["literature", "peace", "economics", "physiology", "chemistry", "physics"];
 
-// Map the fields to specific colors to be used in making circles and the legend
+// Map the Nobel fields to specific colors to be used in making circles and the legend
 var colorCircle = d3.scale.ordinal()
 	.domain(legend_labels) 
 	.range(["#8c564b", "#e377c2", "#d82b25", "#7FFFD4", "#FFFF00", "#1f77b4"]);
@@ -567,13 +575,6 @@ d3.json("data/world-110m.json", function(error, world) {
 				    return "url(#" + val + ")";
 				}
 */
-
-				// Exit is needed for filtering when toggling nobel fields to display.
-
-
-				//circlesTemp.style("fill-opacity", 0.4)
-				
-
 				var v0 = arcs.enter()
 					.append("path")
 					.on("mouseover", mouseoverLine)
@@ -621,6 +622,7 @@ d3.json("data/world-110m.json", function(error, world) {
 						return "translate(" + d.acquired_x + "," + d.acquired_y + ")"; })
 					.attr("r", circleSize/currentZoom);
 
+				// Exit is needed for filtering when toggling nobel fields to display.
 				arcs.exit().remove();
 				circlesTemp.exit().remove();
 
@@ -696,7 +698,7 @@ d3.json("data/world-110m.json", function(error, world) {
 
 				// Update existing bars, move them to their new places, adjust height, etc.
 					updateBar = bar.transition()
-						.duration(newSpeed/2) // If same country and count, speed to move bar if place changes.
+						.duration(newSpeed/2) // If same country and count, this is the speed to update the bar placement.
 						.attr("transform", function(d) { return "translate(" + x(d.key) + ",0)"; });
 					////////////////////////////////////////////////////////////////////////////
 					// Update existing bars' rect dimensions/position, text, data-driven fields.
@@ -712,7 +714,7 @@ d3.json("data/world-110m.json", function(error, world) {
 						.attr("x", x.rangeBand() / 2)
 						.attr("y", function(d) {return y(d.values['totalNobels']) - 8; })
 						.attr("dy", "0.5em") // Feedback: Move text slightly further away from bar.
-						.text(function(d) {return d.values['countryShortName'] + " - " + d.values['totalNobels']; });
+						.text(function(d) {return d.key + ": " + d.values['totalNobels']; });
 					/////////////////////////////////////////////////////////////
 					// Enter in new bars, and adjust their data-driven properties
 					/////////////////////////////////////////////////////////////			
@@ -744,7 +746,7 @@ d3.json("data/world-110m.json", function(error, world) {
 						.attr("x", x.rangeBand() / 2)
 						.attr("y", function(d) {return y(d.values['totalNobels'])  - 8; })
 						.attr("dy", "0.5em")  // Feedback: Move text slightly further away from bar.
-						.text(function(d) {return d.values['countryShortName'] + " - " + d.values['totalNobels']; });
+						.text(function(d) {return d.key + ": " + d.values['totalNobels']; });
 
 					////////////////////////////////////////////////////////////////////////////						
 					// Remove outdated bars that should no longer be shown.
@@ -772,25 +774,6 @@ d3.json("data/world-110m.json", function(error, world) {
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Histogram End				
 ///////////////////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////////////////
-// Resize map and histogram on window resize.				
-///////////////////////////////////////////////////////////////////////////////////////////
-				//Resize mainSVG/chart as window size changes.
-				$(window).resize(function() {
-					var w = $("#mapViz").width();
-					mainSVG.attr("width", w);
-					mainSVG.attr("height", w * height / width);
-
-					histWidth = w/2
-					if(w < 460){		
-							chart.attr("width", w);
-							console.log(w)
-						} else {
-							chart.attr("width", histWidth)
-						}
-
-				});
 
 				// A bit of a hack to have histogram update wait until the window is resized to 
 				// fire off an update to the chart (only if the years are paused to stay in sync.)
@@ -1255,7 +1238,24 @@ d3.json("data/world-110m.json", function(error, world) {
 		.selectAll("circle").attr("r", circleSize/d3.event.scale); 
 	}
 
+///////////////////////////////////////////////////////////////////////////////////////////
+// Resize map and histogram on window resize.				
+///////////////////////////////////////////////////////////////////////////////////////////
+		//Resize mainSVG/chart as window size changes.
+		$(window).resize(function() {
+			var w = $("#mapViz").width();
+			mainSVG.attr("width", w);
+			mainSVG.attr("height", w * height / width);
 
+			histWidth = w/2
+			if(w < 460){		
+					chart.attr("width", w);
+					console.log(w)
+				} else {
+					chart.attr("width", histWidth)
+				}
+
+		});
 
 </script>
 
