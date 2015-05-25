@@ -40,7 +40,7 @@
 
 	body {
 		background: #fcfcfa;
-		font: 10px sans-serif;
+		font: 12px sans-serif;
 		overflow-x: hidden;
 	}
 
@@ -68,9 +68,13 @@
 
 	.btn-xs {
 		padding: 1px 5px;
-		font-size: 8px;
+		font-size: 12px;
 		line-height: 1.5;
 		border-radius: 3px;
+	}
+
+	.nobel-field-title{
+		text-align: center;
 	}
 
 	.chart-bar:hover {
@@ -84,7 +88,7 @@
 	.chart-text {
 
 		fill: black;
-		font: 9px sans-serif;
+		font: 11px sans-serif;
 		text-anchor: middle;
 	}
 
@@ -203,7 +207,9 @@
 		<div class="row first-main-row">
 
 			<div class="col-xs-3 col-sm-1 col-md-1 fields-buttons">
-					<div class="btn-group-vertical togglesWinners buttons-borders"> 
+				  <div class='nobel-field-title' style='font-size: 12px'>
+				  	<b> Nobel Field </b>
+					<div class="btn-group-vertical togglesWinners buttons-borders">
 						<button type="button" class="btn btn-success btn-xs" id="phyics_btn">Phyics On</button>
 						<button type="button" class="btn btn-success btn-xs" id="chemistry_btn">Chemistry On</button>
 						<button type="button" class="btn btn-success btn-xs" id="physiology_btn">Physiology On</button>
@@ -211,29 +217,34 @@
 						<button type="button" class="btn btn-success btn-xs" id="peace_btn">Peace On</button>
 						<button type="button" class="btn btn-success btn-xs" id="literature_btn">Literature On</button>
 					</div>
+				  </div>
 			</div>
 
 						
 			<div class="col-xs-3 col-sm-1 col-md-1 controls-buttons">
+				  <div>  <p align="center"> </p>
 					<div class="btn-group-vertical togglesSciences buttons-borders">
 						<button type="button" class="btn btn-info btn-xs" id="play_btn">Play <span class="glyphicon glyphicon-play"></span></button>
 						<button type="button" class="btn btn-danger btn-xs" id="reset_btn">Reset <span class="glyphicon glyphicon-fast-backward"></span></button>
 						<button type="button" class="btn btn-success btn-xs" id="paths_btn" disabled="disabled">Paths On</button>
 						<button type="button" class="btn btn-success btn-xs" id="circles_btn" disabled="disabled">Circles On</button>
 					</div>
+				  </div>
 			</div> 
 
-
-			<div class="col-xs-5 col-sm-2 col-md-2 buttons-borders" style="text-align:center">
-
+			
+			<div class="col-xs-5 col-sm-2 col-md-2">
+				<p align="center"> </p>
+				  <div  class= 'buttons-borders' style="text-align:center">
 					<g id="animation_slider" class="yearSlider">
-						<label for="animation_speed" style="text-align: center; font-size: 9px">
+						<label for="animation_speed" style="text-align: center; font-size: 11px">
 							<span id="animation_speed-value"></span> Delay Between Years
 						</label>
 						<input type="range" min="0.0" max="2" step="0.1" id="animation_speed" class="animation_slider" style="display: inline;">
-						<label id="pause_label" for="animation_speed" style="text-align: center; font-size: 9px; color:gray; display:none"><br>(Pause to adjust)
+						<label id="pause_label" for="animation_speed" style="text-align: center; font-size: 11px; color:gray; display:none"><br>(Pause to adjust)
 						</label>
 					</g>
+			 	  </div>
 			</div>
 
 			<div class="col-xs-12 col-sm-6 col-md-6 hist-title hist-row pull-right">
@@ -256,14 +267,14 @@
 		<div class="row map-border">
 			<div class="col-12">
 				<div class="btn-group-horizontal">		
-					<button id="zoom_in" type="button" class="btn btn-xs" aria-label="Left Align" style="float: right; font-size: 1.5em;">
+					<button id="zoom_in" type="button" class="btn btn-xs" aria-label="Left Align" style="float: right; font-size: 2.3em;">
 					  <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
 					</button>					
-					<button id="zoom_out" type="button" class="btn btn-xs" aria-label="Left Align" style="float: right; font-size: 1.5em;">
+					<button id="zoom_out" type="button" class="btn btn-xs" aria-label="Left Align" style="float: right; font-size: 2.3em;">
 					  <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
 					</button>
 
-					<p>*Circles are Nobel Laureates appearing in their city of birth, then moving to their current location when they were awarded the Nobel Prize.</p>
+					<p style="color:#3333FF; font-size: 1.3em"> * Mouse over paths or circles for more info about each person. * Zoom in/out with mouse scroll wheel, or use buttons on the right.<br>  * Circles are Nobel Laureates appearing in their city of birth, then moving to their current location when they were awarded the Nobel Prize.</p>
 				</div>
 
 				<div id="mapViz"></div>
@@ -422,10 +433,31 @@ var legend = mainSVG.selectAll("g.legend")
   	.style("opacity", 0.8);
 
    legend.append("text")
-   	.attr("font-size", 8)
+   	.attr("font-size", 9)
   	.attr("x", 50)
   	.attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
   	.text(function(d, i){ return capitalizeFirstLetter(legend_labels[i]); }); 
+/*
+var legend_title = mainSVG
+  .append('rect')
+  .attr('class', 'legend_title')
+  .attr('x', 20)
+  .attr('y', height - 160) // A bit hacky, but 160 will put it right above the 6 Nobel Fields
+  .attr('width', 20)
+  .attr('height', 20) 
+  .style('fill', 'white')
+  .style('opacity', .8)
+ */
+
+ var legend_title_text = mainSVG.append('text')
+  .attr('font-weight', 'bold')
+  .attr('text-decoration', 'underline')
+  .attr('font-size', 10)
+  .attr('fill', 'darkred')
+  .attr('x', 23)
+  .attr('y', height - 145)
+  .text('Nobel Field') 
+
 
 ////////////////////////////////////////////////////////////////////////////
 // Histogram Pre-Loads Begin
@@ -453,7 +485,7 @@ chart.append("text")
 	.attr("dy", "0em")
 	.attr("dx", "0.5em")
 	.style("text-anchor", "middle")
-	.style("font-size", 9)
+	.style("font-size", 10)
 	.text("Total Number");
 
 chart.append("text")
@@ -464,7 +496,7 @@ chart.append("text")
 	.attr("dy", "1em")
 	.attr("dx", "0.5em")
 	.style("text-anchor", "middle")
-	.style("font-size", 9)
+	.style("font-size", 10)
 	.text("of Nobel Prizes");
 
 ////////////////////////////////////////////////////////////////////////////
