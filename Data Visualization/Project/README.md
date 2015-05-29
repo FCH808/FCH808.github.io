@@ -229,11 +229,11 @@ Based on the following feedback:
 
 [NYTimes]: http://www.nytimes.com/
 
-[nobel_py]: https://github.com/FCH808/FCH808.github.io/blob/bad1f602700664dd9cb150fe5f1bea9a8cb9e25c/Data%20Visualization/Project/nobel_scrape.py
+[nobel_py]: https://github.com/FCH808/FCH808.github.io/blob/master/Data%20Visualization/Project/wrangle/nobel_scrape_version2.py
 
-[wrangle.py]: https://github.com/FCH808/FCH808.github.io/blob/bad1f602700664dd9cb150fe5f1bea9a8cb9e25c/Data%20Visualization/Project/wrangle.py
+[wrangle.py]: https://github.com/FCH808/FCH808.github.io/blob/master/Data%20Visualization/Project/wrangle/wrangle.py
 
-[latlon.py]: https://github.com/FCH808/FCH808.github.io/blob/bad1f602700664dd9cb150fe5f1bea9a8cb9e25c/Data%20Visualization/Project/latlon.py
+[latlon.py]: https://github.com/FCH808/FCH808.github.io/blob/master/Data%20Visualization/Project/wrangle/latlon.py
 
 [^1]: https://github.com/FCH808/FCH808.github.io/commit/bad1f602700664dd9cb150fe5f1bea9a8cb9e25c
 
