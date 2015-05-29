@@ -47,7 +47,7 @@ Feedback sections are provided in chronological order, but the Feedback #1 commi
 
 Github commit links for each section's changes based on feedback are provided in the footnotes.
 
-#### **Feedback #1 Commits** [^1] [^2] [^3] [^11] [^12]
+#### **Feedback #1 Commits** [1][^1] [2][^2] [3][^3] [11][^11] [12][^12]
 
 Various Initial Changes during initial first design/commits during on-going dialogue.
 ___
@@ -65,7 +65,7 @@ Footnote #5:
 
 __________
 
-#### **Feedback #2 Commits** [^4]
+#### **Feedback #2 Commits** [4][^4]
 
 Overall Changes Commit:
 >Removed 'elastic' bounce on new entries, sped up transition on enters; Bar text spacing: Add spacing so it hovers a bit over each bar; Circle color/opacity: Change from 0.4 opacity to 0.8. Change Chemistry, Physiology, Economics colors to be more distinctly different from the land mass color.;
@@ -93,7 +93,7 @@ Circle color/opacity: Changed from 0.4 opacity to 0.8. Changed Chemistry, Physio
 
 *This one I'm not sure of yet either. Right now I pop in the circles with a slight animation on the birth city, then move it to the award city. Drawing more shapes would be around 880 more objects to put on screen by the end. :/ I did have a working version of svg markers (much faster draws than creating shapes) that could put shapes (like directional arrows!) on each ends of the paths, but markers don't have any on/off hover/click calls available. =( I found it a bit less fun not being able to have any interactivity when trying to hover over a start/end shape. (Plus there were some issues with the enter/update/exit sequence and filters not working well with markers.)*
 ____________
-#### **Feedback #3 Commits** [^5] [^6] [^7] [^8] [^9]
+#### **Feedback #3 Commits** [5][^5] [6][^6] [7][^7] [8][^8] [9][^9]
 
 > Well done on finding and representing an interesting data story! I think the title and the graphic itself do a good job of communicating how the distribution of Nobel laureates has shifted over the last century or so. It's striking to see how many have moved from their homelands.
 
@@ -153,7 +153,7 @@ Perhaps you could find alternative ways to display the biographical details for 
 *Again, thank you so much for the valuable feedback! I tried to incorporate some changes to help where possible. I'm still not sure how to approach displaying more bio info, but I'll think about it some more. And please do let me know if I misunderstood anything, or if you have anymore questions, comments, or concerns. It's all much appreciated! (smile)*
 ____________
 
-#### **Feedback #4 Commits** [^10]
+#### **Feedback #4 Commits** [10][^10]
 
 Overall Changes Commit:
 
