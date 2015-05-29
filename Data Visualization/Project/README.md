@@ -13,7 +13,9 @@ It also shows the impact of World War II as a turning point in making the United
 
 
 [Current Visualization] [data_viz]
+
 [Source code] [source_code]
+
 [Current Nanodegree Projects] [projects]
 
 ###**Data**
@@ -26,7 +28,9 @@ Geo-coordinate data was queried using [Google Maps API] [maps_api].
 
 *Source code:*
  [nobel.py] [nobel_py] 
+ 
  [wrangle.py] [wrangle.py]
+ 
  [latlon.py] [latlon.py]
 
 ###**Design** 
